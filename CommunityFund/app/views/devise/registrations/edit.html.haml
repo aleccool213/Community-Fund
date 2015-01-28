@@ -6,6 +6,11 @@
       = f.error_notification
     .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+        Username
+      .col-sm-6
+        = f.text_field :username, required: true, autofocus: true, class: 'form-control', label: false
+    .form-group
+      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Email
       .col-sm-6
         = f.text_field :email, required: true, autofocus: true, class: 'form-control', label: false
