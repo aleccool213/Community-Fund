@@ -17,6 +17,10 @@ gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem "font-awesome-rails"
 gem "haml-rails"
+gem 'simple_form'
+
+gem 'devise'
+gem 'omniauth'
 
 group :development, :test do
   gem "spring"
