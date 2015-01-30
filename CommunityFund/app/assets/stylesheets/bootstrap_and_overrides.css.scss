@@ -1,0 +1,33 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// Glyphicons
+// @import "twitter/bootstrap/glyphicons.less";
+
+// Set the correct sprite paths
+$iconSpritePath: image-url("twitter/bootstrap/glyphicons-halflings.png");
+$iconWhiteSpritePath: image-url("twitter/bootstrap/glyphicons-halflings-white.png");
+
+// Font Awesome
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+
+$fontAwesomeEotPath: font-url("fontawesome-webfont.eot");
+$fontAwesomeEotPath_iefix: font-url("fontawesome-webfont.eot?#iefix");
+$fontAwesomeWoffPath: font-url("fontawesome-webfont.woff");
+$fontAwesomeTtfPath: font-url("fontawesome-webfont.ttf");
+$fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
+
+// Your custom SASS stylesheets goes here
+//
+// Since bootstrap was imported above you have access to its mixins which
+// you may use and inherit here
+//
+// If you'd like to override bootstrap's own variables, you can do so here as well
+// See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
+//
+// Example:
+// $link-color: #ff0000;
