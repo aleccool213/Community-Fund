@@ -18,12 +18,12 @@
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Password
       .col-sm-6
-        = f.text_field :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable), label: false, class: 'form-control'
+        = f.password_field :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable), label: false, class: 'form-control'
     .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Password Confirmation
       .col-sm-6
-        = f.text_field :password_confirmation, required: true, class: 'form-control', label: false
+        = f.password_field :password_confirmation, required: true, class: 'form-control', label: false
   .col-md-12
     .col-md-offset-4.col-md-4
       .form-group
