@@ -10,8 +10,14 @@
       .form-group
         %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
           Hometown
-        .col-sm-6
+        .col-sm-2
           = f.text_field :hometown, required: false, autofocus: true, class: 'form-control', label: false
+
+      .form-group
+        %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+          Homestate
+        .col-sm-2
+          = f.text_field :homestate, required: false, autofocus: true, class: 'form-control', label: false
 
       %h3 Consider joining any of these communities?
       .form-group

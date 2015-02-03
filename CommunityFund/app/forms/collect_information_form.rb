@@ -2,7 +2,7 @@ class CollectInformationForm
   include ActiveModel::Model
   include ActionView::Helpers::FormOptionsHelper
 
-  attr_accessor :user, :hometown
+  attr_accessor :user, :hometown, :homestate
 
   def initialize(options = {})
     options.except(:communities).each do |key, value|
@@ -17,8 +17,10 @@ class CollectInformationForm
 
   def submit(attrs)
     
-    # TODO check if hometown exists
+    # TODO check if hometown and homestate exist
     user.hometown = attrs.delete(:hometown)
+    user.homestate = attrs.delete(:homestate)
+
 
     # if we add anything else here then remove it before we start extracting the communities
 
