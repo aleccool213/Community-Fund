@@ -23,12 +23,15 @@ gem 'devise'
 gem 'omniauth'
 
 group :development, :test do
+  gem 'awesome_print'
+  gem 'rspec-rails'
   gem 'cucumber-rails', :require => false
   gem "spring"
   gem "better_errors"
   gem "pry"
   gem "pry-nav"
   gem 'database_cleaner'
+  gem 'factory_girl_rails'
 end
 
 group :production do

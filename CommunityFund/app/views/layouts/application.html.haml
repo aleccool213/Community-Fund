@@ -8,9 +8,11 @@
     = csrf_meta_tags
   %body
     = render "layouts/header"
-    %p.notice
-      = notice
-    %p.alert
-      = alert
+    - if notice.present?
+      .notice.alert.alert-success
+        = notice
+    - if alert.present?
+      .alert.alert-warning
+        = alert
     = yield
     = render "layouts/footer"
