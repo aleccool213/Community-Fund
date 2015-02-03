@@ -1,0 +1,35 @@
+= simple_form_for resource, as: resource_name, url: registration_path(resource_name), input_html: {class: 'form-horiztonal'} do |f|
+  .col-md-12
+    .col-md-offset-2
+      %h2 Sign up
+    .col-md-offset-2
+      = f.error_notification
+
+      - @errors = resource.errors
+      -# TODO apparently devise stores field errors in here as a flash and not as model errors. Use this to get at them for whatever we plan to do with css
+        
+    .form-group
+      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+        Username
+      .col-sm-6
+        = f.text_field :username, required: true, autofocus: true, class: 'form-control', label: false
+    .form-group
+      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+        Email
+      .col-sm-6
+        = f.text_field :email, required: true, autofocus: true, class: 'form-control', label: false
+    .form-group
+      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+        Password
+      .col-sm-6
+        = f.password_field :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable), label: false, class: 'form-control'
+    .form-group
+      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+        Password Confirmation
+      .col-sm-6
+        = f.password_field :password_confirmation, required: true, class: 'form-control', label: false
+  .col-md-12
+    .col-md-offset-4.col-md-4
+      .form-group
+        .form-actions
+          = f.button :submit, "Sign up", id: 'signup_button'
