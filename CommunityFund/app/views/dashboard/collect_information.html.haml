@@ -19,11 +19,11 @@
           %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
             = "#{community.name}"
           .col-sm-6
-            = f.input_field "community_#{community.id}".to_sym, required: true, as: :boolean, autofocus: true, class: 'form-control', label: false
+            = f.input_field "community_#{community.id}".to_sym, required: true, as: :boolean, autofocus: true, class: 'form-control', label: false, input_html: { id: "community_#{community.id}"}
 
     .col-md-12
       .col-md-offset-4.col-md-4
         %span
           .form-actions
-            = f.button :submit, "Submit"
-            = link_to "Do this later", dashboard_path, class: 'btn btn-lg'
+            = f.button :submit, "Submit", id: 'submit_button'
+            = link_to "Do this later", dashboard_path, class: 'btn btn-lg', id: "do_this_later"
