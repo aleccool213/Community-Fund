@@ -1,0 +1,3 @@
+module SignupHelper
+
+end

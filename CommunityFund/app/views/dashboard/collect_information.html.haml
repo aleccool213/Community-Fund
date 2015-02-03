@@ -1,0 +1,29 @@
+%h1 Mind if we grab some more information from you?
+
+.form-horizontal
+  = simple_form_for @collect_information_form, url: dashboard_submit_information_path do |f|
+    .col-md-12
+
+      .col-md-offset-2
+        = f.error_notification
+
+      .form-group
+        %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+          Hometown
+        .col-sm-6
+          = f.text_field :hometown, required: false, autofocus: true, class: 'form-control', label: false
+
+      %h3 Consider joining any of these communities?
+      .form-group
+        - @communities.each do |community|
+          %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+            = "#{community.name}"
+          .col-sm-6
+            = f.input_field "community_#{community.id}".to_sym, required: true, as: :boolean, autofocus: true, class: 'form-control', label: false
+
+    .col-md-12
+      .col-md-offset-4.col-md-4
+        %span
+          .form-actions
+            = f.button :submit, "Submit"
+            = link_to "Do this later", dashboard_path, class: 'btn btn-lg'
