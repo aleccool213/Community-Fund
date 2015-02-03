@@ -4,6 +4,10 @@
       %h2 Sign up
     .col-md-offset-2
       = f.error_notification
+
+      - @errors = resource.errors
+      -# TODO apparently devise stores field errors in here as a flash and not as model errors. Use this to get at them for whatever we plan to do with css
+        
     .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Username
