@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails CommunityFund: development" uuid="cd3af719-218a-4254-a256-87a4dd13cc5c">
+      <first-sync>true</first-sync>
+    </data-source>
+    <data-source name="Rails CommunityFund: production" uuid="08c069bb-f293-4086-8e7e-8fb7cf45152a">
+      <first-sync>true</first-sync>
+      <user-name>communityfund</user-name>
+    </data-source>
+  </component>
+</project>

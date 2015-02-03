@@ -45,8 +45,6 @@ ActiveRecord::Schema.define(version: 20150203000104) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.integer  "communities_id"
-    t.string   "communities_type"
     t.integer  "community_id"
     t.integer  "project_id"
   end

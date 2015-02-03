@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="Rails CommunityFund: development" uuid="cd3af719-218a-4254-a256-87a4dd13cc5c">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="Rails CommunityFund: production" uuid="08c069bb-f293-4086-8e7e-8fb7cf45152a">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>
