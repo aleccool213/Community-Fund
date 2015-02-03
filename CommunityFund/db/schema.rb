@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202234829) do
+ActiveRecord::Schema.define(version: 20150203000104) do
 
   create_table "communities", force: true do |t|
     t.string   "name"
@@ -19,19 +19,17 @@ ActiveRecord::Schema.define(version: 20150202234829) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_id"
   end
 
   create_table "projects", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "community_id"
     t.integer  "user_id"
+    t.integer  "community_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "projects", ["community_id"], name: "index_projects_on_community_id"
-  add_index "projects", ["name"], name: "index_projects_on_name"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -50,6 +48,7 @@ ActiveRecord::Schema.define(version: 20150202234829) do
     t.integer  "communities_id"
     t.string   "communities_type"
     t.integer  "community_id"
+    t.integer  "project_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

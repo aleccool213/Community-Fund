@@ -7,4 +7,5 @@ class User < ActiveRecord::Base
   validates :username, presence: true
 
   has_many :communities
+  has_many :projects
 end
