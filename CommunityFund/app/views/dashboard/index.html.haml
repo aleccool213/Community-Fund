@@ -1,7 +1,14 @@
+
 .jumbotron
   .container
     %h1 Dashboard
     %p 
-      Hey, you haven't joined any communities yet!
-      %br
-      = link_to "Wanna?", dashboard_collect_information_path, class: 'btn btn-lg btn-primary'
+    %h1 Dashboard
+    - if current_user.communities.length >= 1
+      /in the future, display a feed here with most recent events
+      = link_to "Browse your communities", communities_path, class: 'btn btn-lg btn-primary'
+    - else
+      %p
+        Hey, you haven't joined any communities yet!
+        %br
+        = link_to "Wanna?", dashboard_collect_information_path, class: 'btn btn-lg btn-primary'
