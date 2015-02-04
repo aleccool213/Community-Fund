@@ -1,0 +1,5 @@
+.form-horizontal
+  = simple_form_for @new_project_form, url: projects_path do |f|
+    .col-md-12
+      .col-md-offset-2
+        = f.error_notification

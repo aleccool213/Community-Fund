@@ -1,13 +1,8 @@
-class CollectInformationForm
-  include ActiveModel::Model
-  include ActionView::Helpers::FormOptionsHelper
-
-  attr_accessor :user, :hometown, :homestate
+class CollectInformationForm < Form
+  attr_accessor :hometown, :homestate
 
   def initialize(options = {})
-    options.except(:communities).each do |key, value|
-      self.send("#{key}=", value) if self.respond_to?(key)
-    end
+    super(options.except(:communities))
 
     options[:communities].each do |community|
       self.class.send(:attr_accessor, "community_#{community.id}")
@@ -21,14 +16,16 @@ class CollectInformationForm
     user.hometown = attrs.delete(:hometown)
     user.homestate = attrs.delete(:homestate)
 
-
     # if we add anything else here then remove it before we start extracting the communities
-
     attrs.each do |community_key, value|
       if value == "1"
         community = Community.active.find(community_key.gsub(/community_/, ''))
         user.communities << community unless user.in_community?(community)
       end
     end
+
+    # TODO check if can be saved, return error if it can't
+    user.save
   end
+  
 end
