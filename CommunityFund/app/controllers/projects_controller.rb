@@ -1,11 +1,13 @@
 class ProjectsController < ApplicationController
 
   def new
-    @new_project_form = ::NewProjectForm.new(user: current_user)
+    @communities = Community.active
+    @new_project_form = ::NewProjectForm.new(user: current_user, communities: @communities)
   end
 
   def create
-    @new_project_form = ::NewProjectForm.new(user: current_user)
+    @communities = Community.active
+    @new_project_form = ::NewProjectForm.new(user: current_user, communities: @communities)
     @new_project_form.submit(params[:new_project_form])
   end
 end

@@ -11,7 +11,7 @@
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li
-            = link_to "Start Project", new_projects_path
+            = link_to "Start Project", new_project_path
           %li.active
             = link_to "Logged in as Chris", edit_user_registration_path
           %li
