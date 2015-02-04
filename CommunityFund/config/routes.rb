@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   #communities
   get 'communities' => 'communities#index'
 
-  resources
+  resources :communities
+  resources :projects
+
 end

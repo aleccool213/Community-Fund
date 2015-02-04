@@ -4,12 +4,19 @@
       %h2= "Edit #{resource_name.to_s.humanize}"
     .col-md-offset-2
       = f.error_notification
+
     .form-group
+      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+        Avatar
+      .col-sm-6
+        = f.file_field :icon , name: "icon"
+      /TODO: fix this mess lololol
+      %br
+        %br
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Username
       .col-sm-6
         = f.text_field :username, required: true, autofocus: true, class: 'form-control', label: false
-    .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Email
       .col-sm-6
@@ -17,17 +24,14 @@
       - if devise_mapping.confirmable? && resource.pending_reconfirmation?
         %p.col-sm-6
           Currently waiting confirmation for: #{resource.unconfirmed_email}
-    .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Password
       .col-sm-6
         = f.text_field :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, class: 'form-control', label: false
-    .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Password Confirmation
       .col-sm-6
         = f.text_field :password_confirmation,required: false, class: 'form-control', label: false
-    .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Current Password
       .col-sm-6
