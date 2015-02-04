@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   #communities
   get 'communities' => 'communities#index'
+
+  resources
 end
