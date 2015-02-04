@@ -1,5 +1,5 @@
 Feature: Log In
-  
+
   Scenario: Log in as existing user
     Given I am on the Home Page
     And I have created a user account
@@ -11,7 +11,7 @@ Feature: Log In
     Then I fill in my login details
     Then I should see "Dashboard"
 
-  Scenario: Log in as existing user
+  Scenario: Sign up as new user
     Given I am on the Home Page
     And a community exists
     When I go to the Signup Page
