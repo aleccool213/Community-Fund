@@ -1,7 +1,7 @@
 %h1 New Project
 
 .form-horizontal
-  = simple_form_for @new_project_form, url: projects_path do |f|
+  = simple_form_for @new_project_form.project, url: projects_path do |f|
     .col-md-12
 
       .col-md-offset-2
@@ -21,15 +21,27 @@
         -# communities
         .form-group
           %h3 Select the communities you want included in your project
-          .control-group
           - @communities.each do |community|
-            %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-              = "#{community.name}"
-            .col-sm-6
-              = f.input_field "community_#{community.id}".to_sym, required: true, as: :boolean, autofocus: true, class: 'form-control', label: false, input_html: { id: "community_#{community.id}"}
+            .control-group
+              %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
+                = "#{community.name}"
+              .col-sm-6
+                = check_box_tag "community_#{community.id}".to_sym, required: true, as: :boolean, autofocus: true, class: 'form-control', label: false, input_html: { id: "community_#{community.id}"}
 
         -# TODO geographic location
 
-        -# TODO reward levels
+        -# reward levels
+        #rewards
+          %h3 Tasks
+          = f.simple_fields_for :rewards do |reward|
+            = render 'reward_fields', :f => reward
+          .links
+            = link_to_add_association 'Add Reward', f, :rewards
 
         -# TODO banner
+
+    .col-md-12
+      .col-md-offset-4.col-md-4
+        %span
+          .form-actions
+            = f.button :submit, "Submit", id: 'submit_button'

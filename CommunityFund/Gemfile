@@ -18,6 +18,7 @@ gem 'font-awesome-rails'
 gem 'font-awesome-sass'
 gem 'haml-rails'
 gem 'simple_form'
+gem 'cocoon'
 
 #profiles
 gem 'devise'
