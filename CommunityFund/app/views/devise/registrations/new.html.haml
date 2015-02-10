@@ -1,34 +1,46 @@
-= simple_form_for resource, as: resource_name, url: registration_path(resource_name), input_html: {class: 'form-horiztonal'} do |f|
+= simple_form_for resource, as: resource_name, url: registration_path(resource_name), input_html: {class: 'form-horiztonal'}, id: 'submission' do |f|
   .col-md-12
-    .col-md-offset-2
-      %h2 Sign up
+    %h2{id: 'form-header'}
+      Sign up
+    %br
     .col-md-offset-2
       = f.error_notification
 
       - @errors = resource.errors
       -# TODO apparently devise stores field errors in here as a flash and not as model errors. Use this to get at them for whatever we plan to do with css
 
-
     .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Username
-      .col-sm-6
-        = f.text_field :username, required: true, autofocus: true, class: 'form-control', label: false
+      .col-sm-4
+        %div{class: "input-group"}
+          %span{class: "input-group-addon", id: "basic-addon1"}
+            %i{class: "fa fa-frown-o", id: 'signup-username-face'}
+          = f.text_field :username, required: true, autofocus: true, class: 'form-control', label: false, id: 'signup-username'
     .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Email
-      .col-sm-6
-        = f.text_field :email, required: true, autofocus: true, class: 'form-control', label: false
+      .col-sm-4
+        %div{class: "input-group"}
+          %span{class: "input-group-addon", id: "basic-addon1"}
+            %i{class: "fa fa-frown-o",id: 'signup-email-face'}
+          = f.text_field :email, required: true, autofocus: true, class: 'form-control', label: false, id: 'signup-email'
     .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Password
-      .col-sm-6
-        = f.password_field :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable), label: false, class: 'form-control'
+      .col-sm-4
+        %div{class: "input-group"}
+          %span{class: "input-group-addon", id: "basic-addon1"}
+            %i{class: "fa fa-frown-o", id: 'signup-password-face'}
+          = f.password_field :password, required: true, label: false, class: 'form-control', id: 'signup-password'
     .form-group
       %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
         Password Confirmation
-      .col-sm-6
-        = f.password_field :password_confirmation, required: true, class: 'form-control', label: false
+      .col-sm-4
+        %div{class: "input-group"}
+          %span{class: "input-group-addon", id: "basic-addon1"}
+            %i{class: "fa fa-frown-o", id: 'signup-password-confirm-face'}
+          = f.password_field :password_confirmation, required: true, class: 'form-control', label: false, id: 'signup-password-confirm'
   .col-md-12
     .col-md-offset-4.col-md-4
       .form-group

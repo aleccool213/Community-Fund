@@ -1,13 +1,13 @@
-/.bundle
+.bundle
 
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/db/schema.rb
-
-/log/*.log
-/tmp
+db/*.sqlite3
+db/*.sqlite3-journal
+db/schema.rb
+log/*.log
+tmp
 
 # RubyMine files
 .idea/*
+
 
 
