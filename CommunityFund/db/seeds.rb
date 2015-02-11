@@ -9,3 +9,5 @@ User.destroy_all
 User.create(username: "administrator", email: "admin@community-fund.ca",
             password: "password1-", password_confirmation: "password1-",
 						admin: true)
+User.create(username: "TimoVink", email: "timovink@gmail.com",
+					  password: "password1-", password_confirmation: "password1-")
