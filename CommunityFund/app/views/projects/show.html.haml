@@ -1,0 +1,50 @@
+.container
+  .row
+    .col-sm-9.col-md-9
+      .panel.panel-default
+        .panel-heading
+          %h1= @project.name
+        .panel-body
+          .description-body
+            -# TODO have the description lead link to the community page
+            %h3= @project.description_lead
+            %p= @project.description
+
+    -# TODO project banner
+
+    .col-sm-3.col-md-3
+      #accordion.panel-group
+        .panel.panel-default
+          .panel-heading
+            %h4.panel-title
+              - #%a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+              %span.glyphicon.glyphicon-chevron-right
+              Details
+          - # add id #collapseOne to animate this as an accordian -- should be no need to do that now
+          .panel-collapse.collapse.in
+            %ul.list-group
+              - if current_user.present? && @project.is_initiator?(current_user)
+                %li.list-group-item
+                  %a{href: edit_project_path(id: @project.id)} 
+                    %span.glyphicon.glyphicon-pencil.text-primary
+                    Edit
+              %li.list-group-item
+                -# TODO link to initiator's profile + displayer username
+                %a{href: "#"} 
+                  %span.glyphicon.glyphicon-user.text-primary
+                  Creator
+      .panel-group
+        .panel.panel-default
+          .panel-heading
+            %h4.panel-title
+              %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+                %span.glyphicon.glyphicon-star.text-primary
+                Rewards
+          -# TODO make rewards box "light up" if viewer has funded project and this is level they are selected for
+          .panel-collapse.collpase.in
+            %ul.list-group
+              - @project.rewards.each do |reward|
+                .reward
+                  %span= "$ #{reward.reward_level}"
+                  %p= reward.description
+

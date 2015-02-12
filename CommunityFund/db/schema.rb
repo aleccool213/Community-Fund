@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203163200) do
+ActiveRecord::Schema.define(version: 20150212190234) do
+
+  create_table "avatars", force: true do |t|
+    t.integer  "user_id"
+    t.string   "avatar"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "communities", force: true do |t|
     t.string   "name"
@@ -30,6 +37,20 @@ ActiveRecord::Schema.define(version: 20150203163200) do
     t.integer  "community_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "initiator_id"
+    t.integer  "rewards_id"
+    t.datetime "completion_date"
+  end
+
+  add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"
+
+  create_table "rewards", force: true do |t|
+    t.decimal  "reward_level"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -46,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150203163200) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.string   "communities_type"
     t.integer  "community_id"
     t.integer  "project_id"
     t.string   "hometown"

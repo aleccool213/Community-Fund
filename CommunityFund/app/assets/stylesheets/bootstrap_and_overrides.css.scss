@@ -22,6 +22,9 @@ $fontAwesomeTtfPath: font-url("fontawesome-webfont.ttf");
 $fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
 
 // Your custom SASS stylesheets goes here
+@import "project";
+
 .container {
 	padding: 15px;
 }
+
