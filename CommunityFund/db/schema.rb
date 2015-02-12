@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205014957) do
+ActiveRecord::Schema.define(version: 20150212190234) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20150205014957) do
     t.datetime "updated_at"
     t.integer  "initiator_id"
     t.integer  "rewards_id"
+    t.datetime "completion_date"
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"

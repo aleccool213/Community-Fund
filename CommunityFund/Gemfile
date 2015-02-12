@@ -14,6 +14,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
+# scheduling
+gem 'whenever'
+
 gem 'font-awesome-rails'
 gem 'font-awesome-sass'
 gem 'haml-rails'
@@ -31,6 +34,7 @@ group :development, :test do
   gem 'rspec_junit_formatter'
   gem 'cucumber-rails', :require => false
   gem 'spring'
+  gem 'binding_of_caller'
   gem 'better_errors'
   gem 'pry'
   gem 'pry-nav'
