@@ -1,2 +1,7 @@
-%h1 Admin#analytics
-%p Find me in app/views/admin/analytics.html.haml
+%h1 Analytics
+
+%h3 User Signup
+= line_chart @signups_by_day
+
+%h3 Project Creation
+= line_chart @projects_by_day

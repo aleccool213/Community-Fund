@@ -25,6 +25,10 @@ gem 'simple_form'
 gem 'devise'
 gem 'omniauth'
 
+# analytics
+gem 'dateslices'
+gem 'chartkick'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'rspec-rails'
@@ -36,6 +40,7 @@ group :development, :test do
   gem 'pry-nav'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :production do
