@@ -28,6 +28,7 @@ gem 'omniauth'
 # analytics
 gem 'dateslices'
 gem 'chartkick'
+gem 'geoip'
 
 group :development, :test do
   gem 'awesome_print'

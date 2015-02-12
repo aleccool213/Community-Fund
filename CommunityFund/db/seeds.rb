@@ -14,6 +14,7 @@ User.create(username: "TimoVink", email: "timovink@gmail.com",
 100.times do
 	User.create(username: Faker::Internet.user_name, email: Faker::Internet.free_email,
 				      password: "password1-", password_confirmation: "password1-",
+							last_sign_in_ip: Faker::Internet.ip_v4_address,
 					    created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)))
 end
 
