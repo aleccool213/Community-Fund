@@ -1,47 +1,55 @@
-%h1 New Project
+= hidden_field_tag 'communities', @communities.to_json
+.container
+  .row
+    %h2 Create a New Project
+  .row
+    = simple_form_for @project, url: projects_path do |f|
+      .col-lg-8
 
-.form-horizontal
-  = simple_form_for @new_project_form.project, url: projects_path do |f|
-    .col-md-12
-
-      .col-md-offset-2
-        = f.error_notification
-      .row
         .form-group
-          %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-            Project Title
-          .col-sm-2
-            = f.text_field :name, required: true, autofocus: true, class: 'form-control', label: false
-        .control-group
-          %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-            Description
-          .col-sm-2
-            = f.text_field :description, required: false, autofocus: true, class: 'form-control', label: false
-
-        -# communities
+          - if f.error_notification.present?
+            .alert.alert-warning
+              = f.error_notification
+          %label{for: 'project_title'} Project Title
+          .input-group
+            = f.text_field :name, required: true, class: 'form-control'
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-asterisk
         .form-group
-          %h3 Select the communities you want included in your project
-          - @communities.each do |community|
-            .control-group
-              %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-                = "#{community.name}"
-              .col-sm-6
-                = check_box_tag "community_#{community.id}".to_sym, required: true, as: :boolean, autofocus: true, class: 'form-control', label: false, input_html: { id: "community_#{community.id}"}
+          %label{for: 'project_title'} Description
+          .input-group
+            = f.text_area :description, required: true, class: 'form-control', rows: 5
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-asterisk
 
-        -# TODO geographic location
+        -# TODO style this
+        .form-group
+          %label{for: 'project_title'} Completion Date
+          .form-inline
+            = f.input :completion_date, as: :date, required: true, class: 'form-control', start_year: Project.minimum_start_year, end_year: Project.maximum_end_year, order: [:day, :month, :year], label: false
+            %span.input-group-addon.hidden
 
-        -# reward levels
+        .form-group
+          %label{for: 'community'} Community
+          .input-group
+            = f.input :community_id, collection: @communities, prompt: "Select a community...", label: false, input_html: {class: 'form-control'}
+
         #rewards
-          %h3 Tasks
-          = f.simple_fields_for :rewards do |reward|
-            = render 'reward_fields', :f => reward
-          .links
-            = link_to_add_association 'Add Reward', f, :rewards
+          .form-group
+            .panel.panel-primary
+              .panel-heading Reward Levels
+              .panel-body
+                %ul.list-group
+                  = f.simple_fields_for :rewards do |reward|
+                    = render 'reward_fields', f: reward
+                  .links
+                    = link_to_add_association 'Add Reward Level', f, :rewards
 
         -# TODO banner
 
-    .col-md-12
-      .col-md-offset-4.col-md-4
-        %span
-          .form-actions
-            = f.button :submit, "Submit", id: 'submit_button'
+        = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right' 
+
+:coffeescript
+  $ ->
+    # simple form doesn't seem to like the selects for the date, I guess this is acceptable for now
+    $("select").addClass("form-control")
