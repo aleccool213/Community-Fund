@@ -21,9 +21,12 @@ gem 'font-awesome-rails'
 gem 'font-awesome-sass'
 gem 'haml-rails'
 gem 'simple_form'
+gem 'cocoon'
 
+#profiles
 gem 'devise'
 gem 'omniauth'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'awesome_print'

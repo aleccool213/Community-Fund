@@ -1,0 +1,15 @@
+.nested-fields
+  .list-group-item
+    .form-group
+      %label{for: 'reward_level'} Amount
+      .input-group
+        = f.text_field :reward_level, required: true, class: 'form-control'
+        %span.input-group-addon
+          $
+      %label{for: 'description'} Reward
+      .input-group
+        = f.text_field :description, required: true, class: 'form-control'
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-asterisk
+      .input-group
+        = link_to_remove_association "Remove Reward", f
