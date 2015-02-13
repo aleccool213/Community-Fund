@@ -13,7 +13,7 @@
           %li
             = link_to "Start Project", new_project_path
           %li.active
-            = link_to "Logged in as Chris", edit_user_registration_path
+            = link_to "Logged in as #{current_user.username}", edit_user_registration_path
           %li
             = link_to "Logout", destroy_user_session_path, method: :delete
         - else

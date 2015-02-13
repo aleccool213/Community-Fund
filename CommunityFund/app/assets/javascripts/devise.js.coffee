@@ -10,7 +10,7 @@
 
 jQuery ->
   submit_show = () ->
-    $('#signup-submit-button').show()
+    $('#signup_button').show()
     undefined
   #Returns true if all of the fields are in the success state
   all_ready = () ->
@@ -82,14 +82,14 @@ jQuery ->
 
   #Submit button
   $(document).ready ->
-    $('#signup-submit-button').hide()
+    $('#signup_button').hide()
     undefined
 
 
 # validation for login page
 jQuery ->
   submit_show = () ->
-    $('#login-submit-button').show()
+    $('#login_button').show()
     undefined
   #Returns true if all of the fields are in the success state
   all_ready = () ->
@@ -132,6 +132,6 @@ jQuery ->
 
   #Submit button
   $(document).ready ->
-    $('login-submit-button').hide()
+    $('login_button').hide()
     undefined
 
