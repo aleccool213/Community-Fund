@@ -1,27 +1,20 @@
-= simple_form_for resource, as: resource_name, url: session_path(resource_name), input_html: {class: 'form-horiztonal'} do |f|
-  .col-md-12
-    .col-md-offset-2
-      %h2 Login
-    .col-md-offset-2
-      = f.error_notification
-    .form-group
-      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-        Username
-      .col-sm-6
+.container
+  .col-md-4
+  .container{style: "margin-top: 30px;"}
+    .col-md-4
+      = simple_form_for resource, as: resource_name, url: session_path(resource_name), input_html: {class: 'form-horiztonal'} do |f|
+
+        %h3 Log In
+
+        %label.sr-only{for: "username"} Username
         = f.text_field :username, required: true, autofocus: true, class: 'form-control', label: false
-    .form-group
-      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-        Password
-      .col-sm-6
+
+        %label.sr-only{for: "password"} Password
         = f.password_field :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable), label: false, class: 'form-control'
-    - if devise_mapping.rememberable?
-      .form-group
-        %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-          Remember Me?
-        .col-sm-6
-          = f.input :password_confirmation, as: :boolean, required: true, class: 'form-control', label: false
-  .col-md-12
-    .col-md-offset-4.col-md-4
-      .form-group
-        .form-actions
-          = f.button :submit, "Login", id: 'login_button'
+
+        - if devise_mapping.rememberable?
+          .checkbox
+            %label
+              = f.input :password_confirmation, as: :boolean, label: "Remember Me?"
+
+        = f.button :submit, "Log In", id: 'login_button', class: 'btn btn-sm btn-primary btn-block'
