@@ -1,50 +1,27 @@
-= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, input_html: {class: 'form-horizontal'} do |f|
-  .col-md-12
-    .col-md-offset-2
-      %h2= "Edit #{resource_name.to_s.humanize}"
-    .col-md-offset-2
-      = f.error_notification
-
-    .form-group
-      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-        Avatar
-      .col-sm-6
-        = f.file_field :icon , name: "icon"
-      /TODO: fix this mess lololol
-      %br
-        %br
-      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-        Username
-      .col-sm-6
-        = f.text_field :username, required: true, autofocus: true, class: 'form-control', label: false
-      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-        Email
-      .col-sm-6
-        = f.text_field :email, required: true, autofocus: true, class: 'form-control', label: false
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        %p.col-sm-6
-          Currently waiting confirmation for: #{resource.unconfirmed_email}
-      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-        Password
-      .col-sm-6
-        = f.text_field :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, class: 'form-control', label: false
-      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-        Password Confirmation
-      .col-sm-6
-        = f.text_field :password_confirmation,required: false, class: 'form-control', label: false
-      %label{class: 'col-sm-2 col-sm-offset-2 control-label'}
-        Current Password
-      .col-sm-6
-        = f.text_field :current_password, hint: "we need your current password to confirm changes", required: true, class: 'form-control', label: false
-  .col-md-12
-    .col-md-offset-4.col-md-4
+.row
+  .col-md-offset-3.col-md-6
+    %h1.text-center Edit Your Profile
+    = simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, input_html: {class: 'form-horizontal'} do |f|
       .form-group
-        .form-actions
-          = f.button :submit, "Update"
-
-
-%h3 Cancel my account
-%p TODO style this
-%p
-  Unhappy? #{link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+        = f.error_notification
+      .form-group
+        %label{for: "username"} Username
+        = f.text_field :username, required: true, class: 'form-control', label: false
+      .form-group
+        %label{for: "email"} Email
+        = f.text_field :email, required: true, class: 'form-control', label: false
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          .alert.alert-warning
+            = "Currently waiting confirmation for: #{resource.unconfirmed_email}"
+      .form-group
+        %label{for: "hometown"} Hometown
+        = f.text_field :hometown, required: false, class: 'form-control', label: false
+      .form-group
+        %label{for: "password"} Password
+        = f.password_field :password, autocomplete: "off", placeholder: "leave it blank if you don't want to change it", required: false, class: 'form-control', label: false
+      .form-group
+        %label{for: "password_confirmation"} Password Confirmation
+        = f.password_field :password_confirmation, required: false, class: 'form-control', placeholder: "and leave this blank too", label: false
+      = f.button :submit, "Update", class: 'btn btn-primary'
+      = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", method: :delete}, class: 'btn btn-info'
+      = link_to "Back", :back, class: "btn btn-info"
