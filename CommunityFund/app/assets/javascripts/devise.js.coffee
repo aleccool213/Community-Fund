@@ -85,3 +85,53 @@ jQuery ->
     $('#signup-submit-button').hide()
     undefined
 
+
+# validation for login page
+jQuery ->
+  submit_show = () ->
+    $('#login-submit-button').show()
+    undefined
+  #Returns true if all of the fields are in the success state
+  all_ready = () ->
+    username = $('#login-username-input').val()
+    password = $('#login-password-input').val()
+    re = /\S+@\S+\.\S+/
+    if (username.length > 5) and (password.length > 7)
+      true
+    else
+      false
+
+  $('#login-username-input').bind 'input', (->
+    value = $(this).val() # get the current value of the input field.
+    #change warning to success if value is over 5
+    if value.length > 5
+      $("#login-username").attr("class","form-group has-success")
+      $("#login-username-icon").attr("class","glyphicon glyphicon-ok form-control-feedback")
+      if all_ready()
+        submit_show()
+        undefined
+    else if value != ""
+      $("#login-username").attr("class","form-group has-error")
+      $("#login-username-icon").attr("class","glyphicon glyphicon-remove form-control-feedback"))
+  .trigger('input');
+
+  $('#login-password-input').bind 'input', (->
+    value = $(this).val() # get the current value of the input field.
+    #change warning to success if password is 7 chars long
+    if value.length > 7
+      $("#login-password").attr("class","form-group has-success")
+      $("#login-password-icon").attr("class","glyphicon glyphicon-ok form-control-feedback")
+      if all_ready()
+        submit_show()
+    else if value != ""
+      $("#login-password").attr("class","form-group has-error")
+      $("#login-password-icon").attr("class","glyphicon glyphicon-remove form-control-feedback"))
+  .trigger('input');
+
+
+
+  #Submit button
+  $(document).ready ->
+    $('login-submit-button').hide()
+    undefined
+
