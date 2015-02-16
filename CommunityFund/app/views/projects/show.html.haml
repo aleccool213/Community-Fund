@@ -3,9 +3,12 @@
     .col-sm-9.col-md-9
       .jumbotron
         %h3.inline= "#{@project.name}: #{@project.description_lead}"
-        .project-link
-          %a{href: community_path(id: @project.community_id)}= @project.hashtag_community
-        %h3 effort
+        .project-link.inline
+          - @project.communities.each do |community|
+            = "#{@project.communities.last == community ? 'and' : ''}"
+            %a{href: community_path(id: community.id)}
+              = "#{@project.hashtag_community(community)}"
+        %h3.inline effort
 
       %ul.nav.nav-pills
         %li.active{role: "presentation"}
@@ -62,7 +65,7 @@
             %ul.list-group
               - if current_user.present? && @project.is_initiator?(current_user)
                 %li.list-group-item
-                  %a{href: edit_project_path(id: @project.id)} 
+                  %a{href: edit_project_path(id: @project.id)}
                     %span.glyphicon.glyphicon-pencil.text-primary
                     Edit
               %li.list-group-item

@@ -1,7 +1,7 @@
 .row
-  %h2 Create a New Project
+  %h2= "Edit #{@project.name}"
 .row
-  = simple_form_for @project, url: projects_path do |f|
+  = simple_form_for @project do |f|
     .col-lg-8
 
       .form-group
@@ -32,17 +32,6 @@
           = f.input :completion_date, as: :date, required: true, class: 'form-control', start_year: Project.minimum_start_year, end_year: Project.maximum_end_year, order: [:day, :month, :year], label: false
           %span.input-group-addon.hidden
 
-      #communities
-        .form-group
-          .panel.panel-primary
-            .panel-heading Which Communities is your project involved with?
-            .panel-body
-              %ul.list-group
-                - @communities.each do |community|
-                  .checkbox
-                    %label
-                      = check_box_tag "community_#{community.id}", true, class: 'form-control'
-                      = community.name
 
       #rewards
         .form-group
@@ -51,15 +40,14 @@
             .panel-body
               %ul.list-group
                 = f.simple_fields_for :rewards do |reward|
-                  = render 'reward_fields', f: reward
+                  = render 'reward_fields', f: reward, show_ids: true
                 .links
                   = link_to_add_association 'Add Reward Level', f, :rewards
 
       -# TODO banner
 
-      = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right' 
+      = f.button :submit, "Save", id: 'save_button', class: 'btn btn-info pull-right' 
 
 :coffeescript
   $ ->
     $("select").addClass('form-control')
-    $('.checkbox').find('input').attr('checked', false)

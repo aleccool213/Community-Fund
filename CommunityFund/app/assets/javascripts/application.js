@@ -18,6 +18,3 @@
 //= require turbolinks
 //= require_tree .
 
-$(function() {
-  $("select").addClass("form-control");
-});

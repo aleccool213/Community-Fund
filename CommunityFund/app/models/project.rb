@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
   belongs_to :user
-  belongs_to :community
+  has_many :communities
   has_many :rewards
   accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
 
@@ -19,7 +19,7 @@ class Project < ActiveRecord::Base
   end
 
   def description_lead
-    if %w(a e i o u).member? self.community.name[0].downcase
+    if %w(a e i o u).member? self.communities.first.name[0].downcase
       "An"
     else
       "A"
@@ -30,11 +30,15 @@ class Project < ActiveRecord::Base
     self.initiator_id == user.id
   end
 
-  def hashtag_community
+  def hashtag_community(community)
     "##{community.name.gsub(/ /, "")}"
   end
 
   def completion_date_for_display
     "At midnight on #{completion_date.strftime('%B %m, %Y')}"
+  end
+
+  def closed?
+    !open?
   end
 end
