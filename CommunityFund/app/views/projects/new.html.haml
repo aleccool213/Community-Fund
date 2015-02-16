@@ -32,10 +32,13 @@
         .error-text#target_amount_error.hidden
           Please enter an amount greater than $100
       .form-group
-        %label{for: 'project_completion_date'} Completion Date
+        %label{for: 'project_completion_date'}
+          Completion Date
+          %span#completion_date_icon.fa.fa-check.hidden
         .form-inline
           = f.input :completion_date, as: :date, required: true, class: 'form-control', start_year: Project.minimum_start_year, end_year: Project.maximum_end_year, order: [:day, :month, :year], label: false
-          %span.input-group-addon.hidden
+        .error-text#completion_date_error.hidden
+          Must be at least 1 week from now
 
       #communities
         .form-group
@@ -80,7 +83,7 @@
     money_validator(check_valid_amount($(this)), $(this), '#target_amount_icon', '#target_amount_error')
 
   $('#project_completion_date_3i, #project_completion_date_2i, #project_completion_date_1i').change ->
-    valid_date()
+    date_validator(valid_date(), '#completion_date_error')
 
   check_valid_content = (ref) ->
     if ref.val() == ""
@@ -96,12 +99,21 @@
       return false
 
   valid_date =->
-    day = $('#project_completion_date_3i').val()
-    month = $('#project_completion_date_2i').val()
-    year = $('#project_completion_date_1i').val()
+    day = parseInt($('#project_completion_date_3i').val())
+    month = parseInt($('#project_completion_date_2i').val())
+    year = parseInt($('#project_completion_date_1i').val())
+
+    current_date = new Date()
+
+    if (new Date(year, month, day) < new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate()) + 7)
+      return false
+    else
+      return true
+
+
 
     # TODO:
-    #   finish validating date
+    #   
     #   validate at least one community is chosen
     #   validate at least one reward has been created
 
@@ -132,5 +144,18 @@
       field_span = ref.parent().find(icon)
       field_span.removeClass("correct-money")
       field_span.addClass("has-money-error")
+
+  # TODO - date validator isn't working - debug this!
+  date_validator = (value, error_text) ->
+    if value
+      $('#completion_date_icon').addClass('fa fa-check hidden')
+      $('#completion_date_icon').removeClass('fa fa-exclamation-circle')
+      $('#project_completion_date_3i, #project_completion_date_2i, #project_completion_date_1i').removeClass('has-error-select')
+      $(error_text).addClass('hidden')
+    else
+      $('#completion_date_icon').removeClass('fa fa-check')
+      $('#completion_date_icon').addClass('fa fa-exclamation-circle')
+      $('#project_completion_date_3i, #project_completion_date_2i, #project_completion_date_1i').addClass('has-error-select')
+      $(error_text).removeClass('hidden')
 
 

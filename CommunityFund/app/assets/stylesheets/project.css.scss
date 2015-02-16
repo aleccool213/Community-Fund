@@ -51,6 +51,10 @@ $correct-green: #49e20e;
   border-color: $error-red;
 }
 
+.has-error-select {
+  color: $error-red;
+}
+
 .fa-exclamation-circle {
   color: $error-red;
 }
