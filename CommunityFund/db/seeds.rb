@@ -8,14 +8,14 @@ Community.create(name: "Education", description: "", active: true)
 User.destroy_all
 User.create(username: "administrator", email: "admin@community-fund.ca",
             password: "password1-", password_confirmation: "password1-",
-						admin: true)
+			admin: true)
 User.create(username: "TimoVink", email: "timovink@gmail.com",
-					  password: "password1-", password_confirmation: "password1-")
+			password: "password1-", password_confirmation: "password1-")
 100.times do
 	User.create(username: Faker::Internet.user_name, email: Faker::Internet.free_email,
-				      password: "password1-", password_confirmation: "password1-",
-							last_sign_in_ip: Faker::Internet.ip_v4_address,
-					    created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)))
+				password: "password1-", password_confirmation: "password1-",
+                last_sign_in_ip: Faker::Internet.ip_v4_address,
+				created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)))
 end
 
 Project.destroy_all
