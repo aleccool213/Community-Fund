@@ -11,5 +11,13 @@ FactoryGirl.define do
 	end
 
 	factory :project do
+		sequence(:name)			{ |n| Faker::Commerce.product_name }
+		sequence(:description)	{ |n| Faker::Lorem.paragraph }
+	end
+
+	factory :community do
+		sequence(:name)			{ |n| Faker::Commerce.department }
+		sequence(:description)	{ |n| Faker::Lorem.paragraph }
+		active					true
 	end
 end
