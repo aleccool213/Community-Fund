@@ -1,6 +1,6 @@
-body {
-    margin: 40px;
-}
+$font-color: #23527c;
+$money-color: #216C2a;
+
 #accordion .glyphicon {
     margin-right: 10px;
 }
@@ -37,6 +37,48 @@ body {
     border-top: 1px solid #ddd;
     border-bottom: 0;
     padding-left: 30px;
+}
+
+.inline{
+  display: inline;
+}
+
+.project-link {
+  font-size: 22px;
+  font-style: italic;
+  display: inline;
+}
+
+.project-link a{
+  text-decoration: none;
+}
+
+.funding-status{
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.completion-amount{
+  font-size: 16px;
+  color: $money-color;
+}
+
+.completion-date{
+  font-weight: bold;
+  color: $font-color;
+  font-size: 16px;
+}
+
+.action-button {
+  width: 100%;
+  padding: 20px;
+  padding-bottom: 20px;
+  background-color: $money-color;
+}
+
+.details-panel {
+  padding-top: 20px;
 }
 
 a { 

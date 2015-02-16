@@ -20,4 +20,13 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
   end
+
+  def edit
+    @communities = Community.active
+    # TODO edit communities
+  end
+
+  def update
+
+  end
 end

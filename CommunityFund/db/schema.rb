@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212190234) do
+ActiveRecord::Schema.define(version: 20150216013830) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20150212190234) do
     t.integer  "initiator_id"
     t.integer  "rewards_id"
     t.datetime "completion_date"
+    t.decimal  "target_amount"
+    t.boolean  "open"
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"

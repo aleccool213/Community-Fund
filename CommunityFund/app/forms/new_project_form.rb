@@ -22,7 +22,8 @@ class NewProjectForm < Form
       description: project_params[:description],
       completion_date: DateTime.new(project_params["completion_date(1i)"].to_i, project_params["completion_date(2i)"].to_i, project_params["completion_date(3i)"].to_i),
       initiator_id: user.id,
-      community_id: Community.find(project_params[:community_id]).try(:id)
+      community_id: Community.find(project_params[:community_id]).try(:id),
+      open: true
       )
 
     # build reward levels for project

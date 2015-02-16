@@ -18,11 +18,16 @@
         .form-group
           %label{for: 'project_title'} Description
           .input-group
-            = f.text_area :description, required: true, class: 'form-control', rows: 5
+            = f.text_area :description, required: true, class: 'form-control', rows: 5, placeholder: "Why should people choose to fund you?"
             %span.input-group-addon
               %span.glyphicon.glyphicon-asterisk
+        .form-group
+          %label{for: 'target_amount'} Target Amount
+          .input-group
+            = f.text_field :target_amount, requied: true, class: 'form-control', placeholder: "$ CAD"
+            %span.input-group-addon
+              %span.fa.fa-money
 
-        -# TODO style this
         .form-group
           %label{for: 'project_title'} Completion Date
           .form-inline
@@ -48,8 +53,3 @@
         -# TODO banner
 
         = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right' 
-
-:coffeescript
-  $ ->
-    # simple form doesn't seem to like the selects for the date, I guess this is acceptable for now
-    $("select").addClass("form-control")
