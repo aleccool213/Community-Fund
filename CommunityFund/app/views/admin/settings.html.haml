@@ -1,1 +1,22 @@
 %h1 Settings
+
+%h3 Change Admins
+%table{ class: 'admin-users' }
+	%thead
+		%th Username
+		%th Delete
+
+	%tbody
+		- @admins.each do |admin|
+			%tr{ class: 'admin-user' }
+				%td{ class: 'admin-username' }
+					= admin.username
+				%td
+					= button_tag type: 'button', class: 'remove-admin-btn' do
+						&times;
+		%tr
+			%td= text_field_tag 'make-admin-input'
+			%td= button_tag 'Make Admin', type: 'button', class: 'make-admin-btn'
+
+%h3 Save Changes
+= button_tag 'Save Changes', type: 'button', class: 'save-changes-btn'

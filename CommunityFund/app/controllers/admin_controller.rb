@@ -10,6 +10,32 @@ class AdminController < ApplicationController
 	end
 
 	def settings
+		@admins = User.where('admin = ?', true)
+	end
+
+	def update_admins
+		# Get list of existing admins and given new list of admins
+		old_usernames = User.where('admin = ?', true).map { |u| u.username.downcase }
+		new_usernames = params[:usernames].map { |u| u.downcase }
+
+		# Figure out which users should have admin status granted or revoke
+		to_grant = new_usernames - old_usernames
+		to_revoke = old_usernames - new_usernames
+
+		# Execute request
+		to_grant.each do |username|
+			user = User.find_by! username: username
+			user.admin = true
+			user.save!
+		end
+
+		to_revoke.each do |username|
+			user = User.find_by! username: username
+			user.admin = false
+			user.save!
+		end
+
+		redirect_to admin_settings_path
 	end
 
 	private
