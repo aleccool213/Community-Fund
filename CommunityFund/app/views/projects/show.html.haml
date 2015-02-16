@@ -5,7 +5,7 @@
         %h3.inline= "#{@project.name}: #{@project.description_lead}"
         .project-link.inline
           - @project.communities.each do |community|
-            = "#{@project.communities.last == community ? 'and' : ''}"
+            = "#{(@project.communities.count > 1) && (@project.communities.last == community) ? 'and' : ''}"
             %a{href: community_path(id: community.id)}
               = "#{@project.hashtag_community(community)}"
         %h3.inline effort

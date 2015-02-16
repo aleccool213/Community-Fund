@@ -1,5 +1,7 @@
 $font-color: #23527c;
 $money-color: #216C2a;
+$error-red: #ff0033;
+$correct-green: #49e20e;
 
 #accordion .glyphicon {
     margin-right: 10px;
@@ -37,6 +39,32 @@ $money-color: #216C2a;
     border-top: 1px solid #ddd;
     border-bottom: 0;
     padding-left: 30px;
+}
+
+.error-text{
+  font-weight: 200;
+  color: $error-red;
+  font-size: 14px;
+}
+
+.has-error:focus {
+  border-color: $error-red;
+}
+
+.fa-exclamation-circle {
+  color: $error-red;
+}
+
+.fa-check {
+  color: $correct-green;
+}
+
+.has-money-error {
+  color: $error-red;
+}
+
+.correct-money {
+  color: $correct-green
 }
 
 .inline{

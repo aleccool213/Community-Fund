@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
   belongs_to :user
-  has_many :communities
+  has_and_belongs_to_many :communities
   has_many :rewards
   accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
 

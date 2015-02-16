@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216013830) do
+ActiveRecord::Schema.define(version: 20150216200521) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 20150216013830) do
     t.integer  "project_id"
     t.boolean  "active",      default: true
   end
+
+  create_table "communities_projects", id: false, force: true do |t|
+    t.integer "community_id"
+    t.integer "project_id"
+  end
+
+  add_index "communities_projects", ["community_id"], name: "index_communities_projects_on_community_id"
+  add_index "communities_projects", ["project_id"], name: "index_communities_projects_on_project_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
