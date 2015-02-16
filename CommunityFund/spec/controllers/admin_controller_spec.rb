@@ -1,41 +1,42 @@
 require 'rails_helper'
 
 RSpec.describe AdminController, :type => :controller do
-	describe 'GET #analytics' do
+	shared_examples_for "admin only page" do |path|
 		context 'when not logged in' do
-			before do
-				get :analytics
-			end
-
 			it 'should redirect to the sign-in page' do
+				get path
+
 				expect(response).to redirect_to new_user_session_path
 			end
 		end
 
 		context 'when logged in as a non-admin' do
-			before do
-				user = create(:user)
-				sign_in user
-				get :analytics
-			end
-
 			it 'should redirect to the dashboard' do
+				sign_in create(:user)
+				get path
+
 				expect(response).to redirect_to dashboard_path
 			end
 		end
 
 		context 'when logged in as an admin' do
-			before do
-				admin = create(:admin)
-				sign_in admin
-			end
-
-			it 'should load the analytics page' do
-				get :analytics
+			it 'should load the page' do
+				sign_in create(:admin)
+				get path
 
 				expect(response).to be_success
 				expect(response).to have_http_status 200
-				expect(response).to render_template 'analytics'
+				expect(response).to render_template path
+			end
+		end
+	end
+
+	describe 'GET #analytics' do
+		it_should_behave_like "admin only page", :analytics
+
+		context 'when logged in as an admin' do
+			before do
+				sign_in create(:admin)
 			end
 
 			it 'loads user sign-up data' do
@@ -130,5 +131,9 @@ RSpec.describe AdminController, :type => :controller do
 				expect(actual).to eq('United States' => 2, 'Canada' => 1)
 			end
 		end
+	end
+
+	describe 'GET #settings' do
+		it_should_behave_like "admin only page", :settings
 	end
 end

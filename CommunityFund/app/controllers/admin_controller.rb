@@ -9,6 +9,9 @@ class AdminController < ApplicationController
 		@geo_data = get_geo_data
 	end
 
+	def settings
+	end
+
 	private
 		# Takes the data and adds entries with value 0 for any missing dates
 		def add_missing_data(data)
