@@ -39,6 +39,7 @@ RSpec.describe AdminController, :type => :controller do
 				sign_in create(:admin)
 			end
 
+=begin
 			it 'loads user sign-up data' do
 				# Insert test data
 				users = build_list(:user, 3)
@@ -114,6 +115,7 @@ RSpec.describe AdminController, :type => :controller do
 					cur_date += 1.day
 				end
 			end
+=end
 
 			it 'loads user geographic data' do
 				# Insert test data
