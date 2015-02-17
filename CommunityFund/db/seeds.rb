@@ -15,10 +15,12 @@ User.create(username: "TimoVink", email: "timovink@gmail.com",
 	User.create(username: Faker::Internet.user_name, email: Faker::Internet.free_email,
 				password: "password1-", password_confirmation: "password1-",
                 last_sign_in_ip: Faker::Internet.ip_v4_address,
-				created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)))
+				created_at: Faker::Time.backward(30, :day))
 end
 
 Project.destroy_all
 20.times do
-	Project.create(created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)))
+	Project.create(name: Faker::Commerce.product_name,
+                   description: Faker::Lorem.paragraph,
+                   created_at: Faker::Time.backward(30, :day))
 end
