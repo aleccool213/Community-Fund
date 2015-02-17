@@ -1,9 +1,9 @@
 Feature: Log In
 
   Scenario: Log in as existing user
-    Given I am on the Home Page
+    Given I am on the "Home Page"
     And I have created a user account
-    When I go to the Login page
+    When I go to the "Login Page"
     Then I should see "Login"
     Then I should see "Username"
     Then I should see "Password"
@@ -12,9 +12,9 @@ Feature: Log In
     Then I should see "Dashboard"
 
   Scenario: Sign up as new user
-    Given I am on the Home Page
+    Given I am on the "Home Page"
     And a community exists
-    When I go to the Signup Page
+    When I go to the "Signup Page"
     Then I should see "Username"
     Then I should see "Email"
     Then I should see "Password"

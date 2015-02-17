@@ -21,5 +21,12 @@ end
 
 Project.destroy_all
 20.times do
-	Project.create(created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)))
+	Project.create(
+    name: Faker::Commerce.product_name,
+    description: Faker::Lorem.paragraph,
+    created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)), 
+    communities: Community.active, 
+    completion_date: Time.now + 1.month,
+    open.true
+    )
 end
