@@ -1,19 +1,20 @@
 !!!
 %html
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title CSC309
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags
-  %body
-    = render "layouts/header"
-    .container
-      - if notice.present?
-        .notice.alert.alert-success
-          = notice
-      - if alert.present?
-        .alert.alert-warning
-          = alert
-      = yield
-    = render "layouts/footer"
+    %head
+        %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+        %title CSC309
+        = stylesheet_link_tag	'application', media: 'all', 'data-turbolinks-track' => true
+        = javascript_include_tag '//www.google.com/jsapi', 'chartkick'
+        = javascript_include_tag 'application', 'data-turbolinks-track' => true
+        = csrf_meta_tags
+    %body{ class: controller_name + " " + action_name }
+        = render "layouts/header"
+        .container
+            - if notice.present?
+                .notice.alert.alert-success
+                    = notice
+            - if alert.present?
+                .alert.alert-warning
+                    = alert
+            = yield
+        = render "layouts/footer"

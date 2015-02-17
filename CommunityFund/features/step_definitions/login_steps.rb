@@ -23,8 +23,9 @@ Given(/^I have created a user account$/) do
 end
 
 Then(/^the new user should be created$/) do
-  @user = User.last
-  expect(@user.username).to eq("johndoe")
+  latest_user = User.last
+  expect(latest_user.username).to eq(@user.username)
+  @user = latest_user
 end
 
 Then(/^I click on the first community$/) do
@@ -54,4 +55,3 @@ Then(/^I fill in my signup details$/) do
   fill_in 'user_email', with: @user.email
   click_button('signup_button')
 end
-

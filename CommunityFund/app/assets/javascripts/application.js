@@ -13,8 +13,9 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require bootstrap
 //= require cocoon
 //= require turbolinks
+//= require chartkick
 //= require_tree .
 
