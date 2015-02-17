@@ -62,7 +62,7 @@ class AdminController < ApplicationController
 		# address users most recently used to sign in.
 		def get_geo_data
 			# Look up country by IP address
-			geo_db = GeoIP.new('./vendor/assets/other/GeoIP.dat')
+			geo_db = GeoIP.new(Rails.root.join('vendor', 'assets', 'other', 'GeoIP.dat'))
 			ip_addrs = User.where('last_sign_in_ip is not null').map { |u| u.last_sign_in_ip}
 			countries = ip_addrs.map { |ip| geo_db.country(ip).country_name }
 
