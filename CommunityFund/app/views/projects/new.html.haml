@@ -43,11 +43,13 @@
       #communities
         .form-group
           .panel.panel-primary
-            .panel-heading Which Communities is your project involved with?
+            .panel-heading Which Communities is your project involved with? Please select at least one.
             .panel-body
-              %ul.list-group
+              .error-text#communities_error.hidden
+                Please select at least one community
+              %ul.list-group.communities
                 - @communities.each do |community|
-                  .checkbox
+                  .checkbox.community-box
                     %label
                       = check_box_tag "community_#{community.id}", true, class: 'form-control'
                       = community.name
@@ -57,6 +59,8 @@
           .panel.panel-primary
             .panel-heading Reward Levels
             .panel-body
+              .error-text#rewards_error.hidden
+                Please finish filling out rewards
               %ul.list-group
                 = f.simple_fields_for :rewards do |reward|
                   = render 'reward_fields', f: reward
@@ -71,27 +75,40 @@
   $ ->
     $("select").addClass('form-control')
     $('.checkbox').find('input').attr('checked', false)
-    $('#submit_button')[0].disabled = true
+    $('#project_completion_date_3i').val((new Date().getDate() + 7).toString())
+
+  $('form').submit (event) ->
+    unless valid_content($('#project_name')) && valid_content($('#project_description')) && valid_amount($("#project_target_amount")) && valid_date && valid_communities() && valid_rewards()
+      event.preventDefault()
+      empty_content_validator(valid_content($('#project_name')), $('#project_name'), '#name_icon', '#name_error')
+      empty_content_validator(valid_content($('#project_description')), $('#project_description'), '#description_icon', '#description_error')
+      money_validator(valid_amount($('#project_target_amount')), $('#project_target_amount'), '#target_amount_icon', '#target_amount_error')
+      date_validator(valid_date(), '#completion_date_error')
+      communities_validator(valid_communities())
+      reward_validator(valid_rewards())
 
   $('#project_name').bind 'input', ->
-    empty_content_validator(check_valid_content($(this)), $(this), '#name_icon', '#name_error')
+    empty_content_validator(valid_content($(this)), $(this), '#name_icon', '#name_error')
     
   $('#project_description').bind 'input', ->
-    empty_content_validator(check_valid_content($(this)), $(this), '#description_icon', '#description_error')
+    empty_content_validator(valid_content($(this)), $(this), '#description_icon', '#description_error')
 
   $('#project_target_amount').bind 'input', ->
-    money_validator(check_valid_amount($(this)), $(this), '#target_amount_icon', '#target_amount_error')
+    money_validator(valid_amount($(this)), $(this), '#target_amount_icon', '#target_amount_error')
 
   $('#project_completion_date_3i, #project_completion_date_2i, #project_completion_date_1i').change ->
     date_validator(valid_date(), '#completion_date_error')
 
-  check_valid_content = (ref) ->
+  $('.community-box').change ->
+    communities_validator(valid_communities())
+
+  valid_content = (ref) ->
     if ref.val() == ""
       return false
     else
       return true
 
-  check_valid_amount = (ref) ->
+  valid_amount = (ref) ->
     num = parseInt(ref.val())
     if (num >= 100) && (num != NaN)
       return true
@@ -105,28 +122,49 @@
 
     current_date = new Date()
 
-    if (new Date(year, month, day) < new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate()) + 7)
+    # apparently month is zero ordered??
+    if (new Date(year, month - 1, day) < new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate() + 7))
       return false
     else
       return true
 
+  valid_communities =->
+    if $('.communities').find('input:checked').length >= 1
+      return true
+    else
+      return false
 
+  valid_rewards =->
+    reward_groups = $('.reward-group')
 
-    # TODO:
-    #   
-    #   validate at least one community is chosen
-    #   validate at least one reward has been created
+    if reward_groups == undefined
+      return true
+    else
+      is_valid = true
+      debugger
+      for reward in reward_groups
+        do ->
+          if ($(reward).find('.reward-level').val() == "") || ($(reward).find('.reward-description').val() == "")
+            is_valid = false
+
+      return is_valid
+
+  reward_validator = (value) ->
+    if value
+      $('#rewards_error').addClass('hidden')
+    else
+      $('#rewards_error').removeClass('hidden')
 
   empty_content_validator = (value, ref, icon, error_text) ->
     if value
       ref.removeClass('has-error')
-      $(error_text).removeClass('hidden')
+      $(error_text).addClass('hidden')
       field_span = ref.parent().find(icon)
       field_span.removeClass("glyphicon glyphicon-asterisk fa fa-exclamation-circle")
       field_span.addClass("fa fa-check")
     else
       ref.addClass('has-error')
-      $(error_text).addClass('hidden')
+      $(error_text).removeClass('hidden')
       field_span = ref.parent().find(icon)
       field_span.removeClass("glyphicon glyphicon-asterisk fa fa-check")
       field_span.addClass("fa fa-exclamation-circle")
@@ -145,7 +183,6 @@
       field_span.removeClass("correct-money")
       field_span.addClass("has-money-error")
 
-  # TODO - date validator isn't working - debug this!
   date_validator = (value, error_text) ->
     if value
       $('#completion_date_icon').addClass('fa fa-check hidden')
@@ -157,5 +194,11 @@
       $('#completion_date_icon').addClass('fa fa-exclamation-circle')
       $('#project_completion_date_3i, #project_completion_date_2i, #project_completion_date_1i').addClass('has-error-select')
       $(error_text).removeClass('hidden')
+
+  communities_validator = (value) ->
+    if value
+      $('#communities_error').addClass('hidden')
+    else
+      $('#communities_error').removeClass('hidden')
 
 

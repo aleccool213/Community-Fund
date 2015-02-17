@@ -29,12 +29,14 @@ class NewProjectForm < Form
     end
 
     # build reward levels for project
-    reward_params.each do |reward|
-      reward = reward[1] # this is being created as a two item array, just grab the reward params
-      self.project.rewards << Reward.create(
-          reward_level: reward[:reward_level],
-          description: reward[:description]
-        )
+    if reward_params.present?
+      reward_params.each do |reward|
+        reward = reward[1] # this is being created as a two item array, just grab the reward params
+        self.project.rewards << Reward.create(
+            reward_level: reward[:reward_level],
+            description: reward[:description]
+          )
+      end
     end
 
     self.project.save
