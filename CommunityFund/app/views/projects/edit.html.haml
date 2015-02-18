@@ -1,0 +1,58 @@
+.row
+  %h2= "Edit #{@project.name}"
+.row
+  = simple_form_for @project do |f|
+    .col-lg-8
+
+      .form-group
+        - if f.error_notification.present?
+          .alert.alert-warning
+            = f.error_notification
+        %label{for: 'project_title'} Project Title
+        .input-group
+          = f.text_field :name, required: true, class: 'form-control'
+          %span.input-group-addon
+            %span#name_icon.glyphicon.glyphicon-asterisk
+        .error-text#name_error.hidden
+          Please enter a name
+      .form-group
+        %label{for: 'project_title'} Description
+        .input-group
+          = f.text_area :description, required: true, class: 'form-control', rows: 5, placeholder: "Why should people choose to fund you?"
+          %span.input-group-addon
+            %span#description_icon.glyphicon.glyphicon-asterisk
+        .error-text#description_error.hidden
+          Please enter a description
+      .form-group
+        %label{for: 'target_amount'} Target Amount
+        .input-group
+          = f.text_field :target_amount, requied: true, class: 'form-control', placeholder: "$ CAD"
+          %span.input-group-addon
+            %span#target_amount_icon.fa.fa-money
+        .error-text#target_amount_error.hidden
+          Please enter an amount greater than $100
+      .form-group
+        %label{for: 'project_completion_date'} 
+          Completion Date
+          %span#completion_date_icon.fa.fa-check.hidden
+        .form-inline
+          = f.input :completion_date, as: :date, required: true, class: 'form-control', start_year: Project.minimum_start_year, end_year: Project.maximum_end_year, order: [:day, :month, :year], label: false
+        .error-text#completion_date_error.hidden
+          Must be at least 1 week from now
+
+      #rewards
+        .form-group
+          .panel.panel-primary
+            .panel-heading Reward Levels
+            .panel-body
+              .error-text#rewards_error.hidden
+                Please finish filling out rewards
+              %ul.list-group
+                = f.simple_fields_for :rewards do |reward|
+                  = render 'reward_fields', f: reward, show_ids: true
+                .links
+                  = link_to_add_association 'Add Reward Level', f, :rewards
+
+      -# TODO banner
+
+      = f.button :submit, "Save", id: 'save_button', class: 'btn btn-info pull-right' 

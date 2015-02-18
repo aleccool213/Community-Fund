@@ -20,5 +20,4 @@ Rails.application.routes.draw do
 
   resources :communities
   resources :projects
-
 end
