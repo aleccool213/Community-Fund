@@ -1,19 +1,59 @@
 .container
   .row
     .col-sm-9.col-md-9
-      .panel.panel-default
-        .panel-heading
-          %h1= @project.name
-        .panel-body
-          .description-body
-            -# TODO have the description lead link to the community page
-            %h3= @project.description_lead
-            %p= @project.description
+      .jumbotron
+        %h3.inline= "#{@project.name}: #{@project.description_lead}"
+        .project-link.inline
+          - @project.communities.each do |community|
+            = "#{(@project.communities.count > 1) && (@project.communities.last == community) ? 'and' : ''}"
+            %a{href: community_path(id: community.id)}
+              = "#{@project.hashtag_community(community)}"
+        %h3.inline effort
+
+      %ul.nav.nav-pills
+        %li.active{role: "presentation"}
+          %a{href: "#description", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-ice-lolly-tasted
+              Description
+        %li{role: "presentation"}
+          %a{href: "#discussion", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-comment
+              Discussion
+
+      .tab-content
+        #description.tab-pane.fade.in.active
+          = @project.description
+
+        #discussion.tab-pane.fade
+          TODO discussion functionality
 
     -# TODO project banner
 
     .col-sm-3.col-md-3
-      #accordion.panel-group
+      .panel.panel-primary
+        .panel-body
+          .funding-status
+            STATUS:
+            %br
+            -# TODO calculate total funding amount
+            %span.completion-amount
+              of
+              = "$#{@project.target_amount}"
+
+          %span.completion-date
+            - if @project.open?
+              = "To be completed: #{@project.completion_date_for_display}"
+            - else
+              = "Project closed on: #{@project.completion_date_for_display}"
+
+      - if user_signed_in?
+        -# then they can fund this
+        -# TODO path to funding model for this project
+        = link_to "Fund This", "#", class: "btn btn-lg btn-primary action-button"
+      - else # not logged in, let's get them to sign up!
+        = link_to "Sign Up To Fund This", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
+
+      #accordion.panel-group.details-panel
         .panel.panel-default
           .panel-heading
             %h4.panel-title
@@ -25,7 +65,7 @@
             %ul.list-group
               - if current_user.present? && @project.is_initiator?(current_user)
                 %li.list-group-item
-                  %a{href: edit_project_path(id: @project.id)} 
+                  %a{href: edit_project_path(id: @project.id)}
                     %span.glyphicon.glyphicon-pencil.text-primary
                     Edit
               %li.list-group-item

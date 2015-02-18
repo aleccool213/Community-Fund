@@ -1,8 +1,10 @@
 class Project < ActiveRecord::Base
   belongs_to :user
-  belongs_to :community
+  has_and_belongs_to_many :communities
   has_many :rewards
   accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
+
+  scope :open, -> { where(open: true)}
 
   def initiator
     User.find(self.initiator_id)
@@ -17,14 +19,26 @@ class Project < ActiveRecord::Base
   end
 
   def description_lead
-    if %w(a e i o u).member? self.community.name[0].downcase
-      "An #{self.community.name} effort"
+    if %w(a e i o u).member? self.communities.first.name[0].downcase
+      "An"
     else
-      "A #{self.community.name} effort"
+      "A"
     end
   end
 
   def is_initiator?(user)
     self.initiator_id == user.id
+  end
+
+  def hashtag_community(community)
+    "##{community.name.gsub(/ /, "")}"
+  end
+
+  def completion_date_for_display
+    "At midnight on #{completion_date.strftime('%B %m, %Y')}"
+  end
+
+  def closed?
+    !open?
   end
 end

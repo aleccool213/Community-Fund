@@ -1,17 +1,22 @@
+Then(/^I go to the "(.*?)"$/) do |arg1|
+  visit(visit_url[arg1])
+end
+
+Then(/^I am on the "(.*?)"$/) do |arg1|
+  visit(visit_url[arg1])
+end
+
+def visit_url
+  {
+    "Home Page" => "/",
+    "Login Page" => "/users/sign_in",
+    "Signup Page" => "/users/sign_up",
+    "Create Project Page" => "/projects/new"
+  }
+end
+
 Given(/^a community exists$/) do
   FactoryGirl.create(:community)
-end
-
-Given(/^I am on the Home Page$/) do
-  visit(root_url)
-end
-
-When(/^I go to the Login page$/) do
-  visit("/users/sign_in")
-end
-
-When(/^I go to the Signup Page$/) do
-  visit("/users/sign_up")
 end
 
 Then(/^I should see "(.*?)"$/) do |arg1|

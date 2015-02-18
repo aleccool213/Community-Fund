@@ -9,7 +9,6 @@
             = f.error_notification
             - @errors = resource.errors
             -# TODO apparently devise stores field errors in here as a flash and not as model errors. Use this to get at them for whatever we plan to do with css
-
           .div{class: 'form-group has-warning', id: 'signup-username'}
             %div{class: "input-group"}
               = f.text_field :username, required: true, class: 'form-control input-sm', label: false, placeholder: 'Username',id: 'signup-username-input', size: 100
@@ -27,3 +26,4 @@
               = f.password_field :password_confirmation, required: true, class: 'form-control input-sm', label: false, placeholder: "Confirm Password", id: 'signup-password-confirm-input', size: 100
               .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-password-confirm-icon'}
           = f.button :submit, "Sign Up", id: "signup_button", class: 'btn btn-info btn-block'
+          = link_to "Already have an account?", new_user_session_path, class: 'btn btn-block'
