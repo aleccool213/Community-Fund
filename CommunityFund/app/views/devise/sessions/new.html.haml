@@ -8,14 +8,14 @@
           .form-group
             = f.error_notification
             - @errors = resource.errors
-            -# TODO something with styling the errors
-
           .div{class: 'form-group has-warning', id: 'login-username'}
-            = f.text_field :username, required: true, class: "form-control input-sm", label: false, placeholder: "Username", id: 'login-username-input'
-            .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-username-icon'}
+            %div{class: "input-group"}
+              = f.text_field :username, required: true, class: "form-control", label: false, placeholder: "Username", id: 'login-username-input', size: 100
+              .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'login-username-icon'}
           .div{class: 'form-group has-warning', id: 'login-password'}
-            = f.password_field :password, required: true, label: false, class: 'form-control input-sm', placeholder: "Password", id: 'login-password-input'
-            .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-username-icon'}
+            %div{class: "input-group"}
+              = f.password_field :password, required: true, label: false, class: 'form-control', placeholder: "Password", id: 'login-password-input', size: 100
+              .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'login-password-icon'}
           - if devise_mapping.rememberable?
             .checkbox
               %label
