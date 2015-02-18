@@ -1,23 +1,28 @@
 %nav.navbar-default
-  .container-fluid
-    .navbar-header
-      %button.navbar-toggle.collapsed{toggle: 'collapse', target: '#navbar-collapse-1'}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.navbar-brand{href: root_path} CommunityFund
-    .collapse.navbar-collapse{id: 'navbar-collapse-1'}
-      %ul.nav.navbar-nav.navbar-right
-        - if user_signed_in?
-          %li
-            = link_to "Start Project", new_project_path
-          %li.active
-            = link_to "Logged in as #{current_user.username}", edit_user_registration_path
-          %li
-            = link_to "Logout", destroy_user_session_path, method: :delete
-        - else
-          %li.active
-            = link_to "Sign Up", new_user_registration_path
-          %li
-            = link_to "Login", new_user_session_path
+	.container-fluid
+		.navbar-header
+			%button.navbar-toggle.collapsed{toggle: 'collapse', target: '#navbar-collapse-1'}
+				%span.sr-only Toggle navigation
+				%span.icon-bar
+				%span.icon-bar
+				%span.icon-bar
+			%a.navbar-brand{href: root_path} CommunityFund
+		.collapse.navbar-collapse{id: 'navbar-collapse-1'}
+			%ul.nav.navbar-nav.navbar-right
+				- if user_signed_in?
+					%li.active
+						-# TODO link to profile page
+						= link_to "Logged in as #{current_user.username}", "#"
+					%li= link_to "Edit Profile", edit_user_registration_path
+					- if current_user.admin?
+						%li{ class: 'dropdown' }
+							%a{ href: '#', class: 'dropdown-toggle', role: 'button', data: { toggle: 'dropdown' } }
+								Administration
+								%span{ class: 'caret' }
+							%ul{ class: 'dropdown-menu', role: 'menu' }
+								%li= link_to "Settings", admin_settings_path
+								%li= link_to "Analytics", admin_analytics_path
+					%li= link_to "Logout", destroy_user_session_path, method: :delete
+				- else
+					%li.active= link_to "Sign Up", new_user_registration_path
+					%li= link_to "Login", new_user_session_path
