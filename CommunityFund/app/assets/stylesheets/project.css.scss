@@ -29,6 +29,11 @@ $correct-green: #49e20e;
     border-bottom: 0;
     padding-left: 30px;
 }
+
+.panel-collapse .list-group-item a{
+  text-decoration: none;
+}
+
 .panel-collapse .list-group-item li.list-group-item:last-child {
     padding-bottom: 0;
 }
@@ -106,6 +111,9 @@ $correct-green: #49e20e;
   width: 100%;
   padding: 20px;
   padding-bottom: 20px;
+}
+
+.funding-button {
   background-color: $money-color;
 }
 
@@ -115,6 +123,13 @@ $correct-green: #49e20e;
 
 a { 
   text-decoration: none;
+}
+
+.project-description {
+  padding: 10px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 200;
 }
 
 .description-body {

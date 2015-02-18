@@ -25,8 +25,9 @@ Project.destroy_all
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
     created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)), 
+    target_amount: rand(100...6000),
     communities: Community.active, 
     completion_date: Time.now + 1.month,
-    open.true
+    open: true
     )
 end

@@ -22,7 +22,8 @@
 
       .tab-content
         #description.tab-pane.fade.in.active
-          = @project.description
+          .project-description
+            = @project.description
 
         #discussion.tab-pane.fade
           TODO discussion functionality
@@ -38,20 +39,21 @@
             -# TODO calculate total funding amount
             %span.completion-amount
               of
-              = "$#{@project.target_amount}"
+              = "$#{number_with_precision(@project.target_amount, precision: 2)}"
 
           %span.completion-date
             - if @project.open?
               = "To be completed: #{@project.completion_date_for_display}"
             - else
               = "Project closed on: #{@project.completion_date_for_display}"
-
-      - if user_signed_in?
+      - if current_user.present? && @project.is_initiator?(current_user)
+        = link_to "Edit", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-lg btn-primary action-button"
+      - elsif user_signed_in?
         -# then they can fund this
         -# TODO path to funding model for this project
-        = link_to "Fund This", "#", class: "btn btn-lg btn-primary action-button"
+        = link_to "Fund this", "#", class: "btn btn-lg btn-primary action-button funding-button"
       - else # not logged in, let's get them to sign up!
-        = link_to "Sign Up To Fund This", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
+        = link_to "Sign up to fund this", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
 
       #accordion.panel-group.details-panel
         .panel.panel-default
@@ -63,11 +65,6 @@
           - # add id #collapseOne to animate this as an accordian -- should be no need to do that now
           .panel-collapse.collapse.in
             %ul.list-group
-              - if current_user.present? && @project.is_initiator?(current_user)
-                %li.list-group-item
-                  %a{href: edit_project_path(id: @project.id)}
-                    %span.glyphicon.glyphicon-pencil.text-primary
-                    Edit
               %li.list-group-item
                 -# TODO link to initiator's profile + displayer username
                 %a{href: "#"} 

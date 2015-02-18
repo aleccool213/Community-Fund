@@ -35,7 +35,7 @@ class NewProjectForm < Form
         self.project.rewards << Reward.create(
             reward_level: reward[:reward_level],
             description: reward[:description]
-          )
+          ) if (reward[:reward_level].present? && reward[:description].present?)
       end
     end
 

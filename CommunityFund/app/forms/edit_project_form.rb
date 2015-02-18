@@ -19,23 +19,25 @@ class EditProjectForm < Form
       target_amount: project_params["target_amount"],
       )
 
-    reward_params.values.each do |reward|
-      #nested attributes stores the id of the reward if it exists (reward["id"]), otherwise just add it
-      # will have reward["_destroy"] = "1" if it should be removed
-      if reward.has_key? "id"
-        if reward.has_key?("_destroy") && (reward["_destroy"] == "1")
-          project.rewards.find(reward["id"]).destroy
+    if reward_params.present?
+      reward_params.values.each do |reward|
+        #nested attributes stores the id of the reward if it exists (reward["id"]), otherwise just add it
+        # will have reward["_destroy"] = "1" if it should be removed
+        if reward.has_key? "id"
+          if reward.has_key?("_destroy") && (reward["_destroy"] == "1")
+            project.rewards.find(reward["id"]).destroy
+          else
+            project.rewards.find(reward["id"]).update(
+              reward_level: reward["reward_level"],
+              description: reward["description"]
+              )
+          end
         else
-          project.rewards.find(reward["id"]).update(
-            reward_level: reward["reward_level"],
-            description: reward["description"]
-            )
+          project.rewards << Reward.create(
+              reward_level: reward["reward_level"],
+              description: reward[:description]
+            ) if (reward[:reward_level].present? && reward[:description].present?)
         end
-      else
-        project.rewards << Reward.create(
-            reward_level: reward["reward_level"],
-            description: reward[:description]
-          )
       end
     end
 
