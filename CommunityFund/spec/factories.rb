@@ -18,7 +18,7 @@ FactoryGirl.define do
 
 	factory :reward do
 		reward_level      100
-		description       "Hot lovin'"
+		sequence(:description)	{ |n| Faker::Company.catch_phrase}
 	end
 
 	factory :project do
@@ -29,8 +29,10 @@ FactoryGirl.define do
 		communities					[ FactoryGirl.create(:community)]
 		initiator_id				FactoryGirl.create(:user).id
 		open                true
-		factory :with_reward do
-			rewards							[ FactoryGirl.create(:reward)]
+
+		trait :with_rewards do
+			rewards							[ FactoryGirl.create(:reward), FactoryGirl.create(:reward)]
 		end
+	
 	end
 end

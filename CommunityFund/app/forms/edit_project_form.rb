@@ -28,13 +28,13 @@ class EditProjectForm < Form
             project.rewards.find(reward["id"]).destroy
           else
             project.rewards.find(reward["id"]).update(
-              reward_level: reward["reward_level"],
-              description: reward["description"]
+              reward_level: reward[:reward_level],
+              description: reward[:description]
               )
           end
         else
           project.rewards << Reward.create(
-              reward_level: reward["reward_level"],
+              reward_level: reward[:reward_level],
               description: reward[:description]
             ) if (reward[:reward_level].present? && reward[:description].present?)
         end

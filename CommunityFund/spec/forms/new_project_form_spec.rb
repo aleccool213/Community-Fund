@@ -12,13 +12,11 @@ RSpec.describe 'new project form' do
         "completion_date(2i)" => "1",
         "completion_date(3i)" => "1",
         target_amount: 6000,
-        "rewards_attributes" => {
+        rewards_attributes: {
           "0"=> {
-            "reward_level"=>"100", "description"=>"A smooch", "_destroy"=>"false"}
-          },
+            reward_level: "100", description: "A smooch", "_destroy"=>"false"},
           "1"=> {
-            "reward_level"=>"150", "description"=>"A double smooch", "_destroy"=>"false"}
-          }
+            reward_level: "150", description: "A double smooch", "_destroy"=>"false"}
         }
       }
     }
