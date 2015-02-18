@@ -41,4 +41,21 @@ class Project < ActiveRecord::Base
   def closed?
     !open?
   end
+
+  def completion_status
+    #status
+    twenty_five = self.target_amount/.25
+    fifty = self.target_amoutn/.5
+    seventy_five = self.target_amount/.75
+
+    if self.current_amount > seventy_five
+      "Project is almost funded! (Over 75% funded)"
+    elsif self.current_amount > fifty
+      "Project is half way there! (Over 50% funded)"
+    elsif self.current_amount >= twenty_five
+      "Project is starting to shape up! (Over 25% funded)"
+    elsif self.current_amount < twenty_five
+      "Project has been created! (0-25% funded)"
+    end
+  end
 end

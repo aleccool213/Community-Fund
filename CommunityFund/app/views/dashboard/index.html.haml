@@ -1,11 +1,34 @@
-.jumbotron
-  .container
-    %h1 Dashboard
-    - if current_user.communities.length >= 1
-      /in the future, display a feed here with most recent events
-      = link_to "Browse your communities", communities_path, class: 'btn btn-lg btn-primary'
-    - else
-      %p
-        Hey, you haven't joined any communities yet!
-        %br
-        = link_to "Wanna?", dashboard_collect_information_path, class: 'btn btn-lg btn-primary'
+.container
+  .row
+    .col-sm-9.col-md-9
+      %h1 Dashboard
+
+      
+      - if !current_user
+        %p
+          sign in to see some cool stuff yo
+      - else
+        //for loop through cards array sent by the controller
+        //cards for events will have 
+          //label, descriptions, icon/image, date and time, avatar and name of corresponding user for event,
+          //if not specific user, show the avatar or badge of the community/project for the event
+          
+
+
+
+
+      
+
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-body
+          - if current_user.communities.length >= 1
+            /in the future, display a feed here with most recent events
+            = link_to "Browse your communities", communities_path, class: 'btn btn-lg'
+          - else
+            %p
+              Hey, you haven't joined any communities yet!
+            %br
+            = link_to "Wanna?", dashboard_collect_information_path, class: 'btn btn-lg'
+
+    
