@@ -10,14 +10,27 @@ FactoryGirl.define do
 		end
 	end
 
-	factory :project do
-		sequence(:name)			{ |n| Faker::Commerce.product_name }
-		sequence(:description)	{ |n| Faker::Lorem.paragraph }
-	end
-
 	factory :community do
 		sequence(:name)			{ |n| Faker::Commerce.department }
 		sequence(:description)	{ |n| Faker::Lorem.paragraph }
 		active					true
+	end
+
+	factory :reward do
+		reward_level      100
+		description       "Hot lovin'"
+	end
+
+	factory :project do
+		sequence(:name)			{ |n| Faker::Commerce.product_name }
+		sequence(:description)	{ |n| Faker::Lorem.paragraph }
+		target_amount				1600
+		completion_date			DateTime.now + 1.month
+		communities					[ FactoryGirl.create(:community)]
+		initiator_id				FactoryGirl.create(:user).id
+		open                true
+		factory :with_reward do
+			rewards							[ FactoryGirl.create(:reward)]
+		end
 	end
 end
