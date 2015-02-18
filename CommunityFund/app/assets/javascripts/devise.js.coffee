@@ -78,14 +78,6 @@ jQuery ->
       $("#signup-password-confirm-icon").attr("class","glyphicon glyphicon-remove form-control-feedback"))
   .trigger('input');
 
-
-
-  #Submit button
-  $(document).ready ->
-    $('#signup_button').hide()
-    undefined
-
-
 # validation for login page
 jQuery ->
   submit_show = () ->
@@ -128,10 +120,13 @@ jQuery ->
       $("#login-password-icon").attr("class","glyphicon glyphicon-remove form-control-feedback"))
   .trigger('input');
 
+#Submit buttons
 
-
-  #Submit button
   $(document).ready ->
-    $('login_button').hide()
+    $('#signup_button').hide()
+    undefined
+
+  $(document).ready ->
+    $('#login_button').hide()
     undefined
 

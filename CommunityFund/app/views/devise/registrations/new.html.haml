@@ -11,15 +11,19 @@
             -# TODO apparently devise stores field errors in here as a flash and not as model errors. Use this to get at them for whatever we plan to do with css
 
           .div{class: 'form-group has-warning', id: 'signup-username'}
-            = f.text_field :username, required: true, class: 'form-control input-sm', label: false, placeholder: 'Username',id: 'signup-username-input'
-            .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-username-icon'}
+            %div{class: "input-group"}
+              = f.text_field :username, required: true, class: 'form-control input-sm', label: false, placeholder: 'Username',id: 'signup-username-input', size: 100
+              .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-username-icon'}
           .div{class: 'form-group has-warning', id: 'signup-email'}
-            = f.text_field :email, required: true, class: 'form-control input-sm', label: false, placeholder: 'Email', id: 'signup-email-input'
-            .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-email-icon'}
+            %div{class: "input-group"}
+              = f.text_field :email, required: true, class: 'form-control input-sm', label: false, placeholder: 'Email', id: 'signup-email-input', size: 100
+              .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-email-icon'}
           .div{class: 'form-group has-warning', id: 'signup-password'}
-            = f.password_field :password, required: true, placeholder: ("Password (#{@minimum_password_length} characters minimum)" if @validatable), label: false, class: 'form-control input-sm', id: 'signup-password-input'
-            .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-password-icon'}
+            %div{class: "input-group"}
+              = f.password_field :password, required: true, placeholder: ("Password (#{@minimum_password_length} characters minimum)" if @validatable), label: false, class: 'form-control input-sm', id: 'signup-password-input', size: 100
+              .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-password-icon'}
           .div{class: 'form-group has-warning', id: 'signup-password-confirm'}
-            = f.password_field :password_confirmation, required: true, class: 'form-control input-sm', label: false, placeholder: "Confirm Password", id: 'signup-password-confirm-input'
-            .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-password-confirm-icon'}
+            %div{class: "input-group"}
+              = f.password_field :password_confirmation, required: true, class: 'form-control input-sm', label: false, placeholder: "Confirm Password", id: 'signup-password-confirm-input', size: 100
+              .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'signup-password-confirm-icon'}
           = f.button :submit, "Sign Up", id: "signup_button", class: 'btn btn-info btn-block'
