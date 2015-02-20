@@ -42,4 +42,8 @@ class Project < ActiveRecord::Base
   def closed?
     !open?
   end
+
+  def total_amount
+    self.funds.sum(:amount)
+  end
 end

@@ -9,7 +9,7 @@ class AddFund < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :funds, :user_id, unique: true
+    add_index :funds, :user_id
     add_index :funds, :project_id
   end
 end

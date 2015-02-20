@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   def in_community?(community)
     communities.include? community
   end
+
+  def fund_for_project(project)
+    funds.where(project_id: project.id).last
+  end
 end

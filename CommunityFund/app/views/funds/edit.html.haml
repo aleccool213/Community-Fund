@@ -1,11 +1,11 @@
 .row
-  %h2= "Donate to #{@project.name}"
+  %h2= "Edit donation for #{@project.name}"
 .row
-  = simple_form_for @new_fund_form, url: funds_path(project_id: @project.id) do |f|
+  = simple_form_for @edit_fund_form, url: fund_path(id: @edit_fund_form.fund.id, project_id: @project.id), method: :put do |f|
     .col-lg-4
 
-      = hidden_field_tag 'reward_id'
-      
+      = hidden_field_tag 'reward_id', @edit_fund_form.fund.reward_id
+
       .form-group
         - if f.error_notification.present?
           .alert.alert-warning
@@ -17,19 +17,6 @@
             %span#amount_icon.fa.fa-money
         .error-text#amount_error.hidden
           = "Please enter an amount greater than $5"
-
-      - unless @communities.blank?
-        #communities
-          .form-group
-            .panel.panel-primary
-              .panel-heading Which Communities would you be interested in joining?
-              .panel-body
-                %ul.list-group.communities
-                  - @communities.each do |community|
-                    .checkbox.community-box
-                      %label
-                        = check_box_tag "community_#{community.id}", true, class: 'form-control'
-                        = community.name
 
       = f.button :submit, "Submit", id: "submit_button", class: "btn btn-info pull-right"
 
@@ -47,10 +34,12 @@
           .reward-option.hidden
             .fa.fa-check-square-o
 
-
 :coffeescript
+  $ ->
+    $('.reward-box[data-reward-id=' + $('#reward_id').val() + ']').find('.reward-option').addClass('been-chose').removeClass('hidden')
+    enable_rewards($('#edit_fund_form_amount'))
 
-  $('#new_fund_form_amount').bind 'input', ->
+  $('#edit_fund_form_amount').bind 'input', ->
     enable_rewards($(this))
     money_validator(valid_amount($(this)), $(this), '#amount_icon', '#amount_error')
 
@@ -104,8 +93,8 @@
       reward_option.addClass('been-chose')
 
   $('form').submit (event)->
-    if valid_amount($('#new_fund_form_amount')) && valid_award_selection()
+    if valid_amount($('#edit_fund_form_amount')) && valid_award_selection()
       return true
     else
       event.preventDefault()
-      money_validator(valid_amount($('#new_fund_form_amount')), $('#new_fund_form_amount'), '#amount_icon', '#amount_error')
+      money_validator(valid_amount($('#edit_fund_form_amount')), $('#edit_fund_form_amount'), '#amount_icon', '#amount_error')
