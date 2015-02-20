@@ -51,7 +51,7 @@
       - elsif user_signed_in?
         -# then they can fund this
         -# TODO path to funding model for this project
-        = link_to "Fund this", "#", class: "btn btn-lg btn-primary action-button funding-button"
+        = link_to "Fund this", new_fund_path(project_id: @project.id), class: "btn btn-lg btn-primary action-button funding-button"
       - else # not logged in, let's get them to sign up!
         = link_to "Sign up to fund this", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
 

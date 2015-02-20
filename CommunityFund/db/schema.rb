@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216200521) do
+ActiveRecord::Schema.define(version: 20150220004954) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -38,6 +38,18 @@ ActiveRecord::Schema.define(version: 20150216200521) do
   add_index "communities_projects", ["community_id"], name: "index_communities_projects_on_community_id"
   add_index "communities_projects", ["project_id"], name: "index_communities_projects_on_project_id"
 
+  create_table "funds", force: true do |t|
+    t.decimal  "amount",     default: 0.0
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.integer  "reward_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "funds", ["project_id"], name: "index_funds_on_project_id"
+  add_index "funds", ["user_id"], name: "index_funds_on_user_id", unique: true
+
   create_table "projects", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -61,7 +73,10 @@ ActiveRecord::Schema.define(version: 20150216200521) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "funds_id"
   end
+
+  add_index "rewards", ["funds_id"], name: "index_rewards_on_funds_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

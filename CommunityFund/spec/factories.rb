@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :fund do
+    
+  end
+
 	factory :user do
 		sequence(:username)		{ |n| Faker::Internet.user_name }
 		sequence(:email)		{ |n| Faker::Internet.email }

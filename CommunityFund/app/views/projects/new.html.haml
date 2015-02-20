@@ -26,7 +26,7 @@
       .form-group
         %label{for: 'target_amount'} Target Amount
         .input-group
-          = f.text_field :target_amount, requied: true, class: 'form-control', placeholder: "$ CAD, $100 minimum"
+          = f.text_field :target_amount, required: true, class: 'form-control', placeholder: "$ CAD, $100 minimum"
           %span.input-group-addon
             %span#target_amount_icon.fa.fa-money
         .error-text#target_amount_error.hidden

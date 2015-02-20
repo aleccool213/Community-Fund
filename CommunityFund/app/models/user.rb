@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :communities
   has_many :projects
+  has_many :funds
 
   def in_community?(community)
     communities.include? community

@@ -1,0 +1,54 @@
+.row
+  %h2= "Donate to #{@project.name}"
+.row
+  = simple_form_for @new_fund_form, url: funds_path(project_id: @project.id) do |f|
+    .col-lg-4
+
+      = hidden_field_tag 'reward_id'
+
+      .form-group
+        - if f.error_notification.present?
+          .alert.alert-warning
+            = f.error_notification
+        %label{for: 'fund_amount'} Fund Amount
+        .input-group
+          = f.text_field :amount, required: true, class: 'form-control', placeholder: "$ CAD, $#{Fund.minimum_amount} minimum"
+          %span.input-group-addon
+            %span#amount_icon.fa.fa-money
+          .error-text#amount_icon.hidden
+            = "Placeholder text, replace me with javascript"
+
+      - unless @communities.blank?
+        #communities
+          .form-group
+            .panel.panel-primary
+              .panel-heading Which Communities would you be interested in joining?
+              .panel-body
+                %ul.list-group.communities
+
+    .col-lg-offset-2.col-lg-4
+      %label Select a reward
+      - @rewards.each do |reward|
+        .reward-box{data: {reward_id: reward.id}}
+          .reward-icon
+            .fa.fa-bell-o
+          .reward-content
+            %h3= "$#{number_with_precision(reward.reward_level, precision: 2)}"
+            %p= reward.description
+          .reward-option.hidden
+            .fa.fa-check-square-o
+
+
+:coffeescript
+
+  $('.reward-box').click ->
+    $('.reward-option').addClass('hidden')
+    $('.reward-option').removeClass('been-chose')
+    reward_option = $(this).find('.reward-option')
+    reward_option.removeClass('hidden')
+    reward_option.addClass('been-chose')
+
+  $('form').submit ->
+    # TODO validation
+    # otherwise attach this before submitting
+    $('#reward_id').val($('reward-box .been-chose').data().rewardId)

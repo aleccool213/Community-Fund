@@ -34,7 +34,8 @@ class NewProjectForm < Form
         reward = reward[1] # this is being created as a two item array, just grab the reward params
         self.project.rewards << Reward.create(
             reward_level: reward[:reward_level],
-            description: reward[:description]
+            description: reward[:description],
+            project_id: self.project
           ) if (reward[:reward_level].present? && reward[:description].present?)
       end
     end
