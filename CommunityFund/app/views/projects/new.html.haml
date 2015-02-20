@@ -115,7 +115,7 @@ jQuery ->
 
   valid_amount = (ref) ->
     num = parseInt(ref.val())
-    if (num >= 100) && (num != NaN)
+    if (num >= 100) && !(isNaN(num))
       return true
     else
       return false
