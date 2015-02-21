@@ -68,12 +68,13 @@ class DashboardController < ApplicationController
       if i.location == current_user.homestate
         event = Hash.new
         event[name: i.name]
+        event[type: "Project"]
         event[type_id: i.id]
         event[description: "Project has been started in your area!"]
-
+        event[time: i.created_at]
     end
 
-
+    
 
 
 
