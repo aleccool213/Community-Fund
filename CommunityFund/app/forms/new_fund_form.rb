@@ -19,6 +19,16 @@ class NewFundForm < Form
 
   self.fund.save
 
+  #add milestone if there is one
+  percentage = self.project.completion_status['percentage']
+  latestMilestone = self.project.milestones.find_by(:percentage => percentage)
+  if (self.project.total_amount > percentage) 
+    and latestMilestone.exists?
+    newMilestone = Milestone.new
+    newMilestone.percentage = percentage
+    newMilestone.save
+  end
+
   # add communities to user
   self.communities.each do |community|
     if attrs.has_key?("community_#{community.id}") && attrs["community_#{community.id}"] == "true"

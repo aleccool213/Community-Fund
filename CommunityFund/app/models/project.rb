@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
   has_many :rewards
   has_many :funds
   has_many :feedbacks
+  has_many :milestones
 
 
   accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
@@ -46,20 +47,27 @@ class Project < ActiveRecord::Base
     !open?
   end
 
+  # Returns a string containing the project status
   def completion_status
+
+    returnValue = { 'code' => 0, 'status' => '' }
     #status
     twenty_five = self.target_amount/.25
-    fifty = self.target_amoutn/.5
+    fifty = self.target_amount/.5
     seventy_five = self.target_amount/.75
 
     if self.current_amount > seventy_five
-      "Project is almost funded! (Over 75% funded)"
+      returnValue['percentage'] = .75
+      returnValue['status'] = "Project is almost funded! (Over 75% funded)"
     elsif self.current_amount > fifty
-      "Project is half way there! (Over 50% funded)"
+      returnValue['percentage'] = .50
+      returnValue['status'] = "Project is half way there! (Over 50% funded)"
     elsif self.current_amount >= twenty_five
-      "Project is starting to shape up! (Over 25% funded)"
+      returnValue['percentage'] = .25
+      returnValue['status'] = "Project is starting to shape up! (Over 25% funded)"
     elsif self.current_amount < twenty_five
-      "Project has been created! (0-25% funded)"
+      returnValue['percentage'] = .00001
+      returnValue['status'] = "Project has been created! (0-25% funded)"
     end
   end
 

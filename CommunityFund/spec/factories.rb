@@ -1,4 +1,7 @@
-FactoryGirl.define do  factory :feedback do
+FactoryGirl.define do  factory :milestone do
+    
+  end
+  factory :feedback do
     
   end
   factory :fund do
