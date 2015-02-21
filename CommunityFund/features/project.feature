@@ -62,3 +62,14 @@ Feature: Projects
     And I should see "Sign up to fund this"
     And I click on the "Sign up to fund this" link
     Then I should see "Create an account"
+
+  Scenario: An initiator should not be able to edit a closed project
+    Given I am on the "Home Page"
+    And I have created a user account
+    When I go to the "Login Page"
+    Then I fill in my login details
+    And I have created a project
+    And the project is closed
+    And I go to the "newest project"
+    Then I should not see "Edit"
+    Then I should see "Project Closed"

@@ -58,15 +58,8 @@
               = "To be completed: #{@project.completion_date_for_display}"
             - else
               = "Project closed on: #{@project.completion_date_for_display}"
-      - if current_user.present? && @project.is_initiator?(current_user)
-        = link_to "Edit", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-lg btn-primary action-button"
-      - elsif user_signed_in?
-        - if user_has_funded?
-          = link_to "Edit donation", edit_fund_path(id: @fund.id, project_id: @project.id), class: 'btn btn-lg btn-primary action-button funding-button'
-        - else
-          = link_to "Fund this", new_fund_path(project_id: @project.id), class: "btn btn-lg btn-primary action-button funding-button"
-      - else # not logged in, let's get them to sign up!
-        = link_to "Sign up to fund this", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
+              
+      = render partial: 'action_button'
 
       #accordion.panel-group.details-panel
         .panel.panel-default
