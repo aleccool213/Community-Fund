@@ -1,0 +1,111 @@
+.row
+  %h2= "Donate to #{@project.name}"
+.row
+  = simple_form_for @new_fund_form, url: funds_path(project_id: @project.id) do |f|
+    .col-lg-4
+
+      = hidden_field_tag 'reward_id'
+      
+      .form-group
+        - if f.error_notification.present?
+          .alert.alert-warning
+            = f.error_notification
+        %label{for: 'fund_amount'} Fund Amount
+        .input-group
+          = f.text_field :amount, required: true, class: 'form-control', placeholder: "$ CAD, $5 minimum"
+          %span.input-group-addon
+            %span#amount_icon.fa.fa-money
+        .error-text#amount_error.hidden
+          = "Please enter an amount greater than $5"
+
+      - unless @communities.blank?
+        #communities
+          .form-group
+            .panel.panel-primary
+              .panel-heading Which Communities would you be interested in joining?
+              .panel-body
+                %ul.list-group.communities
+                  - @communities.each do |community|
+                    .checkbox.community-box
+                      %label
+                        = check_box_tag "community_#{community.id}", true, class: 'form-control'
+                        = community.name
+
+      = f.button :submit, "Submit", id: "submit_button", class: "btn btn-info pull-right"
+
+    .col-lg-offset-2.col-lg-4
+      %label Select a reward
+      .error-text#reward_error.hidden
+        Please select only one award
+      - @rewards.each do |reward|
+        .reward-box.cant-afford{data: {reward_id: reward.id, reward_level: reward.reward_level}}
+          .reward-icon
+            .fa.fa-bell-o
+          .reward-content
+            %h3= "$#{number_with_precision(reward.reward_level, precision: 2)}"
+            %p= reward.description
+          .reward-option.hidden
+            .fa.fa-check-square-o
+
+
+:coffeescript
+
+  $('#new_fund_form_amount').bind 'input', ->
+    enable_rewards($(this))
+    money_validator(valid_amount($(this)), $(this), '#amount_icon', '#amount_error')
+
+  enable_rewards = (ref) ->
+    for reward_box in $('.reward-box')
+      reward_amount = parseInt($(reward_box).data().rewardLevel)
+      entered_amount = parseInt(ref.val())
+      if isNaN(entered_amount) || entered_amount < reward_amount
+        $(reward_box).addClass('cant-afford')
+        $(reward_box).find('.reward-option').removeClass('been-chose')
+        $(reward_box).find('.reward-option').addClass('hidden')
+      else
+        $(reward_box).removeClass('cant-afford')
+
+  valid_award_selection =->
+    if $('.reward-box .been-chose').length > 1
+      $('#reward_error').removeClass('hidden')
+      return false
+    else
+      $('#reward_error').addClass('hidden')
+      debugger
+      $('#reward_id').val($('.reward-box .been-chose').parent().data().rewardId)
+
+  valid_amount = (ref) ->
+    num = parseInt(ref.val())
+    if (num >= 5) && !(isNaN(num))
+      return true
+    else
+      return false
+
+  money_validator = (value, ref, icon, error_text) ->
+    if value
+      ref.removeClass('has-error')
+      $(error_text).addClass('hidden')
+      field_span = ref.parent().find(icon)
+      field_span.removeClass('has-money-error')
+      field_span.addClass('correct-money')
+    else
+      ref.addClass('has-error')
+      $(error_text).removeClass('hidden')
+      field_span = ref.parent().find(icon)
+      field_span.removeClass('correct-money')
+      field_span.addClass('has-money-error')
+
+  $('.reward-box').click ->
+    unless $(this).hasClass('cant-afford')
+      $('.reward-option').addClass('hidden')
+      $('.reward-option').removeClass('been-chose')
+      reward_option = $(this).find('.reward-option')
+      reward_option.removeClass('hidden')
+      reward_option.addClass('been-chose')
+
+  $('form').submit (event)->
+    if valid_amount($('#new_fund_form_amount')) && valid_award_selection()
+      return true
+    else
+      event.preventDefault()
+      money_validator(valid_amount($('#new_fund_form_amount')), $('#new_fund_form_amount'), '#amount_icon', '#amount_error')

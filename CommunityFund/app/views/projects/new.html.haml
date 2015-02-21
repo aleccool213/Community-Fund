@@ -26,7 +26,7 @@
       .form-group
         %label{for: 'target_amount'} Target Amount
         .input-group
-          = f.text_field :target_amount, requied: true, class: 'form-control', placeholder: "$ CAD, $100 minimum"
+          = f.text_field :target_amount, required: true, class: 'form-control', placeholder: "$ CAD, $100 minimum"
           %span.input-group-addon
             %span#target_amount_icon.fa.fa-money
         .error-text#target_amount_error.hidden
@@ -72,13 +72,18 @@
       = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right' 
 
 :coffeescript
+# validation for both project/new and project/edit
+
+jQuery ->
   $ ->
     $("select").addClass('form-control')
     $('.checkbox').find('input').attr('checked', false)
     $('#project_completion_date_3i').val((new Date().getDate() + 7).toString())
 
   $('form').submit (event) ->
-    unless valid_content($('#project_name')) && valid_content($('#project_description')) && valid_amount($("#project_target_amount")) && valid_date && valid_communities() && valid_rewards()
+    if valid_content($('#project_name')) && valid_content($('#project_description')) && valid_amount($("#project_target_amount")) && valid_date && valid_communities() && valid_rewards()
+      return true
+    else
       event.preventDefault()
       empty_content_validator(valid_content($('#project_name')), $('#project_name'), '#name_icon', '#name_error')
       empty_content_validator(valid_content($('#project_description')), $('#project_description'), '#description_icon', '#description_error')
@@ -110,7 +115,7 @@
 
   valid_amount = (ref) ->
     num = parseInt(ref.val())
-    if (num >= 100) && (num != NaN)
+    if (num >= 100) && !(isNaN(num))
       return true
     else
       return false
@@ -141,7 +146,6 @@
       return true
     else
       is_valid = true
-      debugger
       for reward in reward_groups
         do ->
           if ($(reward).find('.reward-level').val() == "") || ($(reward).find('.reward-description').val() == "")
@@ -200,5 +204,3 @@
       $('#communities_error').addClass('hidden')
     else
       $('#communities_error').removeClass('hidden')
-
-

@@ -2,6 +2,10 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :communities
   has_many :rewards
+  has_many :funds
+  has_many :feedbacks
+
+
   accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
 
   scope :open, -> { where(open: true)}
@@ -57,5 +61,27 @@ class Project < ActiveRecord::Base
     elsif self.current_amount < twenty_five
       "Project has been created! (0-25% funded)"
     end
+  end
+
+  def total_amount
+    self.funds.sum(:amount)
+  end
+
+  def funding_successful?
+    self.total_amount >= self.target_amount
+  end
+
+  def notify_users_on_funding
+    # create feedback for users - do this in another branch (model already initialized)
+  end
+
+  def complete_funding
+    self.open = false
+    if funding_successful?
+      self.funding_successful = true
+      notify_users_on_funding
+    end
+
+    self.save
   end
 end

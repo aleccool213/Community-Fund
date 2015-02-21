@@ -29,6 +29,11 @@ $correct-green: #49e20e;
     border-bottom: 0;
     padding-left: 30px;
 }
+
+.panel-collapse .list-group-item a{
+  text-decoration: none;
+}
+
 .panel-collapse .list-group-item li.list-group-item:last-child {
     padding-bottom: 0;
 }
@@ -106,6 +111,9 @@ $correct-green: #49e20e;
   width: 100%;
   padding: 20px;
   padding-bottom: 20px;
+}
+
+.funding-button {
   background-color: $money-color;
 }
 
@@ -117,6 +125,13 @@ a {
   text-decoration: none;
 }
 
+.project-description {
+  padding: 10px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 200;
+}
+
 .description-body {
     padding-right: 30px;
     padding-left: 30px;
@@ -124,16 +139,28 @@ a {
     padding-bottom: 12px;
 }
 
-.reward {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 10px;
+.project-reward-box{
 }
 
-.reward span {
-  font-size: 16px;
+.project-reward{
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
 }
 
-.reward p {
+.project-reward-icon{
+  float: left;
+  padding-right: 10px;
   padding-left: 10px;
+  padding-top: 10px;
+  font-size: 1.5em;
+}
+
+.project-reward-selected {
+  color: $correct-green;
+}
+
+.project-reward p {
+  padding-left: 10px;
+  font-weight: 200;
 }

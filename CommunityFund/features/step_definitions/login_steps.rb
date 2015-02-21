@@ -11,7 +11,8 @@ def visit_url
     "Home Page" => "/",
     "Login Page" => "/users/sign_in",
     "Signup Page" => "/users/sign_up",
-    "Create Project Page" => "/projects/new"
+    "Create Project Page" => "/projects/new",
+    "newest project" => "/projects/#{Project.last.id}"
   }
 end
 
@@ -21,6 +22,10 @@ end
 
 Then(/^I should see "(.*?)"$/) do |arg1|
   page.has_content? arg1
+end
+
+Then(/^I should not see "(.*?)"$/) do |arg1|
+  !(page.has_content? arg1)
 end
 
 Given(/^I have created a user account$/) do
@@ -34,8 +39,8 @@ Then(/^the new user should be created$/) do
 end
 
 Then(/^I click on the first community$/) do
-  @community = Community.first
-  check('collect_information_form[community_1]')
+  @community = Community.active.first
+  check("collect_information_form[community_#{@community.id}]")
   click_button("submit_button")
 end
 
@@ -47,16 +52,16 @@ end
 
 # this doesn't like labels that aren't attached to input fields so specify the element id
 Then(/^I fill in my login details$/) do
-  fill_in 'user_username', with: @user.username
-  fill_in 'user_password', with: @user.password
+  fill_in 'login-username-input', with: @user.username
+  fill_in 'login-password-input', with: @user.password
   click_button('login_button')
 end
 
 Then(/^I fill in my signup details$/) do
   @user = FactoryGirl.build(:user)
-  fill_in 'user_username', with: @user.username
-  fill_in 'user_password', with: @user.password
-  fill_in 'user_password_confirmation', with: @user.password
-  fill_in 'user_email', with: @user.email
+  fill_in 'signup-username-input', with: @user.username
+  fill_in 'signup-password-input', with: @user.password
+  fill_in 'signup-password-confirm-input', with: @user.password
+  fill_in 'signup-email-input', with: @user.email
   click_button('signup_button')
 end

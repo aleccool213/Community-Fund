@@ -1,6 +1,12 @@
 .container
   .row
     .col-sm-9.col-md-9
+
+      = hidden_field_tag 'selected_reward_id', @fund.reward_id if @fund.present?
+
+      - if @new_fund.present?
+        .alert.alert-success
+          Thank you for helping to fund this project! Click on "Edit donation" to change your donation amount or choose a different reward level
       .jumbotron
         %h3.inline= "#{@project.name}: #{@project.description_lead}"
         .project-link.inline
@@ -22,7 +28,8 @@
 
       .tab-content
         #description.tab-pane.fade.in.active
-          = @project.description
+          .project-description
+            = @project.description
 
         #discussion.tab-pane.fade
           TODO discussion functionality
@@ -33,25 +40,33 @@
       .panel.panel-primary
         .panel-body
           .funding-status
-            STATUS:
+            - if @fund.present?
+              .completion-amount
+                You have donated
+                = "$#{number_with_precision(@fund.amount, precision: 2)}"
             %br
-            -# TODO calculate total funding amount
+            %br
+            PROJECT STATUS:
+            %br
             %span.completion-amount
+              = "$#{number_with_precision(@project.total_amount, precision: 2)}"
               of
-              = "$#{@project.target_amount}"
+              = "$#{number_with_precision(@project.target_amount, precision: 2)}"
 
           %span.completion-date
             - if @project.open?
               = "To be completed: #{@project.completion_date_for_display}"
             - else
               = "Project closed on: #{@project.completion_date_for_display}"
-
-      - if user_signed_in?
-        -# then they can fund this
-        -# TODO path to funding model for this project
-        = link_to "Fund This", "#", class: "btn btn-lg btn-primary action-button"
+      - if current_user.present? && @project.is_initiator?(current_user)
+        = link_to "Edit", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-lg btn-primary action-button"
+      - elsif user_signed_in?
+        - if user_has_funded?
+          = link_to "Edit donation", edit_fund_path(id: @fund.id, project_id: @project.id), class: 'btn btn-lg btn-primary action-button funding-button'
+        - else
+          = link_to "Fund this", new_fund_path(project_id: @project.id), class: "btn btn-lg btn-primary action-button funding-button"
       - else # not logged in, let's get them to sign up!
-        = link_to "Sign Up To Fund This", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
+        = link_to "Sign up to fund this", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
 
       #accordion.panel-group.details-panel
         .panel.panel-default
@@ -63,11 +78,6 @@
           - # add id #collapseOne to animate this as an accordian -- should be no need to do that now
           .panel-collapse.collapse.in
             %ul.list-group
-              - if current_user.present? && @project.is_initiator?(current_user)
-                %li.list-group-item
-                  %a{href: edit_project_path(id: @project.id)}
-                    %span.glyphicon.glyphicon-pencil.text-primary
-                    Edit
               %li.list-group-item
                 -# TODO link to initiator's profile + displayer username
                 %a{href: "#"} 
@@ -80,11 +90,19 @@
               %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
                 %span.glyphicon.glyphicon-star.text-primary
                 Rewards
-          -# TODO make rewards box "light up" if viewer has funded project and this is level they are selected for
+
           .panel-collapse.collpase.in
             %ul.list-group
-              - @project.rewards.each do |reward|
-                .reward
-                  %span= "$ #{reward.reward_level}"
-                  %p= reward.description
+              - @rewards.each do |reward|
+                .project-reward-box{data: {reward_id: reward.id}}
+                  .project-reward-icon
+                    .selected-reward.fa.fa-bell-o
+                  .project-reward
+                    %h3= "$ #{reward.reward_level}"
+                    %p= reward.description
 
+:coffeescript
+  $ ->
+    if $('#selected_reward_id')
+      debugger
+      $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('project-reward-selected')

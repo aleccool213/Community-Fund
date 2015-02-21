@@ -21,6 +21,11 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @rewards = @project.rewards.order('reward_level ASC')
+    @fund = current_user.fund_for_project(@project)
+    if params.has_key?(:new_fund_id)
+      @new_fund = true
+    end
   end
 
   def edit
