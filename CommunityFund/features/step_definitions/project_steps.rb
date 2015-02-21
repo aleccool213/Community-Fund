@@ -15,7 +15,11 @@ Then(/^I click on the "(.*?)" link$/) do |arg1|
 end
 
 Given(/^a project exists$/) do
-  FactoryGirl.create(:project)
+  FactoryGirl.create(:project, :with_rewards, communities: [Community.active.first])
+end
+
+Given(/^a project has been closed$/) do
+  FactoryGirl.create(:project, :with_rewards, communities: [Community.active.first], open: false)
 end
 
 Then(/^the project info should be shown$/) do
@@ -53,7 +57,7 @@ end
 
 Then(/^I have created a project$/) do
   @user = User.last
-  @project = FactoryGirl.create(:project, initiator_id: @user.id)
+  @project = FactoryGirl.create(:project, :with_rewards, initiator_id: @user.id)
 end
 
 Then(/^the project is closed$/) do

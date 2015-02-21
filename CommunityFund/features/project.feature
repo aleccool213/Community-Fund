@@ -15,6 +15,9 @@ Feature: Projects
     And I edit the project
     Then I should see "Some new description"
     And I should see "of $1500.00"
+    And I should not see "Fund this"
+    And I should not see "Edit donation"
+    And I should not see "Sign up to fund this"
 
   Scenario: Form validations
     Given I am on the "Home Page"
