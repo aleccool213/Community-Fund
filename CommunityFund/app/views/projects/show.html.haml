@@ -93,7 +93,7 @@
 
           .panel-collapse.collpase.in
             %ul.list-group
-              - @project.rewards.each do |reward|
+              - @rewards.each do |reward|
                 .project-reward-box{data: {reward_id: reward.id}}
                   .project-reward-icon
                     .selected-reward.fa.fa-bell-o
@@ -101,8 +101,8 @@
                     %h3= "$ #{reward.reward_level}"
                     %p= reward.description
 
- -# TODO reward icon not turning green? 
 :coffeescript
   $ ->
     if $('#selected_reward_id')
-      $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('.project-reward-selected')
+      debugger
+      $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('project-reward-selected')
