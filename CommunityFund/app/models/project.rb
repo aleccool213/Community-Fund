@@ -58,7 +58,7 @@ class Project < ActiveRecord::Base
     # create feedback for users - do this in another branch (model already initialized)
   end
 
-  def complete_funding
+  def close_project
     self.open = false
     if funding_successful?
       self.funding_successful = true
