@@ -16,5 +16,6 @@
             - if alert.present?
                 .alert.alert-warning
                     = alert
+            = render "layouts/feedback"
             = yield
         = render "layouts/footer"

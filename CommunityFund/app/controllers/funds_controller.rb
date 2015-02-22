@@ -1,5 +1,6 @@
 class FundsController < ApplicationController
 
+  before_filter :authenticate_user!
   before_filter :load_project_and_communities
   before_filter :ensure_open
 

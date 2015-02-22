@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   resources :communities
   resources :projects
   resources :funds
+  resources :feedbacks do
+    post :submit
+    post :dismiss
+  end
 end

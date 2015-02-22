@@ -17,8 +17,9 @@ RSpec.describe "Project Closer" do
     expect(@project4.reload.open?).to eq(false)
   end
 
-  it "should set the funding successful flag when enough funds have been given to a project" do
+  it "should set the funding successful flag when enough funds have been given to a project, and have sent user notifications" do
     @project3.update(completion_date: DateTime.now - 1.day)
+
     # add insufficient funds for @project2
     FactoryGirl.create(:fund, project: @project2, amount: 40)
     FactoryGirl.create(:fund, project: @project2, amount: 40)
@@ -33,9 +34,10 @@ RSpec.describe "Project Closer" do
 
     expect(@project3.reload.open?).to eq(false)
     expect(@project3.funding_successful?).to eq(true)
+
+    # test to ensure that feedback records have been created for users
+    expect(Feedback.where(project_id: @project2.id).count).to eq(0)
+    expect(Feedback.where(project_id: @project3.id).count).to eq(@project3.donors.count)
   end
 
-  it "should create notices for users to gather feedback when a project closes" do
-
-  end
 end
