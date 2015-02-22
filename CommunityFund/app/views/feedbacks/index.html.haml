@@ -1,7 +1,7 @@
 - if @feedbacks.count >= 1
   - @feedbacks.each do |feedback|
     - @feedback = feedback
-    = render partial: "feedback"
+    = render partial: "feedback", locals: {can_dismiss: false}
 - else
   No feedbacks!
   TODO - links to encourage them to browse their communities, fund projects, etc

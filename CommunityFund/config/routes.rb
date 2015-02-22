@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   resources :projects
   resources :funds
   resources :feedbacks do
-    post :submit
-    post :dismiss
+    member do
+      post :submit
+      post :dismiss
+    end
   end
 end

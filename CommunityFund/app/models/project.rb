@@ -67,6 +67,11 @@ class Project < ActiveRecord::Base
     self.save
   end
 
+  def average_rating
+    submitted_feedback = Feedback.submitted.where(project_id: self.id)
+    submitted_feedback.sum(:rating) / submitted_feedback.count
+  end
+
   private
 
     def notify_users_on_funding!
