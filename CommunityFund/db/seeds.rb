@@ -11,6 +11,7 @@ User.create(username: "administrator", email: "admin@community-fund.ca",
 			admin: true)
 User.create(username: "TimoVink", email: "timovink@gmail.com",
 			password: "password1-", password_confirmation: "password1-")
+User.create(username: "chris", email: "chris@community-fund.ca", password: "password", password_confirmation: "password", admin: true)
 100.times do
 	User.create(username: Faker::Internet.user_name, email: Faker::Internet.free_email,
 				password: "password1-", password_confirmation: "password1-",
@@ -20,5 +21,13 @@ end
 
 Project.destroy_all
 20.times do
-	Project.create(created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)))
+	Project.create(
+    name: Faker::Commerce.product_name,
+    description: Faker::Lorem.paragraph,
+    created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)), 
+    target_amount: rand(100...6000),
+    communities: Community.active, 
+    completion_date: Time.now + 1.month,
+    open: true
+    )
 end

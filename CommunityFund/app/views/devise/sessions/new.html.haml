@@ -21,3 +21,4 @@
               %label
                 = f.input :password_confirmation, as: :boolean, label: "Remember Me?"
           = f.button :submit, "Log In", id: "login_button", class: 'btn btn-info btn-block'
+          = link_to "Don't have an account?", new_user_registration_path, class: "btn btn-block"

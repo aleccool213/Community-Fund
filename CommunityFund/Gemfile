@@ -21,6 +21,7 @@ gem 'font-awesome-sass'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'cocoon'
+gem 'cancan'
 
 #profiles
 gem 'devise'
