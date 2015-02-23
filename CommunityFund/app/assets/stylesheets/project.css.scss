@@ -139,16 +139,28 @@ a {
     padding-bottom: 12px;
 }
 
-.reward {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 10px;
+.project-reward-box{
 }
 
-.reward span {
-  font-size: 16px;
+.project-reward{
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
 }
 
-.reward p {
+.project-reward-icon{
+  float: left;
+  padding-right: 10px;
   padding-left: 10px;
+  padding-top: 10px;
+  font-size: 1.5em;
+}
+
+.project-reward-selected {
+  color: $correct-green;
+}
+
+.project-reward p {
+  padding-left: 10px;
+  font-weight: 200;
 }

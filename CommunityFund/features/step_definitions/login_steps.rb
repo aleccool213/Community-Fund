@@ -65,3 +65,7 @@ Then(/^I fill in my signup details$/) do
   fill_in 'signup-email-input', with: @user.email
   click_button('signup_button')
 end
+
+Then(/^show me the page$/) do
+  save_and_open_page
+end

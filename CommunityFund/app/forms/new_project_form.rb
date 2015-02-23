@@ -25,7 +25,7 @@ class NewProjectForm < Form
 
     # add communities to project
     Community.active.each do |community|
-      project.communities << community if attrs["community_#{community.id}".to_sym]
+      project.communities << community if attrs["community_#{community.id}"] == "true"
     end
 
     # build reward levels for project
@@ -34,7 +34,8 @@ class NewProjectForm < Form
         reward = reward[1] # this is being created as a two item array, just grab the reward params
         self.project.rewards << Reward.create(
             reward_level: reward[:reward_level],
-            description: reward[:description]
+            description: reward[:description],
+            project_id: self.project
           ) if (reward[:reward_level].present? && reward[:description].present?)
       end
     end

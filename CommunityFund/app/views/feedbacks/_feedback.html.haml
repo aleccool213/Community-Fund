@@ -1,0 +1,61 @@
+- @project = @feedback.project
+- @can_dismiss = can_dismiss
+= hidden_field_tag "feedback_submit_url_#{@feedback.id}", submit_feedback_path(@feedback.id)
+- if @can_dismiss
+  = hidden_field_tag "feedback_dismiss_url_#{@feedback.id}", dismiss_feedback_path(@feedback.id)
+
+.panel.panel-default{id: "feedback_form_#{@feedback.id}", class: 'feedback-form', data: {feedback_id: @feedback.id}}
+  .panel-heading
+    .active-heading
+      = "#{@project.name} has completed the funding process! Please fill out form upon completion or delivery."
+    .sent-heading.hidden
+
+  .panel-body
+    .feedback-body
+      .feedback-rating
+        %label How many out of 10?
+        = select_tag "feedback_rating_#{@feedback.id}", options_for_select((1..10).each{ |r| [r, r] }), class: 'form-control', data: {feedback_id: @feedback.id}
+      .feedback-description
+        %label Any comments on the creator, product, or process?
+        = text_area_tag "feedback_description_#{@feedback.id}", nil, class: 'form-control', data: {feedback_id: @feedback.id}
+
+      .feedback-actions
+        = button_tag "Submit", id: "submit_button_#{@feedback.id}}", class: 'submit-feedback-button btn btn-md btn-primary', data: {feedback_id: @feedback.id}
+        - if @can_dismiss
+          = button_tag "Dismiss", id: "dismiss_button_#{@feedback.id}", class: 'dismiss-feedback-button btn btn-md', data: {feedback_id: @feedback.id}
+    .feedback-success.hidden
+      Thank you for your feedback!
+          
+:coffeescript
+  $('.submit-feedback-button').click ->
+    form = $(this).closest('.feedback-form')
+    feedback_id = form.data().feedbackId
+    $.ajax
+      type: 'POST'
+      url: $("#feedback_submit_url_" + feedback_id).val()
+      dataType: 'json'
+      data:
+        feedback_rating: form.find("#feedback_rating_" + form.data().feedbackId).val()
+        feedback_description: form.find("#feedback_description_" + form.data().feedbackId).val()
+      success: (data) ->
+        heading = form.find('.panel-heading')
+        heading.find('.active-heading').addClass('hidden')
+        heading.find('.sent-heading').removeClass('hidden')
+        body = form.find('.panel-body')
+        body.find('.feedback-body').addClass('hidden')
+        body.find('.feedback-success').removeClass('hidden')
+
+    event.preventDefault()
+
+  $('.dismiss-feedback-button').click ->
+    form = $(this).closest('.feedback-form')
+    feedback_id = form.data().feedbackId
+    $.ajax
+      type: 'POST'
+      url: $("#feedback_dismiss_url_" + feedback_id).val()
+      dataType: 'json'
+      success: (data) ->
+        form.remove()
+
+    event.preventDefault()
+    

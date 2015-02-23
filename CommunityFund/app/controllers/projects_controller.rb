@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
   before_action :authenticate_user!, except: [:show]
   before_filter :ensure_initiator, only: [:edit, :update]
+  before_filter :ensure_open, only: [:edit, :update]
 
   def new
     @communities = Community.active
@@ -21,6 +22,11 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @rewards = @project.rewards.order('reward_level ASC')
+    @fund = current_user.try(:fund_for_project, @project)
+    if params.has_key?(:new_fund_id)
+      @new_fund = true
+    end
   end
 
   def edit
@@ -33,6 +39,13 @@ class ProjectsController < ApplicationController
     @edit_project_form = ::EditProjectForm.new(user: current_user, communities: @communities, project: @project)
     @edit_project_form.submit(params)
     redirect_to project_path(id: @project.id)
+  end
+
+  def ensure_open
+    @project ||= Project.find(params[:id])
+    if @project.closed?
+      redirect_to project_path(id: @project.id)
+    end
   end
 
   def ensure_initiator

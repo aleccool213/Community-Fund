@@ -1,0 +1,9 @@
+- if user_signed_in?
+  - @feedbacks = Feedback.open.not_dismissed.where(user_id: current_user.id)
+  - if @feedbacks.count >= 1
+    .row
+      .col-lg-4
+        - @feedbacks.each do |feedback|
+          - @feedback = feedback
+
+          = render partial: "feedbacks/feedback", locals: {can_dismiss: true}

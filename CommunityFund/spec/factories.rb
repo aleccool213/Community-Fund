@@ -1,4 +1,10 @@
-FactoryGirl.define do
+FactoryGirl.define do  
+
+	factory :feedback do
+    
+  end
+  
+
 	factory :user do
 		sequence(:username)		{ |n| Faker::Internet.user_name }
 		sequence(:email)		{ |n| Faker::Internet.email }
@@ -26,7 +32,7 @@ FactoryGirl.define do
 		sequence(:description)	{ |n| Faker::Lorem.paragraph }
 		target_amount				1600
 		completion_date			DateTime.now + 1.month
-		communities					[ FactoryGirl.create(:community)]
+		communities					[ FactoryGirl.create(:community) ]
 		initiator_id				FactoryGirl.create(:user).id
 		open                true
 
@@ -35,4 +41,11 @@ FactoryGirl.define do
 		end
 	
 	end
+
+	factory :fund do
+		user  							FactoryGirl.create(:user)
+  	project							FactoryGirl.create(:project, :with_rewards)					
+    amount            	100
+  end
+
 end
