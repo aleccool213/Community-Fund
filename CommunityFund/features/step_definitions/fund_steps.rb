@@ -1,5 +1,4 @@
 Then(/^I create a donation$/) do
-  @project = Project.last
   page.has_content? "Donation to #{@project.name}"
   fill_in 'new_fund_form_amount', with: "0"
   page.has_content? "Please enter an amount greater than $5"
