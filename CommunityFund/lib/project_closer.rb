@@ -7,7 +7,7 @@ class ProjectCloser
   end
 
   # for testing and development only! close a specific project!
-  def self.close(id)
+  def self.close_project(id)
     Project.find(id).close!
   end
 end
