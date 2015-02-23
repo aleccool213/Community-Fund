@@ -22,6 +22,23 @@ Given(/^a project has been closed$/) do
   FactoryGirl.create(:project, :with_rewards, communities: [Community.active.first], open: false)
 end
 
+Then(/^the project has met funding requirements$/) do
+  @project = Project.last
+  @user = User.last
+  FactoryGirl.create(:fund, project: @project, amount: @project.target_amount + 1, user: @user)
+end
+
+Then (/^the project closes$/) do
+  @project = Project.last
+  @project.close!
+end
+
+Then(/^the project should have closed successfully$/) do
+  @project = Project.last
+  expect(@project.open?).to eq(false)
+  expect(@project.funding_successful?).to eq(true)
+end
+
 Then(/^the project info should be shown$/) do
   @project = Project.last
   page.has_content? "New Project"

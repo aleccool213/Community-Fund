@@ -4,6 +4,7 @@
 - if @can_dismiss
   = hidden_field_tag "feedback_dismiss_url_#{@feedback.id}", dismiss_feedback_path(@feedback.id)
 
+- # TODO - link to project page for each feedback form
 .panel.panel-default{id: "feedback_form_#{@feedback.id}", class: 'feedback-form', data: {feedback_id: @feedback.id}}
   .panel-heading
     .active-heading
@@ -22,7 +23,7 @@
       .feedback-actions
         = button_tag "Submit", id: "submit_button_#{@feedback.id}}", class: 'submit-feedback-button btn btn-md btn-primary', data: {feedback_id: @feedback.id}
         - if @can_dismiss
-          = button_tag "Dismiss", id: "dismiss_button_#{@feedback.id}", class: 'dismiss-feedback-button btn btn-md', data: {feedback_id: @feedback.id}
+          = button_tag "Do this later", id: "dismiss_button_#{@feedback.id}", class: 'dismiss-feedback-button btn btn-md', data: {feedback_id: @feedback.id}
     .feedback-success.hidden
       Thank you for your feedback!
           

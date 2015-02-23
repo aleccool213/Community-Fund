@@ -1,10 +1,5 @@
 FactoryGirl.define do  
 
-	factory :feedback do
-    
-  end
-  
-
 	factory :user do
 		sequence(:username)		{ |n| Faker::Internet.user_name }
 		sequence(:email)		{ |n| Faker::Internet.email }
@@ -46,6 +41,15 @@ FactoryGirl.define do
 		user  							FactoryGirl.create(:user)
   	project							FactoryGirl.create(:project, :with_rewards)					
     amount            	100
+  end
+
+  factory :feedback do
+    rating						0
+    submitted   			false
+    dismissed					false
+    description 			"Project was great"
+    user_id 					FactoryGirl.create(:user).id
+    project_id     		FactoryGirl.create(:project).id  
   end
 
 end

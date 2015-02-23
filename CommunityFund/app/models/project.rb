@@ -57,7 +57,7 @@ class Project < ActiveRecord::Base
     self.total_amount >= self.target_amount
   end
 
-  def close_project
+  def close!
     self.open = false
     if funding_successful?
       self.funding_successful = true

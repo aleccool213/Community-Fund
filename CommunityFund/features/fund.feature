@@ -15,7 +15,6 @@ Feature: Funding a project
     Then I edit my donation
     Then I should see my donation has changed
 
-
   Scenario: A user should not be able to edit their fund after a project has closed
     Given a project has been closed
     When I go to the "newest project"

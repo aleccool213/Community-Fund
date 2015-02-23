@@ -8,7 +8,7 @@ class FeedbacksController < ApplicationController
     if @feedback.try(:user_id) == current_user.id
       @feedback.update(
         rating: params[:feedback_rating].to_i,
-        description: params[:feedback_description].to_i,
+        description: params[:feedback_description],
         submitted: true
         )
       render json: {status: 200}
