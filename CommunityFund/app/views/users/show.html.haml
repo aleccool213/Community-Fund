@@ -1,21 +1,17 @@
 .row
-  .col-md-3
-    %h1.text-center #{@user.username}
-    %ul.list-group
-      %li.list-group-item
-        = image_tag avatar_url(@user, 200), :class => "img-responsive"
-      %li.list-group-item Email: #{@user.email}
-      %li.list-group-item Hometown: #{@user.hometown}
-      %li.list-group-item Homestate: #{@user.homestate}
-      %li.list-group-item Date Joined: #{@user.created_at}
-      %li.list-group-item Last Sign In: #{@user.last_sign_in_at}
-      
-      - if (user_signed_in? && current_user == @user)
-        %li.list-group-item
-          = link_to "Edit Profile", edit_user_registration_path
-  .col-md-9
-    %ul.nav.nav-tabs
+  .col-fixed-200
+    = image_tag avatar_url(@user, 200), :class => "img-responsive"
+  .col-md-12.col-offset-200.col-height-200
+    .container
+      %h1 #{@user.username}
+      %h6 Date Joined: #{@user.created_at}
+      %h6 Last Sign In: #{@user.current_sign_in_at}
+.row
+  .tab-group
+    %ul.nav.nav-tabs{role: "tablist"}
       %li.active
+        = link_to "Profile", "#profile", "data-toggle" => "tab"
+      %li
         = link_to "Projects", "#projects", "data-toggle" => "tab"
       %li
         = link_to "Funded", "#funds", "data-toggle" => "tab"
@@ -25,25 +21,31 @@
         = link_to "Feedback", "#feedbacks", "data-toggle" => "tab"
       
     .tab-content
-      .tab-pane.active{id: "projects"}
+      .tab-pane.fade.in.active{id: "profile"}
+        %p Email: #{@user.email}
+        %p Hometown: #{@user.hometown}
+        %p Homestate: #{@user.homestate}
+        - if (user_signed_in? && current_user == @user)
+          = link_to "Edit Profile", edit_user_registration_path
+      .tab-pane.fade{id: "projects"}
         - if @projects.any?
           - @projects.each do |project|
             %project.name
         - else
           #{@user.username} hasn't started any projects.
-      .tab-pane.active{id: "funds"}
+      .tab-pane.fade{id: "funds"}
         - if @funds.any?
           - @funds.each do |fund|
             %fund.amount
         - else
           #{@user.username} hasn't funded any projects.
-      .tab-pane{id: "communities"}
+      .tab-pane.fade{id: "communities"}
         - if @communities.any?
           - @communities.each do |community|
             %community.name
         - else
           #{@user.username} doesn't belong to any communities.
-      .tab-pane{id: "feedbacks"}
+      .tab-pane.fade{id: "feedbacks"}
         - if @feedbacks.any?
           - @feedbacks.each do |feedback|
             %feedback.description
