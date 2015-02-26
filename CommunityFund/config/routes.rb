@@ -9,7 +9,10 @@ Rails.application.routes.draw do
 
     namespace :admin do
         get :analytics
+
         get :settings
         post 'settings/update_admins', to: :update_admins
+
+        get :moderation
     end
 end

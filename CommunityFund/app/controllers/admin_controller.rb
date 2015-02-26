@@ -38,6 +38,9 @@ class AdminController < ApplicationController
 		redirect_to admin_settings_path
 	end
 
+	def moderation
+	end
+
 	private
 		# Takes the data and adds entries with value 0 for any missing dates
 		def add_missing_data(data)
