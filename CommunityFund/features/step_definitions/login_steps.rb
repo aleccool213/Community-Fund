@@ -14,10 +14,6 @@ When(/^I go to the Signup Page$/) do
   visit("/users/sign_up")
 end
 
-Then(/^I should see "(.*?)"$/) do |arg1|
-  page.has_content? arg1
-end
-
 Given(/^I have created a user account$/) do
   @user = FactoryGirl.create(:user)
 end
