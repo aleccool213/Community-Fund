@@ -1,0 +1,26 @@
+.row
+  .col-md-3
+    %h1.text-center #{@user.username}
+    %ul.list-group
+      %li.list-group-item
+        = image_tag avatar_url(@user, 200), :class => "img-responsive"
+      %li.list-group-item Email: #{@user.email}
+      %li.list-group-item Hometown: #{@user.hometown}
+      %li.list-group-item Homestate: #{@user.homestate}
+      - if (user_signed_in? && current_user == @user)
+        %li.list-group-item
+          = link_to "Edit Profile", edit_user_registration_path
+  .col-md-9
+    %ul.nav.nav-tabs
+      %li.active
+        = link_to "Projects", "#projects", "data-toggle" => "tab"
+      %li
+        = link_to "Communities", "#communities", "data-toggle" => "tab"
+      
+    .tab-content
+      .tab-pane.active{id: "projects"}
+        - @user.communities.each do |community|
+          %community
+      .tab-pane{id: "communities"}
+        - @user.projects.each do |project|
+          %project
