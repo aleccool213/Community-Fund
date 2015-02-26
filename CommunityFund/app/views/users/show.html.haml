@@ -3,7 +3,10 @@
     = image_tag avatar_url(@user, 200), :class => "img-responsive"
   .col-md-12.col-offset-200.col-height-200
     .container
-      %h1 #{@user.username}
+      %h1
+        - if @user.admin?
+          [Admin]
+        #{@user.username}
       %h6 Date Joined: #{@user.created_at}
       %h6 Last Sign In: #{@user.current_sign_in_at}
 .row
@@ -30,7 +33,12 @@
       .tab-pane.fade{id: "projects"}
         - if @projects.any?
           - @projects.each do |project|
-            %project.name
+            .media
+              .media-left
+                Project Picture
+              .media-body
+                %h4.media-heading #{project.name}"
+                #{project.description}
         - else
           #{@user.username} hasn't started any projects.
       .tab-pane.fade{id: "funds"}
