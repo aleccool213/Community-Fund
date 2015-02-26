@@ -49,26 +49,33 @@ class Project < ActiveRecord::Base
 
   # Returns a string containing the project status
   def completion_status
-
-    returnValue = { 'code' => 0, 'status' => '' }
+    returnValue = {status: '' , percentage: 0.0}
     #status
-    twenty_five = self.target_amount/.25
-    fifty = self.target_amount/.5
-    seventy_five = self.target_amount/.75
-
-    if self.current_amount > seventy_five
-      returnValue['percentage'] = .75
-      returnValue['status'] = "Project is almost funded! (Over 75% funded)"
-    elsif self.current_amount > fifty
-      returnValue['percentage'] = .50
-      returnValue['status'] = "Project is half way there! (Over 50% funded)"
-    elsif self.current_amount >= twenty_five
-      returnValue['percentage'] = .25
-      returnValue['status'] = "Project is starting to shape up! (Over 25% funded)"
-    elsif self.current_amount < twenty_five
-      returnValue['percentage'] = .00001
-      returnValue['status'] = "Project has been created! (0-25% funded)"
+    if self.target_amount and self.total_amount
+      twenty_five = self.target_amount*0.25
+      fifty = self.target_amount*0.5
+      seventy_five = self.target_amount*0.75
+      if self.total_amount.to_s.to_i > seventy_five
+        returnValue[:percentage] = 0.75
+        returnValue[:status] = "Project is almost funded! (Over 75% funded)"
+      elsif self.total_amount.to_s.to_i > fifty
+        returnValue[:percentage] = 0.50
+        returnValue[:status] = "Project is half way there! (Over 50% funded)"
+      elsif self.total_amount.to_s.to_i >= twenty_five
+        returnValue[:percentage] = 0.25
+        returnValue[:status] = "Project is starting to shape up! (Over 25% funded)"
+      elsif self.total_amount.to_s.to_i < twenty_five
+        returnValue[:percentage] = 0.01
+        returnValue[:status] = "Project has been created! (0-25% funded)"
+      else
+        returnValue[:percentage] = 0.0
+        returnValue[:status] = "Project has no funding!"
+      end
+      returnValue
+    else
+      nil
     end
+
   end
 
   def total_amount

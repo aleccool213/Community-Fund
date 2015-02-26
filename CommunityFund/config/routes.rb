@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resources :communities
   resources :projects
   resources :funds
+  
 end
