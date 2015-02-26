@@ -19,7 +19,6 @@ Feature: Projects
     And I should not see "Edit donation"
     And I should not see "Sign up to fund this"
 
-  @javascript
   Scenario: Form validations
     Given I am on the "Home Page"
     And I have created a user account
