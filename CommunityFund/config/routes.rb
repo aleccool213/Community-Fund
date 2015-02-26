@@ -1,18 +1,33 @@
 Rails.application.routes.draw do
-    devise_for :users, controllers: {registrations: 'registrations'}
+  # devise overrides
+  devise_for :users, controllers: {registrations: 'registrations'}
 
-    root "home#index"
+  root "home#index"
 
-    get 'dashboard' => 'dashboard#index'
-    get 'dashboard/collect_information' => 'dashboard#collect_information'
-    post 'dashboard/submit_information' => 'dashboard#submit_information'
+  #dashboard
+  get 'dashboard' => 'dashboard#index'
+  get 'dashboard/collect_information' => 'dashboard#collect_information'
+  post 'dashboard/submit_information' => 'dashboard#submit_information'
 
-    namespace :admin do
-        get :analytics
+  #communities
+  get 'communities' => 'communities#index'
 
-        get :settings
-        post 'settings/update_admins', to: :update_admins
+  namespace :admin do
+    get :analytics
 
-        get :moderation
+    get :settings
+    post 'settings/update_admins', to: :update_admins
+
+    get :moderation
+  end
+
+  resources :communities
+  resources :projects
+  resources :funds
+  resources :feedbacks do
+    member do
+      post :submit
+      post :dismiss
     end
+  end
 end

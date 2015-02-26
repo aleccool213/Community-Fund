@@ -1,0 +1,101 @@
+.container
+  .row
+    .col-sm-9.col-md-9
+
+      = hidden_field_tag 'selected_reward_id', @fund.reward_id if @fund.present?
+
+      - if @new_fund.present?
+        .alert.alert-success
+          Thank you for helping to fund this project! Click on "Edit donation" to change your donation amount or choose a different reward level
+      .jumbotron
+        %h3.inline= "#{@project.name}: #{@project.description_lead}"
+        .project-link.inline
+          - @project.communities.each do |community|
+            = "#{(@project.communities.count > 1) && (@project.communities.last == community) ? 'and' : ''}"
+            %a{href: community_path(id: community.id)}
+              = "#{@project.hashtag_community(community)}"
+        %h3.inline effort
+
+      %ul.nav.nav-pills
+        %li.active{role: "presentation"}
+          %a{href: "#description", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-ice-lolly-tasted
+              Description
+        %li{role: "presentation"}
+          %a{href: "#discussion", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-comment
+              Discussion
+
+      .tab-content
+        #description.tab-pane.fade.in.active
+          .project-description
+            = @project.description
+
+        #discussion.tab-pane.fade
+          TODO discussion functionality
+
+    -# TODO project banner
+
+    .col-sm-3.col-md-3
+      .panel.panel-primary
+        .panel-body
+          .funding-status
+            - if @fund.present?
+              .completion-amount
+                You have donated
+                = "$#{number_with_precision(@fund.amount, precision: 2)}"
+            %br
+            %br
+            PROJECT STATUS:
+            %br
+            %span.completion-amount
+              = "$#{number_with_precision(@project.total_amount, precision: 2)}"
+              of
+              = "$#{number_with_precision(@project.target_amount, precision: 2)}"
+
+          %span.completion-date
+            - if @project.open?
+              = "To be completed: #{@project.completion_date_for_display}"
+            - else
+              = "Project closed on: #{@project.completion_date_for_display}"
+              
+      = render partial: 'action_button'
+
+      #accordion.panel-group.details-panel
+        .panel.panel-default
+          .panel-heading
+            %h4.panel-title
+              - #%a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+              %span.glyphicon.glyphicon-chevron-right
+              Details
+          - # add id #collapseOne to animate this as an accordian -- should be no need to do that now
+          .panel-collapse.collapse.in
+            %ul.list-group
+              %li.list-group-item
+                -# TODO link to initiator's profile + displayer username
+                %a{href: "#"} 
+                  %span.glyphicon.glyphicon-user.text-primary
+                  Creator
+      .panel-group
+        .panel.panel-default
+          .panel-heading
+            %h4.panel-title
+              %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+                %span.glyphicon.glyphicon-star.text-primary
+                Rewards
+
+          .panel-collapse.collpase.in
+            %ul.list-group
+              - @rewards.each do |reward|
+                .project-reward-box{data: {reward_id: reward.id}}
+                  .project-reward-icon
+                    .selected-reward.fa.fa-bell-o
+                  .project-reward
+                    %h3= "$ #{reward.reward_level}"
+                    %p= reward.description
+
+:coffeescript
+  $ ->
+    if $('#selected_reward_id')
+      debugger
+      $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('project-reward-selected')

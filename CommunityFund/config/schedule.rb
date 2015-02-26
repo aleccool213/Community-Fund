@@ -18,3 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every 1.days, at: '12am' do
+  runner 'ProjectCloser.close'
+end
