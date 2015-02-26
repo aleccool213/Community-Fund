@@ -15,12 +15,22 @@
       %li.active
         = link_to "Projects", "#projects", "data-toggle" => "tab"
       %li
+        = link_to "Funded", "#funds", "data-toggle" => "tab"
+      %li
         = link_to "Communities", "#communities", "data-toggle" => "tab"
+      %li
+        = link_to "Feedback", "#feedbacks", "data-toggle" => "tab"
       
     .tab-content
       .tab-pane.active{id: "projects"}
-        - @user.communities.each do |community|
-          %community
+        - @communities.each do |community|
+          %community.name
+      .tab-pane.active{id: "funds"}
+        - @funds.each do |fund|
+          %fund.project_id
       .tab-pane{id: "communities"}
-        - @user.projects.each do |project|
-          %project
+        - @projects.each do |project|
+          %project.name
+      .tab-pane{id: "feedbacks"}
+        - @feedbacks.each do |feedback|
+          %feedback
