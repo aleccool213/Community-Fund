@@ -7,6 +7,9 @@
       %li.list-group-item Email: #{@user.email}
       %li.list-group-item Hometown: #{@user.hometown}
       %li.list-group-item Homestate: #{@user.homestate}
+      %li.list-group-item Date Joined: #{@user.created_at}
+      %li.list-group-item Last Sign In: #{@user.last_sign_in_at}
+      
       - if (user_signed_in? && current_user == @user)
         %li.list-group-item
           = link_to "Edit Profile", edit_user_registration_path
@@ -23,14 +26,26 @@
       
     .tab-content
       .tab-pane.active{id: "projects"}
-        - @communities.each do |community|
-          %community.name
+        - if @projects.any?
+          - @projects.each do |project|
+            %project.name
+        - else
+          #{@user.username} hasn't started any projects.
       .tab-pane.active{id: "funds"}
-        - @funds.each do |fund|
-          %fund.project_id
+        - if @funds.any?
+          - @funds.each do |fund|
+            %fund.amount
+        - else
+          #{@user.username} hasn't funded any projects.
       .tab-pane{id: "communities"}
-        - @projects.each do |project|
-          %project.name
+        - if @communities.any?
+          - @communities.each do |community|
+            %community.name
+        - else
+          #{@user.username} doesn't belong to any communities.
       .tab-pane{id: "feedbacks"}
-        - @feedbacks.each do |feedback|
-          %feedback
+        - if @feedbacks.any?
+          - @feedbacks.each do |feedback|
+            %feedback.description
+        - else
+          #{@user.username} hasn't received any feedback.
