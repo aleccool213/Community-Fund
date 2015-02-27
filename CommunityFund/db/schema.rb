@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226213233) do
+ActiveRecord::Schema.define(version: 20150227205541) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -100,6 +100,12 @@ ActiveRecord::Schema.define(version: 20150226213233) do
   end
 
   add_index "rewards", ["funds_id"], name: "index_rewards_on_funds_id"
+
+  create_table "seed_migration_data_migrations", force: true do |t|
+    t.string   "version"
+    t.integer  "runtime"
+    t.datetime "migrated_on"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

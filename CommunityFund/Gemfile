@@ -22,6 +22,7 @@ gem 'haml-rails'
 gem 'simple_form'
 gem 'cocoon'
 gem 'cancan'
+gem 'seed_migration'
 
 #profiles
 gem 'devise'

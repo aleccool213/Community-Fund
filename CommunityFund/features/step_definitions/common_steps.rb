@@ -7,12 +7,13 @@ Then(/^I am on the "(.*?)"$/) do |arg1|
 end
 
 def visit_url
+  newest_project = Project.last || FactoryGirl::create(:project)
   {
     "Home Page" => root_path,
     "Login Page" => new_user_session_path,
     "Signup Page" => new_user_registration_path,
     "Create Project Page" => new_project_path,
-    "newest project" => project_path(Project.last.id)
+    "newest project" => project_path(newest_project)
   }
 end
 
