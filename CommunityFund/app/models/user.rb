@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   def has_reported?(report_type, obj_id)
     results = reports.where(reported_obj_type: report_type, reported_obj_id: obj_id)
-    return (not results.empty?)
+    return (not results.blank?)
   end
 
   def feedback_button_text
