@@ -2,16 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.col-fixed-200 {
-  width: 200px;
-  height: 100%;
-  position: fixed;
-}
-
-.col-offset-200 {
-  padding-left: 200px;
-}
-
-.col-height-200 {
+.profile-picture{
   height: 200px;
+}
+
+.tab-content{
+  padding: 15px;
 }
