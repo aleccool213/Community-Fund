@@ -12,4 +12,7 @@
 				%td{ class: 'reported-obj-name' }
 					=link_to proj.name, proj
 				%td{ class: 'report-count'}
-					= count
+					=count
+				%td
+					=button_tag type: 'button', class: 'dismiss-btn', data: { 'obj-id': proj.id, 'obj-type': 'project' } do
+						&times;

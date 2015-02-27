@@ -7,7 +7,6 @@ ready = ->
 	$report_modal_btn.click( ->
 		# Prepare AJAX call
 		proj_id = $report_btn.data('project-id')
-		console.log(proj_id)
 		req_data = { 'type': 'POST', 'data': { 'project_id': proj_id } }
 
 		# Make AJAX call

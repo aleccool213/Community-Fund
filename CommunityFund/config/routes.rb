@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   end
 
   namespace :report do
+    post :dismiss
     post :project
   end
 
