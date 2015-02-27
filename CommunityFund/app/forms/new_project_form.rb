@@ -18,7 +18,7 @@ class NewProjectForm < Form
       name: project_params[:name],
       description: project_params[:description],
       completion_date: DateTime.new(project_params["completion_date(1i)"].to_i, project_params["completion_date(2i)"].to_i, project_params["completion_date(3i)"].to_i),
-      initiator_id: user.id,
+      user: user,
       target_amount: project_params["target_amount"],
       open: true
       )

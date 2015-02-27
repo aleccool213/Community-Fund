@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
   scope :open, -> { where(open: true)}
 
   def initiator
-    User.find(self.initiator_id)
+    user
   end
 
   def self.minimum_start_year
@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
   end
 
   def is_initiator?(user)
-    self.initiator_id == user.id
+    initiator.id == user.id
   end
 
   def hashtag_community(community)
