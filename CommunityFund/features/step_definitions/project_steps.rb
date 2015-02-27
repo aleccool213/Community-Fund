@@ -69,7 +69,7 @@ Then(/^the project should not be saved$/) do
 end
 
 Then(/^I have created a project$/) do
-  @project = FactoryGirl.create(:project, :with_rewards, initiator_id: @user.id)
+  @project = FactoryGirl.create(:project, :with_rewards, user: @user)
 end
 
 Then(/^the project is closed$/) do

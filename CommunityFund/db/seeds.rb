@@ -45,6 +45,7 @@ Project.destroy_all
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
     created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)), 
+    user_id: User.order('RANDOM()').first.id,
     target_amount: rand(100...6000),
     communities: Community.active, 
     completion_date: Time.now + 1.month,
@@ -60,7 +61,7 @@ Project.all.each do |project|
   (fund_project ? 4 : 3).times do
     Fund.create(
       project: project,
-      user: users[user_index],
+      user_id: users[user_index].id,
       amount: (project.target_amount / 4)
       )
     user_index += 1
