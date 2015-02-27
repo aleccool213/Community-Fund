@@ -1,5 +1,6 @@
 class Milestone < ActiveRecord::Base
 	belongs_to :project
+	has_one :fund
 
 	def description
 		if self.percentage == 0.01

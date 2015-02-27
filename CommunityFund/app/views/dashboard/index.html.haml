@@ -1,4 +1,4 @@
-.container
+.containertype_id
   .row
     .col-sm-9.col-md-9
       %h1 Dashboard
@@ -15,15 +15,18 @@
                 .panel-title
                   %h3{class: "panel-title"} 
                     //= e
-                    = e[:name] + " update!"
+                    = link_to(e[:name] + " update!", project_path(e[:type_id]))
               .panel-body
-                %p
-                  = e[:description]
                 %h4
-                  = e[:time]
+                  = e[:description]
+                %p
+                  //link to user public profile page
+                  //= link_to(@user.username + "made the donation at " + e[:time], user_path(@user))
+                  = e[:time].strftime("%B %d, %Y")
         - else
           nothing to see here
 
+    //sidebar
     .col-sm-3.col-md-3
       .panel.panel-default
         .panel-body
@@ -36,4 +39,5 @@
             %br
             = link_to "Wanna?", dashboard_collect_information_path, class: 'btn btn-lg'
 
-    
+          //reputation alerts
+          

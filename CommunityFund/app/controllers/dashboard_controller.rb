@@ -14,8 +14,9 @@ class DashboardController < ApplicationController
           event[:name] = p.name
           event[:type] = "Project"
           event[:type_id] = p.id
-          event[:time] = pj.created_at.strftime("%B %d, %Y")
+          event[:time] = pj.created_at
           event[:description] = pj.description
+          @user = User.find(Fund.find(pj.fund_id).user_id)
           @events.push(event)
         end
       end
@@ -29,7 +30,7 @@ class DashboardController < ApplicationController
         event[:type] = "Project"
         event[:type_id] = p.id
         event[:description] = "Project has been started in your area!"
-        event[:time] = p.created_at.strftime("%B %d, %Y")
+        event[:time] = p.created_at
         @events.push(event)
       end
     end
@@ -41,7 +42,10 @@ class DashboardController < ApplicationController
     #someone gives a rating to a project this user has intiated and project is now finished has ended
 
     
-    @events
+    @events = @events.sort_by { |k| k[:time] }
+    
+    @events = @events[0..10]
+    @events.reverse!
 
   end
 
