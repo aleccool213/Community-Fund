@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :funds
   has_many :feedbacks
+  has_many :reports
 
   def in_community?(community)
     communities.include? community

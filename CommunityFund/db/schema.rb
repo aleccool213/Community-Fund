@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222204844) do
+ActiveRecord::Schema.define(version: 20150226213233) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -80,6 +80,14 @@ ActiveRecord::Schema.define(version: 20150222204844) do
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"
+
+  create_table "reports", force: true do |t|
+    t.string   "reported_obj_type", null: false
+    t.integer  "reported_obj_id",   null: false
+    t.integer  "user_id",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rewards", force: true do |t|
     t.decimal  "reward_level"

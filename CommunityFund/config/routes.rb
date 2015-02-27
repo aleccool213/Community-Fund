@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     get :moderation
   end
 
+  namespace :report do
+    post :project
+  end
+
   resources :communities
   resources :projects
   resources :funds
