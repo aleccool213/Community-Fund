@@ -44,18 +44,18 @@
       .tab-pane.fade{id: "funds"}
         - if @funds.any?
           - @funds.each do |fund|
-            %fund.amount
+            = fund.amount
         - else
           #{@user.username} hasn't funded any projects.
       .tab-pane.fade{id: "communities"}
         - if @communities.any?
           - @communities.each do |community|
-            %community.name
+            = community.name
         - else
           #{@user.username} doesn't belong to any communities.
       .tab-pane.fade{id: "feedbacks"}
         - if @feedbacks.any?
           - @feedbacks.each do |feedback|
-            %feedback.description
+            = feedback.description
         - else
           #{@user.username} hasn't received any feedback.

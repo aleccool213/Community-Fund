@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true
 
-  has_one :avatar
   has_many :communities
   has_many :projects
   has_many :funds

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     if @user = User.find_by_username(params[:username])
       @projects = @user.projects
       @funds = @user.funds
-      @communities = @user.communities
+      @communities = @user.communities.active
       @feedbacks = @user.feedbacks
     else
       redirect_to root_path
