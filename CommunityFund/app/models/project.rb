@@ -73,7 +73,7 @@ class Project < ActiveRecord::Base
         returnValue[:status] = "Project is starting to shape up! (Over 25% funded)"
       elsif self.total_amount.to_s.to_i < twenty_five
         returnValue[:percentage] = 0.01
-        returnValue[:status] = "Project has been created! (0-25% funded)"
+        returnValue[:status] = "Project has got its first donation! (0-25% funded)"
       else
         returnValue[:percentage] = 0.0
         returnValue[:status] = "Project has no funding!"

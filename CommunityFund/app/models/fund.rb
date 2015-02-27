@@ -15,7 +15,8 @@ class Fund < ActiveRecord::Base
         :project_id => self.project_id, 
         :percentage => completion_status[:percentage],
         :description => completion_status[:status],
-        :fund_id => self.id)
+        :fund_id => self.id
+        )
     end
   end
 

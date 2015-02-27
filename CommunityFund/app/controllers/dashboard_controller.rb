@@ -18,7 +18,10 @@ class DashboardController < ApplicationController
           event[:type_id] = p.id
           event[:time] = pj.created_at
           event[:description] = pj.description
-          @user = User.find(Fund.find(pj.fund_id).user_id)
+          fund = Fund.find(pj.fund_id)
+          if fund
+            @user = User.find(Fund.find(pj.fund_id).user_id)
+          end
           @events.push(event)
         end
       end
