@@ -1,11 +1,14 @@
+Fund.destroy_all
+Project.destroy_all
+Report.destroy_all
+User.destroy_all
 Community.destroy_all
+
 Community.create(name: "Science and Technology", description: "", active: true)
 Community.create(name: "Automotive", description: "", active: true)
 Community.create(name: "Sports", description: "", active: true)
 Community.create(name: "Health", description: "", active: true)
 Community.create(name: "Education", description: "", active: true)
-
-User.destroy_all
 
 User.create(
   username: "administrator",
@@ -38,12 +41,12 @@ User.create(
     created_at: Faker::Time.backward(30, :day))
 end
 
-Project.destroy_all
 20.times do
   Project.create(
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
     created_at: Faker::Time.backward(30, :day),
+    initiator_id: User.order('RANDOM()').first.id,
     target_amount: rand(100...6000),
     communities: Community.active,
     completion_date: Faker::Time.backward(20, :day) + 1.month,
