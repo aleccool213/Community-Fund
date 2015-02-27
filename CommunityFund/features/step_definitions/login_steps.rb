@@ -1,31 +1,5 @@
-Then(/^I go to the "(.*?)"$/) do |arg1|
-  visit(visit_url[arg1])
-end
-
-Then(/^I am on the "(.*?)"$/) do |arg1|
-  visit(visit_url[arg1])
-end
-
-def visit_url
-  {
-    "Home Page" => "/",
-    "Login Page" => "/users/sign_in",
-    "Signup Page" => "/users/sign_up",
-    "Create Project Page" => "/projects/new",
-    "newest project" => "/projects/#{Project.last.id}"
-  }
-end
-
 Given(/^a community exists$/) do
   @community = FactoryGirl.create(:community)
-end
-
-Then(/^I should see "(.*?)"$/) do |arg1|
-  page.has_content? arg1
-end
-
-Then(/^I should not see "(.*?)"$/) do |arg1|
-  !(page.has_content? arg1)
 end
 
 Given(/^I have created a user account$/) do
