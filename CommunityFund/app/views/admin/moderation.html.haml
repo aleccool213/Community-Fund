@@ -1,7 +1,15 @@
 %h1 Moderation
 
 %h3 Projects
+%table{ class: 'reported-projects' }
+	%thead
+		%th Project
+		%th # Reports
 
-%h3 Posts
-
-%h3 Users
+	%tbody
+		- @projects.each do |proj, count|
+			%tr{ class: 'reported-obj' }
+				%td{ class: 'reported-obj-name' }
+					=link_to proj.name, proj
+				%td{ class: 'report-count'}
+					= count
