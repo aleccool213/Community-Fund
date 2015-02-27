@@ -20,6 +20,11 @@ class User < ActiveRecord::Base
     funds.where(project_id: project.id).last
   end
 
+  def has_reported?(report_type, obj_id)
+    results = reports.where(reported_obj_type: report_type, reported_obj_id: obj_id)
+    return (not results.empty?)
+  end
+
   def feedback_button_text
     if feedbacks.count >= 1
       "Send Feedback (#{feedbacks.count})"

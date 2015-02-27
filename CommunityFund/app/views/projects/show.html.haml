@@ -58,7 +58,7 @@
               = "To be completed: #{@project.completion_date_for_display}"
             - else
               = "Project closed on: #{@project.completion_date_for_display}"
-              
+
       = render partial: 'action_button'
 
       #accordion.panel-group.details-panel
@@ -73,7 +73,7 @@
             %ul.list-group
               %li.list-group-item
                 -# TODO link to initiator's profile + displayer username
-                %a{href: "#"} 
+                %a{href: "#"}
                   %span.glyphicon.glyphicon-user.text-primary
                   Creator
       .panel-group
@@ -93,6 +93,9 @@
                   .project-reward
                     %h3= "$ #{reward.reward_level}"
                     %p= reward.description
+
+      = render partial: 'report_button'
+
 
 :coffeescript
   $ ->
