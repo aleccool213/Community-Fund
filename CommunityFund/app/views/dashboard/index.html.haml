@@ -49,7 +49,7 @@
       .panel.panel-default
         .panel-body
           - if current_user.feedbacks.count >= 1
-            = link_to current_user.feedback_button_text, feedsback_pack
+            = link_to current_user.feedback_button_text, feedbacks_path
           - else
             = current_user.feedback_button_text + " :("
 
