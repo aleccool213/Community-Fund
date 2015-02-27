@@ -18,4 +18,12 @@ class User < ActiveRecord::Base
   def fund_for_project(project)
     funds.where(project_id: project.id).last
   end
+
+  def feedback_button_text
+    if feedbacks.count >= 1
+      "Send Feedback (#{feedbacks.count})"
+    else
+      "Send Feedback"
+    end
+  end
 end

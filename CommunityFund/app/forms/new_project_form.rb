@@ -25,7 +25,7 @@ class NewProjectForm < Form
 
     # add communities to project
     Community.active.each do |community|
-      project.communities << community if attrs["community_#{community.id}".to_sym]
+      project.communities << community if attrs["community_#{community.id}"] == "true"
     end
 
     # build reward levels for project

@@ -67,3 +67,4 @@ Project.all.each do |project|
   end
   fund_project = !fund_project
 end
+

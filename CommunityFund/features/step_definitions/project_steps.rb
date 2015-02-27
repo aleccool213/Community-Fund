@@ -14,6 +14,26 @@ Then(/^I click on the "(.*?)" link$/) do |arg1|
   click_link(arg1)
 end
 
+Given(/^a project exists$/) do
+  @project = FactoryGirl.create(:project, :with_rewards, communities: [Community.active.first])
+end
+
+Given(/^a project has been closed$/) do
+  @project = FactoryGirl.create(:project, :with_rewards, communities: [Community.active.first], open: false)
+end
+
+Then(/^the project has met funding requirements$/) do
+  @fund = FactoryGirl.create(:fund, project: @project, amount: @project.target_amount + 1, user: @user)
+end
+
+Then (/^the project closes$/) do
+  @project.close!
+end
+
+Then(/^the project should have closed successfully$/) do
+  expect(@project.open?).to eq(false)
+  expect(@project.funding_successful?).to eq(true)
+end
 
 Then(/^the project info should be shown$/) do
   @project = Project.last
@@ -46,4 +66,12 @@ Then(/^the project should not be saved$/) do
   page.has_content? "Please enter a name"
   page.has_content? "Please enter a description"
   page.has_content? "Please enter an amount greater than $100"
+end
+
+Then(/^I have created a project$/) do
+  @project = FactoryGirl.create(:project, :with_rewards, initiator_id: @user.id)
+end
+
+Then(/^the project is closed$/) do
+  @project.update(open: false)
 end

@@ -20,7 +20,7 @@ RSpec.describe 'new project form' do
         }
       }
     }
-    @project_params["community_#{@communities.first.id}".to_sym] = "1"
+    @project_params["community_#{@communities.first.id}"] = "true"
   end
 
   it "should create a new project given all parameters" do

@@ -6,7 +6,6 @@ class Project < ActiveRecord::Base
   has_many :feedbacks
   has_many :milestones
 
-
   accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
 
   scope :open, -> { where(open: true)}
@@ -21,6 +20,10 @@ class Project < ActiveRecord::Base
 
   def self.maximum_end_year
     DateTime.now.year + 10
+  end
+
+  def donors
+    User.where('id in (?)', funds.pluck(:user_id))
   end
 
   def description_lead
@@ -86,17 +89,35 @@ class Project < ActiveRecord::Base
     self.total_amount >= self.target_amount
   end
 
-  def notify_users_on_funding
-    # create feedback for users - do this in another branch (model already initialized)
-  end
-
-  def complete_funding
+  def close!
     self.open = false
     if funding_successful?
       self.funding_successful = true
-      notify_users_on_funding
+      notify_users_on_funding!
     end
 
     self.save
   end
+
+  def average_rating
+    submitted_feedback = Feedback.submitted.where(project_id: self.id)
+    submitted_feedback.sum(:rating) / submitted_feedback.count
+  end
+
+  private
+
+    def notify_users_on_funding!
+      # loop through all funding users
+      # build a feedback object for each one
+      donors.each do |donor|
+        Feedback.create(
+            user_id: donor.id,
+            project_id: self.id,
+            submitted: false,
+            rating: 0,
+            description: "",
+            dismissed: false
+          )
+      end
+    end
 end

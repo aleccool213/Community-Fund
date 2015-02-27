@@ -38,7 +38,7 @@
       .error-text#reward_error.hidden
         Please select only one award
       - @rewards.each do |reward|
-        .reward-box.cant-afford{data: {reward_id: reward.id, reward_level: reward.reward_level}}
+        .reward-box.cant-afford{id: "reward-#{reward.id}", data: {reward_id: reward.id, reward_level: reward.reward_level}}
           .reward-icon
             .fa.fa-bell-o
           .reward-content

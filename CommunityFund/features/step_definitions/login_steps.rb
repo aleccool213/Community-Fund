@@ -17,7 +17,7 @@ def visit_url
 end
 
 Given(/^a community exists$/) do
-  FactoryGirl.create(:community)
+  @community = FactoryGirl.create(:community)
 end
 
 Then(/^I should see "(.*?)"$/) do |arg1|
@@ -45,7 +45,6 @@ Then(/^I click on the first community$/) do
 end
 
 Then(/^I should belong to the selected community$/) do
-  @user = User.last
   expect(@user.communities.count).to eq(1)
   expect(@user.communities.first.name). to eq(Community.first.name)
 end
@@ -64,4 +63,8 @@ Then(/^I fill in my signup details$/) do
   fill_in 'signup-password-confirm-input', with: @user.password
   fill_in 'signup-email-input', with: @user.email
   click_button('signup_button')
+end
+
+Then(/^show me the page$/) do
+  save_and_open_page
 end

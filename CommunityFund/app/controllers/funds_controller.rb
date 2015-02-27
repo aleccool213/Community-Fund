@@ -1,6 +1,8 @@
 class FundsController < ApplicationController
 
-  before_filter :load_project_and_communities, only: [:new, :create, :edit, :update]
+  before_filter :authenticate_user!
+  before_filter :load_project_and_communities
+  before_filter :ensure_open
 
   def new
     if current_user.funds.where(project_id: @project.id).present?
@@ -27,6 +29,13 @@ class FundsController < ApplicationController
     @edit_fund_form = ::EditFundForm.new(user: current_user, project: @project, fund: @fund)
     @edit_fund_form.submit(params)
     redirect_to project_path(id: @project.id)
+  end
+
+  def ensure_open
+    @project ||= Project.find(params[:project_id])
+    if @project.closed?
+      redirect_to project_path(id: @project.id)
+    end
   end
 
   def load_project_and_communities
