@@ -8,6 +8,7 @@
           sign in to see some cool stuff yo
       - else
         - if @events.any?
+          .div{id:"cards"}
           - @events.each do |e|
             // display a card
             .panel.panel-default
@@ -23,6 +24,8 @@
                   //link to user public profile page
                   //= link_to(@user.username + "made the donation at " + e[:time], user_path(@user))
                   = e[:time].strftime("%B %d, %Y")
+          .div{id:"infinite-scrolling"}
+            = will_paginate @events
         - else
           nothing to see here
 

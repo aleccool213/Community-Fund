@@ -1,3 +1,4 @@
+require 'will_paginate/array'
 class DashboardController < ApplicationController
 
   before_action :authenticate_user!
@@ -42,9 +43,14 @@ class DashboardController < ApplicationController
 
     #someone gives a rating to a project this user has intiated and project is now finished has ended
 
-    @events = @events[0..10]
     @events = @events.sort_by { |k| k[:time] }
     @events.reverse!
+    @events = @events.paginate(:page => params[:page], :per_page => 15)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
 
   end
 
