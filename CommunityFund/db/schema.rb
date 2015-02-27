@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222204844) do
+ActiveRecord::Schema.define(version: 20150227014801) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20150222204844) do
     t.string   "hometown"
     t.string   "homestate"
     t.boolean  "admin",                  default: false, null: false
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

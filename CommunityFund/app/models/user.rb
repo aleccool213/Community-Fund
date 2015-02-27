@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :funds
   has_many :feedbacks
+  
+  mount_uploader :avatar, AvatarUploader
 
   def in_community?(community)
     communities.include? community

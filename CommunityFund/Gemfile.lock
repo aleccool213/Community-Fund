@@ -187,6 +187,7 @@ GEM
       json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rmagick (2.13.4)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -291,6 +292,7 @@ DEPENDENCIES
   pry
   pry-nav
   rails (= 4.1.8)
+  rmagick
   rspec-rails
   rspec_junit_formatter
   sass-rails (~> 4.0.3)
