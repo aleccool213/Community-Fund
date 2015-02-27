@@ -56,4 +56,8 @@ class ProjectsController < ApplicationController
       redirect_to project_path(id: @project.id)
     end
   end
+
+  def index
+    @projects = current_user.projects
+  end
 end

@@ -27,6 +27,8 @@
           nothing to see here
 
     //sidebar
+
+    //communities
     .col-sm-3.col-md-3
       .panel.panel-default
         .panel-body
@@ -39,6 +41,39 @@
             %br
             = link_to "Wanna?", dashboard_collect_information_path, class: 'btn btn-lg'
 
-          //reputation alerts
-          
+    //feedbacks/reputation alerts
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-body
+          - if current_user.feedbacks.count >= 1
+            = link_to current_user.feedback_button_text, feedsback_pack
+          - else
+            = current_user.feedback_button_text + " :("
 
+    //projects given funds too
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title
+            %h4 Projects you have funded:
+        - if current_user.projects_funded.count > 1
+          - current_user.projects_funded.each do |p|
+            = p.name 
+            %br 
+            = "Percentage completed:" + p.percentage_completed
+        - else
+          No Projects funded :( 
+
+    //initiated projects
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title
+            %h4 Projects you have started:
+        - if current_user.projects.count > 1
+          - current_user.projects.each do |p|
+            = p.name 
+            %br 
+            = "Percentage completed:" + p.percentage_completed
+        - else
+          No projects initiated :( 

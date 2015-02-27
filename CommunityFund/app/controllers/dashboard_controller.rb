@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
     @events = []
 
     #Project they are interested in has started, or reached milestones
+    #TODO: bug when user is interested in more than two communities
     current_user.communities.each do |f|
       f.projects.each do |p|
         p.milestones.each do |pj|
@@ -41,10 +42,8 @@ class DashboardController < ApplicationController
 
     #someone gives a rating to a project this user has intiated and project is now finished has ended
 
-    
-    @events = @events.sort_by { |k| k[:time] }
-    
     @events = @events[0..10]
+    @events = @events.sort_by { |k| k[:time] }
     @events.reverse!
 
   end

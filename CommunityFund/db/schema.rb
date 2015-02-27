@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150227001318) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "dismissed",   default: false
   end
 
   add_index "feedbacks", ["project_id"], name: "index_feedbacks_on_project_id"

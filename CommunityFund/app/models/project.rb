@@ -50,6 +50,10 @@ class Project < ActiveRecord::Base
     !open?
   end
 
+  def percentage_completed
+    self.total_amount/self.target_amount
+  end
+
   # Returns a string containing the project status
   def completion_status
     returnValue = {status: '' , percentage: 0.0}
