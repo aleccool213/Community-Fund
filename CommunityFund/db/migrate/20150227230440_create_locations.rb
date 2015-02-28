@@ -20,5 +20,8 @@ class CreateLocations < ActiveRecord::Migration
       t.string :timezone
       t.string :updated_at
     end
+
+    add_index :locations, :country_code
+    add_index :locations, :asciiname
   end
 end

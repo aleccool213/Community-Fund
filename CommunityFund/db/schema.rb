@@ -83,6 +83,9 @@ ActiveRecord::Schema.define(version: 20150228001541) do
     t.string  "updated_at"
   end
 
+  add_index "locations", ["asciiname"], name: "index_locations_on_asciiname"
+  add_index "locations", ["country_code"], name: "index_locations_on_country_code"
+
   create_table "projects", force: true do |t|
     t.string   "name"
     t.text     "description"
