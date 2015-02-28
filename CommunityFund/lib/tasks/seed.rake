@@ -3,7 +3,7 @@ namespace :db do
 		task :dev => :environment do
 			seed_file = "#{Rails.root}/db/seeds_dev.rb"
 			require seed_file
-			Rake::Task["db:migrate"].invoke
+			Rake::Task["db:seed:geo"].invoke
 		end
 
 		task :geo => :environment do
