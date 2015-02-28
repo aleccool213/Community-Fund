@@ -62,6 +62,27 @@ ActiveRecord::Schema.define(version: 20150228001541) do
   add_index "funds", ["project_id"], name: "index_funds_on_project_id"
   add_index "funds", ["user_id"], name: "index_funds_on_user_id"
 
+  create_table "locations", force: true do |t|
+    t.string  "name"
+    t.string  "asciiname"
+    t.text    "alternatenames"
+    t.string  "latitude"
+    t.string  "longitude"
+    t.string  "feature_class"
+    t.string  "feature_code"
+    t.string  "country_code"
+    t.string  "cc2"
+    t.string  "admin1_code"
+    t.string  "admin2_code"
+    t.string  "admin3_code"
+    t.string  "admin4_code"
+    t.integer "population"
+    t.integer "elevation"
+    t.integer "dem"
+    t.string  "timezone"
+    t.string  "updated_at"
+  end
+
   create_table "projects", force: true do |t|
     t.string   "name"
     t.text     "description"
