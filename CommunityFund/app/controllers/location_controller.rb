@@ -1,10 +1,9 @@
 class LocationController < ApplicationController
+
 	respond_to :json
 
 	def countries
-		db_query = "SELECT DISTINCT name FROM country_details ORDER BY name"
-		@countries ||= city_database.query db_query
-		render json: @countries.to_json
+		render json: GeoInfo::countries.to_json
 	end
 
 	def cities
@@ -14,21 +13,13 @@ class LocationController < ApplicationController
 			return
 		end
 
-		# Check if requested country is valid
-		db_query = 'SELECT id, city FROM cities WHERE country = ? ORDER BY city'
-		cities = city_database.query(db_query, [params[:country]]).to_json
-		if cities == [].to_json
+		# Get cities, verify result
+		cities = GeoInfo::cities_for_country params[:country]
+		if cities.blank?
 			render json: { errors: 'No such country' }, status: 404
 			return
 		end
 
-		# Get cities
-		render json: cities
+		render json: cities.to_json
 	end
-
-	private
-		def city_database
-			db_path = File.join(Rails.root, 'vendor', 'assets', 'other', 'Cities.dat')
-			@database ||= SQLite3::Database.open db_path
-		end
 end
