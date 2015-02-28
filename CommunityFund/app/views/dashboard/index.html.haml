@@ -7,31 +7,12 @@
         %p
           sign in to see some cool stuff yo
       - else
-        - if @events.any?
-          .div{id:"cards"}
-          - @events.each do |e|
-            // display a card
-            .panel.panel-default
-              .panel-heading
-                .panel-title
-                  %h3{class: "panel-title"} 
-                    //= e
-                    = link_to(e[:name] + " update!", project_path(e[:type_id]))
-              .panel-body
-                %h4
-                  = e[:description]
-                %p
-                  //link to user public profile page
-                  - if @user
-                    = @user.username + "made the donation at " + e[:time]
-                  - else
-                    = e[:time].strftime("%B %d, %Y")
-          .div{id:"infinite-scrolling"}
-            = will_paginate @events
-        - else
-          nothing to see here
+        .div{id:"events"}
+          = render partial: "event", locals: {event: @dashboard}
+        .div{id:"infinite-scrolling"}
+          = will_paginate 
 
-    //sidebar
+    //sidebar panels
 
     //communities
     .col-sm-3.col-md-3

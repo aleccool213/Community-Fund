@@ -3,9 +3,9 @@ class DashboardController < ApplicationController
 
   before_action :authenticate_user!
 
-  #creates @events instance variable which is a list that stores hashs of different events which fill the dash
+  #creates @dashboard instance variable which is a list that stores hashs of differen  @dashboard which fill the dash
   def index
-    @events = []
+    @dashboard = []
 
     #Project they are interested in has started, or reached milestones
     #TODO: bug when user is interested in more than two communities
@@ -22,7 +22,7 @@ class DashboardController < ApplicationController
           if fund
             @user = User.find(Fund.find(pj.fund_id).user_id)
           end
-          @events.push(event)
+          @dashboard.push(event)
         end
       end
     end
@@ -36,7 +36,7 @@ class DashboardController < ApplicationController
         event[:type_id] = p.id
         event[:description] = "Project has been started in your area!"
         event[:time] = p.created_at
-        @events.push(event)
+        @dashboard.push(event)
       end
     end
 
@@ -46,9 +46,9 @@ class DashboardController < ApplicationController
 
     #someone gives a rating to a project this user has intiated and project is now finished has ended
 
-    @events = @events.sort_by { |k| k[:time] }
-    @events.reverse!
-    @events = @events.paginate(:page => params[:page], :per_page => 15)
+    @dashboard = @dashboard.sort_by { |k| k[:time] }
+    @dashboard.reverse!
+    @dashboard = @dashboard.paginate(:page => params[:page], :per_page => 15)
 
     respond_to do |format|
       format.html
