@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228001541) do
+ActiveRecord::Schema.define(version: 20150228194923) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -61,30 +61,6 @@ ActiveRecord::Schema.define(version: 20150228001541) do
 
   add_index "funds", ["project_id"], name: "index_funds_on_project_id"
   add_index "funds", ["user_id"], name: "index_funds_on_user_id"
-
-  create_table "locations", force: true do |t|
-    t.string  "name"
-    t.string  "asciiname"
-    t.text    "alternatenames"
-    t.string  "latitude"
-    t.string  "longitude"
-    t.string  "feature_class"
-    t.string  "feature_code"
-    t.string  "country_code"
-    t.string  "cc2"
-    t.string  "admin1_code"
-    t.string  "admin2_code"
-    t.string  "admin3_code"
-    t.string  "admin4_code"
-    t.integer "population"
-    t.integer "elevation"
-    t.integer "dem"
-    t.string  "timezone"
-    t.string  "updated_at"
-  end
-
-  add_index "locations", ["asciiname"], name: "index_locations_on_asciiname"
-  add_index "locations", ["country_code"], name: "index_locations_on_country_code"
 
   create_table "projects", force: true do |t|
     t.string   "name"
