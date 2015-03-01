@@ -67,6 +67,11 @@ class Project < ActiveRecord::Base
     self.save
   end
 
+  def geo_communities
+    geo_ids = self.geo_communities_str.split(',').map(&:to_i)
+    GeoInfo::locations_by_ids(geo_ids)
+  end
+
   def average_rating
     submitted_feedback = Feedback.submitted.where(project_id: self.id)
     submitted_feedback.sum(:rating) / submitted_feedback.count

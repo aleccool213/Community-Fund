@@ -35,7 +35,7 @@ RSpec.describe LocationController, :type => :controller do
 			expect(response).to be_success
 			json_response = JSON.parse(response.body)
 			expect(json_response).not_to be_blank
-			sorted = json_response.sort { |x,y| x[1] <=> y[1] }
+			sorted = json_response.sort { |x,y| x['name'] <=> y['name'] }
 			expect(json_response).to eq sorted
 		end
 	end
