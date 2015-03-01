@@ -54,6 +54,19 @@
                       = check_box_tag "community_#{community.id}", true, class: 'form-control'
                       = community.name
 
+      #geo-communities
+        .form-group
+          .panel.panel-primary
+            .panel-heading
+              Which areas is your project relevant to? (optional)
+            .panel-body
+              %table.geo-communities
+                %tr.location-select
+                  %td= select_tag "geo_community[][country]", options_for_select(@countries), prompt: 'ENTIRE WORLD', class: 'country-select'
+                  %td= select_tag "geo_community[][city]", options_for_select([], nil), prompt: '----------', disabled: true, class: 'city-select'
+                  %td= link_to '&times;'.html_safe, '#', class: 'remove-geo-community-btn'
+              = link_to 'Add country or city', '#', class: 'add-geo-community-btn'
+
       #rewards
         .form-group
           .panel.panel-primary
@@ -69,7 +82,7 @@
 
       -# TODO banner
 
-      = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right' 
+      = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right'
 
 :coffeescript
 # validation for both project/new and project/edit
@@ -94,7 +107,7 @@ jQuery ->
 
   $('#project_name').bind 'input', ->
     empty_content_validator(valid_content($(this)), $(this), '#name_icon', '#name_error')
-    
+
   $('#project_description').bind 'input', ->
     empty_content_validator(valid_content($(this)), $(this), '#description_icon', '#description_error')
 

@@ -8,13 +8,12 @@ class NewProjectForm < Form
   end
 
   def submit(attrs)
-
     # separate our parameters for building referrential objects
     project_params = attrs[:project]
     reward_params = attrs[:project][:rewards_attributes]
 
     # create initial project object
-    self.project = Project.create(
+    self.project = Project.new(
       name: project_params[:name],
       description: project_params[:description],
       completion_date: DateTime.new(project_params["completion_date(1i)"].to_i, project_params["completion_date(2i)"].to_i, project_params["completion_date(3i)"].to_i),
@@ -28,6 +27,20 @@ class NewProjectForm < Form
       project.communities << community if attrs["community_#{community.id}"] == "true"
     end
 
+    # get geo community ids
+    processed_geo_params = []
+    attrs[:geo_community].each do |data|
+        if data.has_key? "city" and not data["city"].blank?
+            processed_geo_params << data["city"]
+        elsif data.has_key? "country" and not data["country"].blank?
+            processed_geo_params << data["country"]
+        else
+            processed_geo_params << :WORLD
+        end
+    end
+    geo_ids = GeoInfo::remove_redundancies(processed_geo_params)
+    self.project.geo_communities_str = geo_ids.map(&:to_s).join(',')
+
     # build reward levels for project
     if reward_params.present?
       reward_params.each do |reward|
@@ -40,7 +53,6 @@ class NewProjectForm < Form
       end
     end
 
-    self.project.save
-
+    self.project.save!
   end
 end
