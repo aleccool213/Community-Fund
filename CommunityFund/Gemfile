@@ -36,6 +36,10 @@ gem 'dateslices'
 gem 'chartkick'
 gem 'geoip'
 
+#dashboard
+gem 'will_paginate', '~> 3.0.5'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'rspec-rails'
@@ -46,6 +50,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'pry'
   gem 'pry-nav'
+  gem 'pry-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails', :require => false
   gem 'faker'

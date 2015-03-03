@@ -80,6 +80,10 @@ $correct-green: #49e20e;
   display: inline;
 }
 
+.project-lead {
+  margin: 10px;
+}
+
 .project-link {
   font-size: 22px;
   font-style: italic;
@@ -109,7 +113,6 @@ $correct-green: #49e20e;
 
 .action-button {
   width: 100%;
-  margin: 20px;
   margin-bottom: 20px;
 }
 
@@ -165,13 +168,16 @@ a {
   font-weight: 200;
 }
 
-.banner {
-  border: 1px solid;
-  border-radius: 4px;
-  margin-bottom: 15px;
+.hint-text {
+  font-weight: 200;
+  margin: 5px;
 }
 
-.hint-text{
-  font-weight: 200;
-  margin-top: 5px;
+.project-banner {
+  max-width: 700px;
+  max-height: 700px;
+}
+
+.project-banner img {
+  width: 80%;
 }

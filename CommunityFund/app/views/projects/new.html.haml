@@ -56,14 +56,12 @@
 
       .banner
         .form-group
-          %label{for: 'banner'} 
-            Banner Image
-            %span#banner_image_icon.fa.fa-check.hidden
-          .form-inline
-            = f.input :banner, as: :image_preview, required: false, class: 'form-control btn', label: false, input_html: {preview_version: :thumb}
-          .hint-text#banner_hint
-            For best display, please ensure banner is at least 700px x 400px
-
+          .panel.panel-primary
+            .panel-heading Banner Image. This can be a logo or an informative graphic about your project.
+            .panel-body
+              .hint-text#banner-hint
+                This is optional, but for best display please ensure banner is at least 700px in width and 400px in height.
+                = f.input :banner, as: :image_preview, required: false, class: 'form-control btn', label: false, input_html: {preview_version: :thumb}
 
       #rewards
         .form-group
