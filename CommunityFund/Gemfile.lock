@@ -186,6 +186,7 @@ GEM
     rdoc (4.2.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rmagick (2.13.4)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -227,6 +228,10 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    simple_form_fancy_uploads (0.2.0)
+      carrierwave
+      rails (>= 4.0.0)
+      simple_form (~> 3.1)
     slop (3.6.0)
     spring (1.3.3)
     sprockets (2.12.3)
@@ -292,12 +297,14 @@ DEPENDENCIES
   pry
   pry-nav
   rails (= 4.1.8)
+  rmagick
   rspec-rails
   rspec_junit_formatter
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   seed_migration
   simple_form
+  simple_form_fancy_uploads
   spring
   sqlite3
   turbolinks

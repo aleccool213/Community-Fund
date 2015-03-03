@@ -54,6 +54,17 @@
                       = check_box_tag "community_#{community.id}", true, class: 'form-control'
                       = community.name
 
+      .banner
+        .form-group
+          %label{for: 'banner'} 
+            Banner Image
+            %span#banner_image_icon.fa.fa-check.hidden
+          .form-inline
+            = f.input :banner, as: :image_preview, required: false, class: 'form-control btn', label: false, input_html: {preview_version: :thumb}
+          .hint-text#banner_hint
+            For best display, please ensure banner is at least 700px x 400px
+
+
       #rewards
         .form-group
           .panel.panel-primary
@@ -67,7 +78,7 @@
                 .links
                   = link_to_add_association 'Add Reward Level', f, :rewards
 
-      -# TODO banner
+      
 
       = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right' 
 

@@ -8,6 +8,7 @@ class NewProjectForm < Form
   end
 
   def submit(attrs)
+    binding.pry
 
     # separate our parameters for building referrential objects
     project_params = attrs[:project]
@@ -18,7 +19,7 @@ class NewProjectForm < Form
       name: project_params[:name],
       description: project_params[:description],
       completion_date: DateTime.new(project_params["completion_date(1i)"].to_i, project_params["completion_date(2i)"].to_i, project_params["completion_date(3i)"].to_i),
-      initiator_id: user.id,
+      user_id: user.id,
       target_amount: project_params["target_amount"],
       open: true
       )
