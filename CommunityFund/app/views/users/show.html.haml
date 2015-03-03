@@ -3,6 +3,7 @@
     .col-lg-3.col-sm-4
       %a{href: "#"}
         = image_tag avatar_url(@user, 300), :class => "img-thumbnail center-block"
+        -# TODO Link to avatar upload page
     .col-lg-9.col-sm-8
       %h1 #{@user.username}
       - if @user.admin?
@@ -31,10 +32,10 @@
         %li.list-group-item.text-center
           [Social media links]
           -# TODO Put social media links here
-      %ul.list-group
-        %li.list-group-item
-          %strong Communities:
-        %li.list-group-item.text-center
+      .panel.panel-default
+        .panel-heading
+          %strong Communities
+        .panel-body
           - if @communities.any?
             - @communities.each do |community|
               %a.btn.btn-default.top-margin{href: community_path(community.id)} #{community.name}
@@ -61,35 +62,55 @@
         
       .tab-content
         .tab-pane.fade.in.active{id: "projects"}
-          - if @projects.any?
-            - @projects.each do |project|
-              .media
-                .media-left
-                  = link_to "Project Picture", project_path(project.id)
-                .media-body
-                  .media-heading
-                    %h4 #{project.name}
-                  #{project.description}
-          - else
-            #{@user.username} hasn't started any projects.
+          %ul.list-group
+            - if @projects.any?
+              - @projects.each do |project|
+                %li.list-group-item
+                  .media
+                    .media-left
+                      = link_to "Project Picture", project_path(project.id)
+                    .media-body
+                      .media-heading
+                        %strong #{project.name}
+                      #{project.description}
+            - else
+              %li.list-group-item #{@user.username} hasn't started any projects.
         .tab-pane.fade{id: "funds"}
-          - if @funds.any?
-            - @funds.each do |fund|
-              .media
-                .media-left
-                  = link_to "Project Picture", project_path(fund.project_id)
-                .media-body
-                  .media-heading
-                    %h4 #{fund.project.name}
-                  %h4 $#{fund.amount}
-          - else
-            #{@user.username} hasn't funded any projects.
+          %ul.list-group
+            - if @funds.any?
+              - @funds.each do |fund|
+                %li.list-group-item
+                  .media
+                    .media-left
+                      = link_to "Project Picture", project_path(fund.project_id)
+                    .media-body
+                      .media-heading
+                        %strong #{fund.project.name}
+                      $#{fund.amount}
+            - else
+              %li.list-group-item #{@user.username} hasn't funded any projects.
         .tab-pane.fade{id: "profile"}
-          %p Hometown: #{@user.hometown or "Not specified"}
-          %p Homestate: #{@user.homestate or "Not specified"}
+          .panel.panel-default
+            .panel-heading About Me
+            .panel-body
+              [Insert user description]
+              -# TODO Put user's description here
+          .panel.panel-default
+            .panel-heading Location
+            .panel-body
+              %p Hometown: #{@user.hometown or "Not specified"}
+              %p Homestate: #{@user.homestate or "Not specified"}
         .tab-pane.fade{id: "feedbacks"}
-          - if @feedbacks.any?
-            - @feedbacks.each do |feedback|
-              = feedback.description
-          - else
-            #{@user.username} hasn't received any feedback.
+          %ul.list-group
+            - if @feedbacks.any?
+              - @feedbacks.each do |feedback|
+                %li.list-group-item
+                  .media
+                    .media-left
+                      = link_to image_tag(avatar_url(feedback.user, 100)), users_path(feedback.user.username)
+                    .media-body
+                      .media-heading
+                        %strong #{feedback.user.username}
+                      #{feedback.description}
+            - else
+              %li.list-group-item #{@user.username} hasn't received any feedback.
