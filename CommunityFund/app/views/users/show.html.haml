@@ -1,75 +1,95 @@
 .container
   .row
-    .col-xs-12.col-sm-3
-      = image_tag avatar_url(@user, 200), :class => "img-thumbnail img-responsive center-block"
-    .col-xs-12.col-md-9
+    .col-lg-3.col-sm-4
+      %a{href: "#"}
+        = image_tag avatar_url(@user, 300), :class => "img-thumbnail center-block"
+    .col-lg-9.col-sm-8
       %h1 #{@user.username}
       - if @user.admin?
         %span.label.label-info.tags Admin
-      %h6 Date Joined: #{@user.created_at}
-      %h6 Last Sign In: #{@user.current_sign_in_at}
 .container
   .row
-    %ul.nav.nav-pills{role: "tablist"}
-      %li.active{role: "presentation"}
-        %a{href: "#profile", data: {toggle: 'tab'}}
-          %span.glyphicon.glyphicon-user
-            Profile
-      %li{role: "presentation"}
-        %a{href: "#projects", data: {toggle: 'tab'}}
-          %span.glyphicon.glyphicon-folder-close
-            Projects
-      %li{role: "presentation"}
-        %a{href: "#funds", data: {toggle: 'tab'}}
-          %span.glyphicon.glyphicon-heart
-            Funded
-      %li{role: "presentation"}
-        %a{href: "#communities", data: {toggle: 'tab'}}
-          %span.glyphicon.glyphicon-globe
-            Communities
-      %li{role: "presentation"}
-        %a{href: "#feedbacks", data: {toggle: 'tab'}}
-          %span.glyphicon.glyphicon-comment
-            Feedback
-      
-    .tab-content
-      .tab-pane.fade.in.active{id: "profile"}
-        %p Email: #{@user.email}
-        %p Hometown: #{@user.hometown}
-        %p Homestate: #{@user.homestate}
-      .tab-pane.fade{id: "projects"}
-        - if @projects.any?
-          - @projects.each do |project|
-            .media
-              .media-left
-                = link_to "Project Picture", project_path(project.id)
-              .media-body
-                .media-heading
-                  %h4 #{project.name}
-                #{project.description}
-        - else
-          #{@user.username} hasn't started any projects.
-      .tab-pane.fade{id: "funds"}
-        - if @funds.any?
-          - @funds.each do |fund|
-            .media
-              .media-left
-                = link_to "Project Picture", project_path(fund.project_id)
-              .media-body
-                .media-heading
-                  %h4 #{fund.project.name}
-                %h4 $#{fund.amount}
-        - else
-          #{@user.username} hasn't funded any projects.
-      .tab-pane.fade{id: "communities"}
-        - if @communities.any?
-          - @communities.each do |community|
-            %a.btn.btn-default{href: community_path(community.id)} #{community.name}
-        - else
-          #{@user.username} doesn't belong to any communities.
-      .tab-pane.fade{id: "feedbacks"}
-        - if @feedbacks.any?
-          - @feedbacks.each do |feedback|
-            = feedback.description
-        - else
-          #{@user.username} hasn't received any feedback.
+    .col-lg-3.col-sm-4
+      %ul.list-group
+        %li.list-group-item.text-right
+          %span.pull-left
+            %strong Full Name:
+          [Full name]
+          -# TODO Fill in full name here
+        %li.list-group-item.text-right
+          %span.pull-left
+            %strong Date Joined:
+          #{@user.created_at.to_date}
+        %li.list-group-item.text-right
+          %span.pull-left
+            %strong Last Login:
+          #{last_login(@user)}
+        %li.list-group-item.text-right
+          %span.pull-left
+            %strong Email:
+          #{@user.email}
+        %li.list-group-item.text-center
+          [Social media links]
+          -# TODO Put social media links here
+      %ul.list-group
+        %li.list-group-item
+          %strong Communities:
+        %li.list-group-item.text-center
+          - if @communities.any?
+            - @communities.each do |community|
+              %a.btn.btn-default.top-margin{href: community_path(community.id)} #{community.name}
+          - else
+            None
+    .col-lg-9.col-sm-8
+      %ul.nav.nav-pills{role: "tablist"}
+        %li.active{role: "presentation"}
+          %a{href: "#projects", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-folder-close
+              Projects
+        %li{role: "presentation"}
+          %a{href: "#funds", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-heart
+              Funded
+        %li{role: "presentation"}
+          %a{href: "#profile", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-user
+              Profile
+        %li{role: "presentation"}
+          %a{href: "#feedbacks", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-comment
+              Feedback
+        
+      .tab-content
+        .tab-pane.fade.in.active{id: "projects"}
+          - if @projects.any?
+            - @projects.each do |project|
+              .media
+                .media-left
+                  = link_to "Project Picture", project_path(project.id)
+                .media-body
+                  .media-heading
+                    %h4 #{project.name}
+                  #{project.description}
+          - else
+            #{@user.username} hasn't started any projects.
+        .tab-pane.fade{id: "funds"}
+          - if @funds.any?
+            - @funds.each do |fund|
+              .media
+                .media-left
+                  = link_to "Project Picture", project_path(fund.project_id)
+                .media-body
+                  .media-heading
+                    %h4 #{fund.project.name}
+                  %h4 $#{fund.amount}
+          - else
+            #{@user.username} hasn't funded any projects.
+        .tab-pane.fade{id: "profile"}
+          %p Hometown: #{@user.hometown or "Not specified"}
+          %p Homestate: #{@user.homestate or "Not specified"}
+        .tab-pane.fade{id: "feedbacks"}
+          - if @feedbacks.any?
+            - @feedbacks.each do |feedback|
+              = feedback.description
+          - else
+            #{@user.username} hasn't received any feedback.
