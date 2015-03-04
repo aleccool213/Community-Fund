@@ -138,4 +138,8 @@ RSpec.describe AdminController, :type => :controller do
 	describe 'GET #settings' do
 		it_should_behave_like "admin only page", :settings
 	end
+
+	describe 'GET #moderation' do
+		it_should_behave_like "admin only page", :moderation
+	end
 end

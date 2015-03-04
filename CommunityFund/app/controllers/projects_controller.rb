@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
 
   def create
     @communities = Community.active
-    @new_project_form = ::NewProjectForm.new(user: 
+    @new_project_form = ::NewProjectForm.new(user:
       current_user, communities: @communities)
     @new_project_form.submit(params)
     @project = @new_project_form.project
@@ -51,7 +51,8 @@ class ProjectsController < ApplicationController
 
   def ensure_initiator
     @project = Project.find(params[:id])
-    if !(current_user.id == @project.initiator.id) || @project.closed?
+    initiator_or_admin = (current_user.id == @project.initiator.id) || current_user.admin?
+    if (not initiator_or_admin) || @project.closed?
       # TODO get this working
       flash[:error] = "Permission Denied"
       redirect_to project_path(id: @project.id)

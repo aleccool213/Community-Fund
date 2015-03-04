@@ -8,7 +8,10 @@
         .alert.alert-success
           Thank you for helping to fund this project! Click on "Edit donation" to change your donation amount or choose a different reward level
       .jumbotron
-        %h3.inline= "#{@project.name}: #{@project.description_lead}"
+        - if @project.banner.present? # TODO might be different call when no file
+          .project-banner
+            = image_tag @project.banner.url
+        %h3.inline.project-lead= "#{@project.name}: #{@project.description_lead}"
         .project-link.inline
           - @project.communities.each do |community|
             = "#{(@project.communities.count > 1) && (@project.communities.last == community) ? 'and' : ''}"
@@ -58,7 +61,7 @@
               = "To be completed: #{@project.completion_date_for_display}"
             - else
               = "Project closed on: #{@project.completion_date_for_display}"
-              
+
       = render partial: 'action_button'
 
       #accordion.panel-group.details-panel
@@ -73,7 +76,7 @@
             %ul.list-group
               %li.list-group-item
                 -# TODO link to initiator's profile + displayer username
-                %a{href: "#"} 
+                %a{href: "#"}
                   %span.glyphicon.glyphicon-user.text-primary
                   Creator
       .panel-group
@@ -94,8 +97,10 @@
                     %h3= "$ #{reward.reward_level}"
                     %p= reward.description
 
+      = render partial: 'moderate_buttons'
+
+
 :coffeescript
   $ ->
     if $('#selected_reward_id')
-      debugger
       $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('project-reward-selected')

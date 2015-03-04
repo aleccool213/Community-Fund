@@ -38,6 +38,13 @@ class AdminController < ApplicationController
 		redirect_to admin_settings_path
 	end
 
+	def moderation
+		all_reports = Report.all
+
+		project_reports = process_reports(all_reports, :project)
+		@projects = project_reports.map { |proj_id, count| [Project.find_by_id(proj_id), count] }
+	end
+
 	private
 		# Takes the data and adds entries with value 0 for any missing dates
 		def add_missing_data(data)
@@ -71,5 +78,15 @@ class AdminController < ApplicationController
 			data = Hash[*grouped.flatten]
 
 			return data
+		end
+
+		# Filter reports by given, and group by the object id
+		def process_reports(reports, obj_type)
+			filtered = reports.select { |r| r.reported_obj_type == obj_type.to_s }
+			grouped = filtered.group_by { |r| r.reported_obj_id }
+			counted = grouped.map { |g, r| [g, r.length] }
+			sorted = counted.sort_by { |a| a[1] }.reverse
+
+			return sorted
 		end
 end

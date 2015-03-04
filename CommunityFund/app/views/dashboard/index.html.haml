@@ -46,7 +46,7 @@
           - current_user.projects_funded.each do |p|
             = p.name 
             %br 
-            = "Percentage completed:" + p.percentage_completed
+            = "Percentage completed: #{p.percentage_completed}"
         - else
           No Projects funded :( 
 
@@ -60,6 +60,6 @@
           - current_user.projects.each do |p|
             = p.name 
             %br 
-            = "Percentage completed:" + p.percentage_completed
+            = "Percentage completed: #{p.percentage_completed}"
         - else
           No projects initiated :( 

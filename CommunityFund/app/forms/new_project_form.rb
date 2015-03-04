@@ -23,6 +23,8 @@ class NewProjectForm < Form
       open: true
       )
 
+    project.banner = project_params["banner"] if project_params.has_key?("banner")
+
     # add communities to project
     Community.active.each do |community|
       project.communities << community if attrs["community_#{community.id}"] == "true"

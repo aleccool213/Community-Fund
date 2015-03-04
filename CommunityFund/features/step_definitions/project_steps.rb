@@ -6,14 +6,6 @@ Then(/^I fill in my project details$/) do
   # TODO - rewards
 end
 
-Then(/^I click on the "(.*?)" button$/) do |arg1|
-  click_button(arg1)
-end
-
-Then(/^I click on the "(.*?)" link$/) do |arg1|
-  click_link(arg1)
-end
-
 Given(/^a project exists$/) do
   @project = FactoryGirl.create(:project, :with_rewards, communities: [Community.active.first])
 end

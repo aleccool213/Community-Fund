@@ -66,4 +66,3 @@ module MinitestAssertionsBridge
 end
 
 World(MinitestAssertionsBridge)
-

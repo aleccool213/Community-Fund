@@ -6,6 +6,8 @@ class Project < ActiveRecord::Base
   has_many :feedbacks
   has_many :milestones
 
+  mount_uploader :banner, AvatarUploader
+
   accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
 
   scope :open, -> { where(open: true)}
