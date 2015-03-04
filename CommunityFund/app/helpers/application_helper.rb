@@ -10,8 +10,8 @@ module ApplicationHelper
   end
   
   def time_ago(time)
-    if t = time
-      time_ago_in_words(t) + " ago"
+    if time.present?
+      time_ago_in_words(time) + " ago"
     else
       "Never"
     end

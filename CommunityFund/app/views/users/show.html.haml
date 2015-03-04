@@ -10,7 +10,7 @@
           admin
         - else
           member
-      %ul.list-group.top-margin-20
+      %ul.list-group.top-margin-md
         %li.list-group-item.text-right
           %span.pull-left
             %strong Full Name:
@@ -34,12 +34,12 @@
       .panel.panel-default
         .panel-heading
           %strong Communities
-        .panel-body
+        .panel-body.community-panel
           - if @communities.any?
             - @communities.each do |community|
-              %a.btn.btn-default.top-margin-4{href: community_path(community.id)} #{community.name}
+              %a.btn.btn-default.top-margin-sm{href: community_path(community.id)} #{community.name}
           - else
-            None
+            .top-margin-sm None
             
     .col-lg-9.col-sm-8
       %ul.nav.nav-pills{role: "tablist"}
