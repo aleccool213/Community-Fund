@@ -103,6 +103,7 @@
                       .media-heading
                         %strong #{fund.project.name}
                       $#{fund.amount}
+                      - get_reward(fund)
                       %span.pull-right #{time_ago(fund.updated_at)}
             - else
               %li.list-group-item #{@user.username} hasn't funded any projects.
@@ -116,7 +117,7 @@
                       = image_tag avatar_url(feedback.user, 100)
                     .media-body
                       .media-heading
-                        %strong #{feedback.user.username}
-                      #{feedback.description}
+                        %strong #{feedback.user.username} - #{feedback.project.name}
+                      #{feedback.description} #{time_ago(feedback.updated_at)}
             - else
               %li.list-group-item #{@user.username} hasn't received any feedback.
