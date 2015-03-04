@@ -13,20 +13,10 @@ class DashboardController < ApplicationController
       f.projects.map do |p|
         p.milestones.map do |m|
           if m.milestone_type == "Fund"
-            event = Hash.new
-            event[:name] = p.name
-            event[:type] = "Project"
-            event[:type_id] = p.id
-            event[:time] = m.created_at
-            event[:description] = m.description
-            event[:user_id] = Fund.find(m.fund_id).user_id
+            event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description, user_id: Fund.find(m.fund_id).user_id}
             @dashboard.push(event)
           elsif m.milestone_type == "Feedback"
-            event = Hash.new
-            event[:name] = p.name
-            event[:type_id] = p.id
-            event[:time] = m.created_at
-            event[:description] = m.description
+            event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description}
             @dashboard.push(event)
           end
         end
@@ -38,7 +28,6 @@ class DashboardController < ApplicationController
       if p.location == current_user.homestate #right here tim
         event = Hash.new
         event[:name] = p.name
-        event[:type] = "Project"
         event[:type_id] = p.id
         event[:description] = "Project has been started in your area!"
         event[:time] = p.created_at

@@ -34,11 +34,7 @@ class User < ActiveRecord::Base
   end
 
   def projects_funded
-    projects_funded = []
-    self.funds.each do |f|
-      projects_funded.push(Project.find(f.project_id))
-    end
-    projects_funded
+    Project.find(self.funds.pluck(:project_id))
   end
 
 end
