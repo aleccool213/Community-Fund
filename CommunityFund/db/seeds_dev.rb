@@ -1,3 +1,5 @@
+User.destroy_all
+
 User.create(
   username: "TimoVink",
   email: "timovink@gmail.com",
@@ -21,18 +23,19 @@ User.create(
     created_at: Faker::Time.backward(30, :day))
 end
 
+Project.destroy_all
 20.times do
   Project.create(
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
     created_at: Faker::Time.backward(30, :day),
-    initiator_id: User.order('RANDOM()').first.id,
     target_amount: rand(100...6000),
-    communities: Community.active,
+    communities: Community.order_by_rand.limit(2),
     completion_date: Faker::Time.backward(20, :day) + 1.month,
     open: true)
 end
 
+Fund.destroy_all
 fund_project = false
 user_index = 0
 users = User.all

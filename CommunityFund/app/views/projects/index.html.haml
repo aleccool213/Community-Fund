@@ -1,4 +1,6 @@
 - if current_user
   /show projects that are closer to this user by geographic location maybe?
+  - @projects.each do |p|
+    = link_to p.name, project_path(p)
 - else
   /show all

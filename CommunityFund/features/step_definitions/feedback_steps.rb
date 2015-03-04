@@ -16,7 +16,7 @@ Then(/^I should see the pending feedback$/) do
 end
 
 Then(/^I dismiss the feedback$/) do
-  click_button("Do this later")
+  click_button("dismiss_button_#{@feedback.id}")
   sleep 1
 end
 

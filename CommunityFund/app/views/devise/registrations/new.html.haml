@@ -5,11 +5,13 @@
         %h3.panel-title.text-center Create an account
       .panel-body
         = simple_form_for resource, as: resource_name, url: registration_path(resource_name) do |f|
-          .form-group
-            = f.error_notification
-            - @errors = resource.errors
-            -# TODO apparently devise stores field errors in here as a flash and not as model errors. Use this to get at them for whatever we plan to do with css
+          
+          = f.error_notification
+          - @errors = resource.errors
+          //style this lol
+          = devise_error_messages! 
 
+          // TODO apparently devise stores field errors in here as a flash and not as model errors. Use this to get at them for whatever we plan to do with css
           .div{class: 'form-group has-warning', id: 'signup-username'}
             %div{class: "input-group"}
               = f.text_field :username, required: true, class: 'form-control input-sm', label: false, placeholder: 'Username',id: 'signup-username-input', size: 100
