@@ -9,9 +9,9 @@ class DashboardController < ApplicationController
 
     #Project they are interested in has started, or reached milestones
     #TODO: bug when projects are apart of two communities and user is interested in more those communities
-    current_user.communities.map do |f|
-      f.projects.map do |p|
-        p.milestones.map do |m|
+    current_user.communities.each do |f|
+      f.projects.each do |p|
+        p.milestones.each do |m|
           if m.milestone_type == "Fund"
             event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description, user_id: Fund.find(m.fund_id).user_id}
             @dashboard.push(event)
@@ -26,11 +26,7 @@ class DashboardController < ApplicationController
     #projects located near them has started
     Project.all.each do |p|
       if p.location == current_user.homestate #right here tim
-        event = Hash.new
-        event[:name] = p.name
-        event[:type_id] = p.id
-        event[:description] = "Project has been started in your area!"
-        event[:time] = p.created_at
+        event = {name: p.name, type_id: p.id, description: "Project has been started in your area!", time: p.created_at}
         @dashboard.push(event)
       end
     end

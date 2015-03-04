@@ -2,7 +2,7 @@ class Milestone < ActiveRecord::Base
 	belongs_to :project
 	has_one :fund
 
-	def description
+	def percentage_description
 		if self.percentage == 0.01
 			"Project has been created! (0-25% funded)"
 		elsif self.percentage == 0.25
