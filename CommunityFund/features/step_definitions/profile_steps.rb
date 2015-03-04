@@ -54,6 +54,12 @@ Then(/^I should see my profile details$/) do
     page.should have_text "Homestate: Not specified"
   end
   
+  page.should have_text @user.projects.count
+  page.should have_text @user.projects.where(:funding_successful => true).count
+  page.should have_text @user.funds.count
+  page.should have_text @user.funds.sum(:amount)
+  page.should have_text @user.funds.average(:amount)
+  
   if @user.feedbacks.any?
     for feedback in @user.feedbacks
       page.should have_text feedback.user.username

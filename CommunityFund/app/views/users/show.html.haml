@@ -36,7 +36,7 @@
           %strong Communities
         .panel-body.community-panel
           - if @communities.any?
-            - @communities.each do |community|
+            - @communities.find_each do |community|
               %a.btn.btn-default.top-margin-sm{href: community_path(community.id)} #{community.name}
           - else
             .top-margin-sm None
@@ -74,10 +74,23 @@
             .panel-body
               %p Hometown: #{@user.hometown or "Not specified"}
               %p Homestate: #{@user.homestate or "Not specified"}
+          .panel.panel-default
+            .panel-heading
+              %strong Initiator Statistics
+            .panel-body
+              %p Projects Started: #{@projects.count}
+              %p Successful Funded: #{@projects.where(:funding_successful => true).count}
+          .panel.panel-default
+            .panel-heading
+              %strong Funder Statistics
+            .panel-body
+              %p Projects Funded: #{@funds.count}
+              %p Total Amount Funded: $#{@funds.sum(:amount)}
+              %p Average Amount Funded: $#{@funds.average(:amount)}
         .tab-pane.fade{id: "projects"}
           .list-group
             - if @projects.any?
-              - @projects.each do |project|
+              - @projects.find_each do |project|
                 %a{href: project_path(project.id), class: "list-group-item"}
                   .media
                     .media-left
@@ -87,13 +100,13 @@
                       .media-heading
                         %strong #{project.name}
                       #{project.description}
-                      %span.pull-right #{time_ago(project.updated_at)}
+                      %span.pull-right Created: project.created_at.to_date Updated: #{time_ago(project.updated_at)}
             - else
               %li.list-group-item #{@user.username} hasn't started any projects.
         .tab-pane.fade{id: "funds"}
           .list-group
             - if @funds.any?
-              - @funds.each do |fund|
+              - @funds.find_each do |fund|
                 %a{href: project_path(fund.project_id), class: "list-group-item"}
                   .media
                     .media-left
@@ -110,7 +123,7 @@
         .tab-pane.fade{id: "feedbacks"}
           .list-group
             - if @feedbacks.any?
-              - @feedbacks.each do |feedback|
+              - @feedbacks.find_each do |feedback|
                 %a{href: users_path(feedback.user.username), class: "list-group-item"}
                   .media
                     .media-left
