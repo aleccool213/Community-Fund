@@ -1,3 +1,9 @@
+# Add random images for icons to communties
+Community.all.each do |c|
+  #assign a random image to this community
+  c.update_attributes(:icon => Faker::Avatar.image(c.name, "50x50"))
+end
+
 User.destroy_all
 
 User.create(

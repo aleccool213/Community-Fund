@@ -4,4 +4,8 @@ class CommunitiesController < ApplicationController
   def index
     @communities = Community.active
   end
+
+  def show
+
+  end
 end

@@ -5,7 +5,7 @@
 
 	- elsif not current_user.has_reported?('project', @project.id)
 		// Report button
-		.btn.btn-danger.report-btn{ data: { 'project-id': @project.id, toggle: 'modal', target: '#report-modal' } }
+		.btn.btn-danger.report-btn{ data: { 'project-id'=> @project.id, toggle: 'modal', target: '#report-modal' } }
 			Report Project
 
 		// Report modal

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304172411) do
+ActiveRecord::Schema.define(version: 20150304210040) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20150304172411) do
     t.datetime "updated_at"
     t.integer  "project_id"
     t.boolean  "active",      default: true
+    t.string   "glyph"
+    t.string   "icon"
   end
 
   create_table "communities_projects", id: false, force: true do |t|
