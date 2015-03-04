@@ -6,5 +6,5 @@ Feature: Profiles
     When I go to the "Login Page"
     Then I fill in my login details
     Then I should see "Dashboard"
-    And I go to my profile page
+    When I go to my profile page
     Then I should see my profile details
