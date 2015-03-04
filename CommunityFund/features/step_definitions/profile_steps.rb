@@ -2,10 +2,16 @@ Then(/^I go to my profile page$/) do
   visit("/users/#{@user.username}")
 end
 
+Then(/^I go to the profile page of "(.*?)"$/) do |arg1|
+  visit("/users/#{arg1}")
+end
+
 Then(/^I should see my profile details$/) do
   page.should have_text @user.username
   if @user.admin
     page.should have_text "admin"
+  else
+    page.should have_text "member"
   end
   page.should have_text @user.created_at.to_date
   page.should have_text @user.email

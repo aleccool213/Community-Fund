@@ -8,3 +8,8 @@ Feature: Profiles
     Then I should see "Dashboard"
     When I go to my profile page
     Then I should see my profile details
+    
+  Scenario: View user profile of invalid user
+    When I go to the profile page of "nonexistant_user"
+    Then I should not see "nonexistant_user"
+    
