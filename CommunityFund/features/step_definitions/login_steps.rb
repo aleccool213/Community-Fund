@@ -12,7 +12,7 @@ def visit_url
     "Login Page" => "/users/sign_in",
     "Signup Page" => "/users/sign_up",
     "Create Project Page" => "/projects/new",
-    "newest project" => "/projects/#{Project.last.id}"
+    "newest project" => "/projects/#{Project.last.id}",
   }
 end
 
