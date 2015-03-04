@@ -1,12 +1,65 @@
-= render 'layouts/feedback'
-.jumbotron
-  .container
-    %h1 Dashboard
-    - if current_user.communities.length >= 1
-      /in the future, display a feed here with most recent events
-      = link_to "Browse your communities", communities_path, class: 'btn btn-lg btn-primary'
-    - else
-      %p
-        Hey, you haven't joined any communities yet!
-        %br
-        = link_to "Wanna?", dashboard_collect_information_path, class: 'btn btn-lg btn-primary'
+.containertype_id
+  .row
+    .col-sm-9.col-md-9
+      %h1 Dashboard
+      
+      - if !current_user
+        %p
+          sign in to see some cool stuff yo
+      - else
+        .div{id:"events"}
+          = render partial: "event", locals: {event: @dashboard}
+        .div{id:"infinite-scrolling"}
+          = will_paginate 
+
+    //sidebar panels
+
+    //communities
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-body
+          - if current_user.communities.length >= 1
+            /in the future, display a feed here with most recent events
+            = link_to "Browse your communities", communities_path, class: 'btn btn-lg'
+          - else
+            %p
+              Hey, you haven't joined any communities yet!
+            %br
+            = link_to "Wanna?", dashboard_collect_information_path, class: 'btn btn-lg'
+
+    //feedbacks/reputation alerts
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-body
+          - if current_user.feedbacks.count >= 1
+            = link_to current_user.feedback_button_text, feedbacks_path
+          - else
+            = current_user.feedback_button_text + " :("
+
+    //projects given funds too
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title
+            %h4 Projects you have funded:
+        - if current_user.projects_funded.count > 1
+          - current_user.projects_funded.each do |p|
+            = p.name 
+            %br 
+            = "Percentage completed: #{p.percentage_completed}"
+        - else
+          No Projects funded :( 
+
+    //initiated projects
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title
+            %h4 Projects you have started:
+        - if current_user.projects.count > 1
+          - current_user.projects.each do |p|
+            = p.name 
+            %br 
+            = "Percentage completed: #{p.percentage_completed}"
+        - else
+          No projects initiated :( 
