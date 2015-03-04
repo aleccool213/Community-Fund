@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
-  validates :username, presence: true
+  validates :username, presence: true, uniqueness: true, 
+            format: { with: /\A[A-Za-z0-9]+\z/,
+                      message: "Only alphanumerical characters allowed." }
 
   has_many :communities
   has_many :projects
