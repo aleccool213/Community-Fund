@@ -43,13 +43,14 @@
         .panel-heading
           .panel-title
             %h4 Projects you have funded:
-        - if current_user.projects_funded.count > 1
-          - current_user.projects_funded.each do |p|
-            = p.name 
-            %br 
-            = "Percentage completed: #{p.percentage_completed}"
-        - else
-          No projects have yet been funded.
+        .panel-body
+          - if current_user.projects_funded.count > 1
+            - current_user.projects_funded.each do |p|
+              = p.name 
+              %br 
+              = "Percentage completed: #{p.percentage_completed}"
+          - else
+            No projects have yet been funded.
 
     //initiated projects
     .col-sm-3.col-md-3
@@ -57,10 +58,11 @@
         .panel-heading
           .panel-title
             %h4 Projects you have started:
-        - if current_user.projects.count > 1
-          - current_user.projects.each do |p|
-            = p.name 
-            %br 
-            = "Percentage completed: #{p.percentage_completed}"
-        - else
-          No projects have been started.
+        .panel-body
+          - if current_user.projects.count > 1
+            - current_user.projects.each do |p|
+              = p.name 
+              %br 
+              = "Percentage completed: #{p.percentage_completed}"
+          - else
+            No projects have been started.
