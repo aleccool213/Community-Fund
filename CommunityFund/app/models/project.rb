@@ -37,7 +37,9 @@ class Project < ActiveRecord::Base
   end
 
   def is_initiator?(user)
-    initiator.id == user.id
+    if initiator
+      initiator.id == user.id
+    end
   end
 
   def hashtag_community(community)

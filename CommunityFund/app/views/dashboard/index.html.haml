@@ -32,9 +32,10 @@
       .panel.panel-default
         .panel-body
           - if current_user.feedbacks.count >= 1
+            %i{class:"fa fa-exclamation-circle"}
             = link_to current_user.feedback_button_text, feedbacks_path
           - else
-            = current_user.feedback_button_text + " :("
+            = current_user.feedback_button_text 
 
     //projects given funds too
     .col-sm-3.col-md-3
@@ -48,7 +49,7 @@
             %br 
             = "Percentage completed: #{p.percentage_completed}"
         - else
-          No Projects funded :( 
+          No projects have yet been funded.
 
     //initiated projects
     .col-sm-3.col-md-3
@@ -62,4 +63,4 @@
             %br 
             = "Percentage completed: #{p.percentage_completed}"
         - else
-          No projects initiated :( 
+          No projects have been started.

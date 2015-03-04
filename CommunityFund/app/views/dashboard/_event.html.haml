@@ -10,7 +10,7 @@
         = e[:description]
       %p
         //link to user public profile page
-        - if @user
-          = @user.username + " made the donation at " + e[:time].to_s
+        - if e[:user_id]
+          = link_to User.find(e[:user_id]).username + " made the donation at " + e[:time].to_s, '/users/show/' + e[:user_id].to_s
         - else
           = e[:time].strftime("%B %d, %Y")

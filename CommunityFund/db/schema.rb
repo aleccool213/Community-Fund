@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303175342) do
+ActiveRecord::Schema.define(version: 20150304172411) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -66,12 +66,16 @@ ActiveRecord::Schema.define(version: 20150303175342) do
 
   create_table "milestones", force: true do |t|
     t.integer  "project_id"
-    t.decimal  "percentage",  default: 0.0
+    t.decimal  "percentage",     default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
     t.integer  "fund_id"
+    t.integer  "users_id"
+    t.string   "milestone_type"
   end
+
+  add_index "milestones", ["users_id"], name: "index_milestones_on_users_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"

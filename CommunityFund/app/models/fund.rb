@@ -13,7 +13,7 @@ class Fund < ActiveRecord::Base
     if latestMilestone == nil
       newMilestone = Milestone.create(
         :project_id => self.project_id, 
-        :percentage => completion_status[:percentage],
+        :milestone_type => "Fund",
         :description => completion_status[:status],
         :fund_id => self.id
         )

@@ -8,28 +8,34 @@ class DashboardController < ApplicationController
     @dashboard = []
 
     #Project they are interested in has started, or reached milestones
-    #TODO: bug when user is interested in more than two communities
-    current_user.communities.each do |f|
-      f.projects.each do |p|
-        p.milestones.each do |pj|
-          event = Hash.new
-          event[:name] = p.name
-          event[:type] = "Project"
-          event[:type_id] = p.id
-          event[:time] = pj.created_at
-          event[:description] = pj.description
-          fund = Fund.find(pj.fund_id)
-          if fund
-            @user = User.find(Fund.find(pj.fund_id).user_id)
+    #TODO: bug when projects are apart of two communities and user is interested in more those communities
+    current_user.communities.map do |f|
+      f.projects.map do |p|
+        p.milestones.map do |m|
+          if m.milestone_type == "Fund"
+            event = Hash.new
+            event[:name] = p.name
+            event[:type] = "Project"
+            event[:type_id] = p.id
+            event[:time] = m.created_at
+            event[:description] = m.description
+            event[:user_id] = Fund.find(m.fund_id).user_id
+            @dashboard.push(event)
+          elsif m.milestone_type == "Feedback"
+            event = Hash.new
+            event[:name] = p.name
+            event[:type_id] = p.id
+            event[:time] = m.created_at
+            event[:description] = m.description
+            @dashboard.push(event)
           end
-          @dashboard.push(event)
         end
       end
     end
 
     #projects located near them has started
     Project.all.each do |p|
-      if p.location == current_user.homestate
+      if p.location == current_user.homestate #right here tim
         event = Hash.new
         event[:name] = p.name
         event[:type] = "Project"
@@ -40,11 +46,8 @@ class DashboardController < ApplicationController
       end
     end
 
-    #people starting discussions on projects this user has started
-
-    #people replying to comments this user has made on other project discussion boards
-
     #someone gives a rating to a project this user has intiated and project is now finished has ended
+
 
     @dashboard = @dashboard.sort_by { |k| k[:time] }
     @dashboard.reverse!
