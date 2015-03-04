@@ -4,14 +4,13 @@
       %a{href: "#"}
         = image_tag avatar_url(@user, 300), :class => "img-thumbnail center-block"
         -# TODO Link to avatar upload page
-    .col-lg-9.col-sm-8
       %h1 #{@user.username}
-      - if @user.admin?
-        %span.label.label-info.tags Admin
-.container
-  .row
-    .col-lg-3.col-sm-4
-      %ul.list-group
+      %span.label.label-info.tags
+        - if @user.admin?
+          admin
+        - else
+          member
+      %ul.list-group.top-margin-20
         %li.list-group-item.text-right
           %span.pull-left
             %strong Full Name:
@@ -24,7 +23,7 @@
         %li.list-group-item.text-right
           %span.pull-left
             %strong Last Login:
-          #{last_login(@user)}
+          #{time_ago(@user.current_sign_in_at)}
         %li.list-group-item.text-right
           %span.pull-left
             %strong Email:
@@ -38,12 +37,17 @@
         .panel-body
           - if @communities.any?
             - @communities.each do |community|
-              %a.btn.btn-default.top-margin{href: community_path(community.id)} #{community.name}
+              %a.btn.btn-default.top-margin-4{href: community_path(community.id)} #{community.name}
           - else
             None
+            
     .col-lg-9.col-sm-8
       %ul.nav.nav-pills{role: "tablist"}
         %li.active{role: "presentation"}
+          %a{href: "#profile", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-user
+              Profile
+        %li{role: "presentation"}
           %a{href: "#projects", data: {toggle: 'tab'}}
             %span.glyphicon.glyphicon-folder-close
               Projects
@@ -52,62 +56,64 @@
             %span.glyphicon.glyphicon-heart
               Funded
         %li{role: "presentation"}
-          %a{href: "#profile", data: {toggle: 'tab'}}
-            %span.glyphicon.glyphicon-user
-              Profile
-        %li{role: "presentation"}
           %a{href: "#feedbacks", data: {toggle: 'tab'}}
             %span.glyphicon.glyphicon-comment
               Feedback
         
       .tab-content
-        .tab-pane.fade.in.active{id: "projects"}
-          %ul.list-group
-            - if @projects.any?
-              - @projects.each do |project|
-                %li.list-group-item
-                  .media
-                    .media-left
-                      = link_to "Project Picture", project_path(project.id)
-                    .media-body
-                      .media-heading
-                        %strong #{project.name}
-                      #{project.description}
-            - else
-              %li.list-group-item #{@user.username} hasn't started any projects.
-        .tab-pane.fade{id: "funds"}
-          %ul.list-group
-            - if @funds.any?
-              - @funds.each do |fund|
-                %li.list-group-item
-                  .media
-                    .media-left
-                      = link_to "Project Picture", project_path(fund.project_id)
-                    .media-body
-                      .media-heading
-                        %strong #{fund.project.name}
-                      $#{fund.amount}
-            - else
-              %li.list-group-item #{@user.username} hasn't funded any projects.
-        .tab-pane.fade{id: "profile"}
+        .tab-pane.fade.in.active{id: "profile"}
           .panel.panel-default
-            .panel-heading About Me
+            .panel-heading
+              %strong About Me
             .panel-body
               [Insert user description]
               -# TODO Put user's description here
           .panel.panel-default
-            .panel-heading Location
+            .panel-heading
+              %strong Location
             .panel-body
               %p Hometown: #{@user.hometown or "Not specified"}
               %p Homestate: #{@user.homestate or "Not specified"}
-        .tab-pane.fade{id: "feedbacks"}
-          %ul.list-group
-            - if @feedbacks.any?
-              - @feedbacks.each do |feedback|
-                %li.list-group-item
+        .tab-pane.fade{id: "projects"}
+          .list-group
+            - if @projects.any?
+              - @projects.each do |project|
+                %a{href: project_path(project.id), class: "list-group-item"}
                   .media
                     .media-left
-                      = link_to image_tag(avatar_url(feedback.user, 100)), users_path(feedback.user.username)
+                      Project Picture
+                      -# TODO Place project picture here
+                    .media-body
+                      .media-heading
+                        %strong #{project.name}
+                      #{project.description}
+                      %span.pull-right #{time_ago(project.updated_at)}
+            - else
+              %li.list-group-item #{@user.username} hasn't started any projects.
+        .tab-pane.fade{id: "funds"}
+          .list-group
+            - if @funds.any?
+              - @funds.each do |fund|
+                %a{href: project_path(fund.project_id), class: "list-group-item"}
+                  .media
+                    .media-left
+                      Project Picture
+                      -# TODO Place project picture here
+                    .media-body
+                      .media-heading
+                        %strong #{fund.project.name}
+                      $#{fund.amount}
+                      %span.pull-right #{time_ago(fund.updated_at)}
+            - else
+              %li.list-group-item #{@user.username} hasn't funded any projects.
+        .tab-pane.fade{id: "feedbacks"}
+          .list-group
+            - if @feedbacks.any?
+              - @feedbacks.each do |feedback|
+                %a{href: users_path(feedback.user.username), class: "list-group-item"}
+                  .media
+                    .media-left
+                      = image_tag avatar_url(feedback.user, 100)
                     .media-body
                       .media-heading
                         %strong #{feedback.user.username}
