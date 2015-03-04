@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   validates :username, presence: true, uniqueness: true, 
-            format: { with: /\A[A-Za-z0-9]+\z/,
-                      message: "Only alphanumerical characters allowed." }
+            format: { with: /\A[A-Za-z0-9_]+\z/,
+                      message: "Only alphanumerical characters and underscores allowed." }
 
   has_many :communities
   has_many :projects
