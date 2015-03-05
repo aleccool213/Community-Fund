@@ -42,17 +42,8 @@ Then(/^I should see my profile details$/) do
     page.should have_text "hasn't funded any projects."
   end
   
-  if @user.hometown
-    page.should have_text "Hometown: #{@user.hometown}"
-  else
-    page.should have_text "Hometown: Not specified"
-  end
-  
-  if @user.homestate
-    page.should have_text "Homestate: #{@user.homestate}"
-  else
-    page.should have_text "Homestate: Not specified"
-  end
+  page.should have_text "Hometown: #{@user.hometown.present? ? @user.hometown : 'Not Specified'}"
+  page.should have_text "Homestate: #{@user.homestate.present? ? @user.homestate : 'Not Specified'}"
   
   page.should have_text @user.projects.count
   page.should have_text @user.projects.where(:funding_successful => true).count
