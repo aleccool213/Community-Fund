@@ -77,7 +77,7 @@
               %strong Initiator Statistics
             .panel-body
               %p Projects Started: #{@projects.count}
-              %p Successfuly Funded: #{@projects.where(:funding_successful => true).count}
+              %p Successfully Funded: #{@projects.where(:funding_successful => true).count}
           .panel.panel-default
             .panel-heading
               %strong Funder Statistics
@@ -113,8 +113,9 @@
                     .media-body
                       .media-heading
                         %strong #{fund.project.name}
-                      $#{fund.amount}
-                      - get_reward(fund)
+                      %h4 $#{fund.amount}
+                      - if r = Reward.find_by_id(fund.reward_id)
+                        Reward: #{r.description}
                       %span.pull-right #{time_ago(fund.updated_at)}
             - else
               %li.list-group-item #{@user.username} hasn't funded any projects.
