@@ -37,6 +37,7 @@ Then(/^I should see my profile details$/) do
     for fund in @user.funds
       page.should have_text fund.project.name
       page.should have_text fund.amount
+      page.should have_text fund.reward.present? ? "Reward: #{fund.reward.description}" : ""
     end
   else
     page.should have_text "hasn't funded any projects."

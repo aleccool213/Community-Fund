@@ -34,7 +34,7 @@
           %strong Communities
         .panel-body.community-panel
           - if @communities.present?
-            - @communities.find_each do |community|
+            - @communities.each do |community|
               %a.btn.btn-default.top-margin-sm{href: community_path(community.id)} #{community.name}
           - else
             .top-margin-sm None
@@ -88,7 +88,7 @@
         .tab-pane.fade{id: "projects"}
           .list-group
             - if @projects.present?
-              - @projects.find_each do |project|
+              - @projects.each do |project|
                 %a{href: project_path(project.id), class: "list-group-item"}
                   .media
                     .media-left
@@ -104,7 +104,7 @@
         .tab-pane.fade{id: "funds"}
           .list-group
             - if @funds.present?
-              - @funds.find_each do |fund|
+              - @funds.each do |fund|
                 %a{href: project_path(fund.project_id), class: "list-group-item"}
                   .media
                     .media-left
@@ -114,15 +114,14 @@
                       .media-heading
                         %strong #{fund.project.name}
                       %h4 $#{fund.amount}
-                      - if r = Reward.find_by_id(fund.reward_id)
-                        Reward: #{r.description}
+                      #{fund.reward.present? ? "Reward: #{fund.reward.description}" : nil}
                       %span.pull-right #{time_ago(fund.updated_at)}
             - else
               %li.list-group-item #{@user.username} hasn't funded any projects.
         .tab-pane.fade{id: "feedbacks"}
           .list-group
             - if @feedbacks.present?
-              - @feedbacks.find_each do |feedback|
+              - @feedbacks.each do |feedback|
                 %a{href: users_path(feedback.user.username), class: "list-group-item"}
                   .media
                     .media-left
