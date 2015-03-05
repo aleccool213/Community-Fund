@@ -58,7 +58,7 @@
               = "To be completed: #{@project.completion_date_for_display}"
             - else
               = "Project closed on: #{@project.completion_date_for_display}"
-              
+
       = render partial: 'action_button'
 
       #accordion.panel-group.details-panel
@@ -73,7 +73,7 @@
             %ul.list-group
               %li.list-group-item
                 -# TODO link to initiator's profile + displayer username
-                %a{href: "#"} 
+                %a{href: "#"}
                   %span.glyphicon.glyphicon-user.text-primary
                   Creator
       .panel-group
@@ -94,8 +94,10 @@
                     %h3= "$ #{reward.reward_level}"
                     %p= reward.description
 
+      = render partial: 'moderate_buttons'
+
+
 :coffeescript
   $ ->
     if $('#selected_reward_id')
-      debugger
       $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('project-reward-selected')

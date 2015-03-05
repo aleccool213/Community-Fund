@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # devise overrides
   devise_for :users, controllers: {registrations: 'registrations'}
 
-    root "home#index"
+  root "home#index"
 
   #dashboard
   get 'dashboard' => 'dashboard#index'
@@ -15,8 +15,16 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get :analytics
+
     get :settings
     post 'settings/update_admins', to: :update_admins
+
+    get :moderation
+  end
+
+  namespace :report do
+    post :dismiss
+    post :project
   end
 
   resources :communities

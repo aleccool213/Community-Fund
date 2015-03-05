@@ -1,68 +1,66 @@
-Community.destroy_all
-Community.create(name: "Science and Technology", description: "", active: true)
-Community.create(name: "Automotive", description: "", active: true)
-Community.create(name: "Sports", description: "", active: true)
-Community.create(name: "Health", description: "", active: true)
-Community.create(name: "Education", description: "", active: true)
+# encoding: UTF-8
+# This file is auto-generated from the current content of the database. Instead
+# of editing this file, please use the migrations feature of Seed Migration to
+# incrementally modify your database, and then regenerate this seed file.
+#
+# If you need to create the database on another system, you should be using
+# db:seed, not running all the migrations from scratch. The latter is a flawed
+# and unsustainable approach (the more migrations you'll amass, the slower
+# it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
 
-User.destroy_all
+ActiveRecord::Base.transaction do
 
-User.create(
-  username: "administrator", 
-  email: "admin@community-fund.ca",
-  password: "password1-", 
-  password_confirmation: "password1-",
-  admin: true)
+  User.create({"admin"=>true, "community_id"=>nil, "created_at"=>"2015-02-27T21:38:30.084Z", "current_sign_in_at"=>nil, "current_sign_in_ip"=>nil, "email"=>"admin@community-fund.ca", "encrypted_password"=>"$2a$10$dOTmP578tsHcgtgLyGi.W.qsgQTWthex.04Julk4ynsvD583pKzlS", "homestate"=>nil, "hometown"=>nil, "last_sign_in_at"=>nil, "last_sign_in_ip"=>nil, "project_id"=>nil, "remember_created_at"=>nil, "reset_password_sent_at"=>nil, "reset_password_token"=>nil, "sign_in_count"=>0, "updated_at"=>"2015-02-27T21:38:30.084Z", "username"=>"administrator"})
 
-User.create(
-  username: "TimoVink", 
-  email: "timovink@gmail.com",
-  password: "password1-", 
-  password_confirmation: "password1-",
-  admin: true)
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.103Z", "description"=>"Support the quest of animal lovers and wildlife activists to fundraise for their cause.", "name"=>"Animals", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.103Z", "user_id"=>nil})
 
-User.create(
-  username: "chris", 
-  email: "chris@community-fund.ca", 
-  password: "password", 
-  password_confirmation: "password", 
-  admin: true)
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.106Z", "description"=>"Be inspired through innovation and creativity. Support the next big crowdfunding idea!", "name"=>"Art", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.106Z", "user_id"=>nil})
 
-100.times do
-  User.create(
-    username: Faker::Internet.user_name, 
-    email: Faker::Internet.free_email,
-    password: "password1-", 
-    password_confirmation: "password1-",
-    last_sign_in_ip: Faker::Internet.ip_v4_address,
-    created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago))
-    )
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.109Z", "description"=>"Be inspired by creativity. Support the next big crowdfunding passion project!", "name"=>"Comic", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.109Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.111Z", "description"=>"Support the quest of every day people to fundraise for their community and loved ones.", "name"=>"Community", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.111Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.113Z", "description"=>"Discover passion projects within the dance community and help them achieve their fundraising goals.", "name"=>"Dance", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.113Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.114Z", "description"=>"Inspired design and DIY products for home, work and leisure. Fuel your creativity and support the next big crowdfunding idea.", "name"=>"Design", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.114Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.117Z", "description"=>"Support educators and the learning community in their effort to raise money and achieve their fundraising goals.", "name"=>"Education", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.117Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.118Z", "description"=>"Support the environmentalist community in their effort to crowdfund for environment change.", "name"=>"Environment", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.118Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.121Z", "description"=>"Discover passion projects within the fashion community and help them achieve their fundraising goals.", "name"=>"Fashion", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.121Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.126Z", "description"=>"Over 40K film campaigns chose Indiegogo for crowdfunding. From comedies to horror movies - discover and fund the films you want to see!", "name"=>"Film", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.126Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.131Z", "description"=>"Discover passion projects within the food community and help them achieve their fundraising goals.", "name"=>"Food", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.131Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.137Z", "description"=>"Video to table top, strategy to card games and more. Fuel your gaming passion and support the next big crowdfunding idea here.", "name"=>"Gaming", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.137Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.143Z", "description"=>"Discover the strength of the human spirit. Support those in need by helping them to achieve their fundraising goals.", "name"=>"Health", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.143Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.144Z", "description"=>"From song writers, to aspiring musicians, to your favorite artists. Support the next big crowdfunding passion project!", "name"=>"Music", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.144Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.148Z", "description"=>"Be inspired by creativity. Support the next big crowdfunding passion project!", "name"=>"Photography", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.148Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.149Z", "description"=>"Support the quest of politicians and community activists to fundraise for their cause.", "name"=>"Politics", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.149Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.151Z", "description"=>"Discover the aspirations of the faithful. Support those in need by helping them to achieve their fundraising goals.", "name"=>"Religion", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.151Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.153Z", "description"=>"Support inspired athletes, educators and innovators in their effort to raise money and achieve their fundraising goals.", "name"=>"Small Business", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.153Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.157Z", "description"=>"Be inspired through innovation and creativity. Support the next big crowdfunding idea!", "name"=>"Sports", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.157Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.161Z", "description"=>"Hardware, IoT, wearables, gadgets and technology innovations. Join the maker revolution and support the next big crowdfunding idea.", "name"=>"Technology", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.161Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.164Z", "description"=>"Be inspired through creative storytelling. Support these passion projects and help them reach their fundraising goals.", "name"=>"Theater", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.164Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.166Z", "description"=>"Be inspired through creative storytelling. Support these passion projects and help them reach their fundraising goals.", "name"=>"Transmedia", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.166Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.168Z", "description"=>"Crowdfunding connects you to the biggest YouTube stars and the best new web creators. Discover and fund the videos you want to see!", "name"=>"Video / Web", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.168Z", "user_id"=>nil})
+
+  Community.create({"active"=>true, "created_at"=>"2015-02-27T21:38:30.169Z", "description"=>"From novelists, to aspiring writers, to your favorite authors. Support the next big crowdfunding passion project!", "name"=>"Writing", "project_id"=>nil, "updated_at"=>"2015-02-27T21:38:30.169Z", "user_id"=>nil})
 end
 
-Project.destroy_all
-20.times do
-  Project.create(
-    name: Faker::Commerce.product_name,
-    description: Faker::Lorem.paragraph,
-    created_at: Time.at(1.months.ago + rand * (Time.now - 1.months.ago)), 
-    target_amount: rand(100...6000),
-    communities: Community.active, 
-    completion_date: Time.now + 1.month,
-    open: true
-    )
-end
-
-fund_project = false
-user_index = 0
-users = User.all
-Project.all.each do |project|
-  (fund_project ? 4 : 3).times do
-    Fund.create(
-      project: project,
-      user: users[user_index],
-      amount: (project.target_amount / 4)
-      )
-    user_index += 1
-  end
-  fund_project = !fund_project
-end
+SeedMigration::Migrator.bootstrap(20150227205720)

@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :funds
   has_many :feedbacks
+  has_many :reports
   
   mount_uploader :avatar, AvatarUploader
 
@@ -21,6 +22,11 @@ class User < ActiveRecord::Base
 
   def fund_for_project(project)
     funds.where(project_id: project.id).last
+  end
+
+  def has_reported?(report_type, obj_id)
+    results = reports.where(reported_obj_type: report_type, reported_obj_id: obj_id)
+    return (not results.blank?)
   end
 
   def feedback_button_text

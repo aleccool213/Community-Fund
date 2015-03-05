@@ -1,0 +1,31 @@
+- if user_signed_in?
+	- if current_user.admin?
+		// Edit button (for admins)
+		= link_to "Edit", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-danger edit-btn"
+
+	- elsif not current_user.has_reported?('project', @project.id)
+		// Report button
+		.btn.btn-danger.report-btn{ data: { project_id: @project.id, toggle: 'modal', target: '#report-modal' } }
+			Report Project
+
+		// Report modal
+		#report-modal.modal.fade
+			.modal-dialog
+				.modal-content
+					.modal-header
+						%button{ class: 'close', data: { dismiss: 'modal' } }
+							&times;
+						%h4
+							Report project
+
+					.modal-body
+						%p
+							Are you sure you wish to report this content as offensive or inappropriate?
+						%p
+							Upon submission the CommunityFund administrators will be notified and will conduct a review of this project.
+
+					.modal-footer
+						%button{ class: 'btn btn-default', data: { dismiss: 'modal' } }
+							Cancel
+						%button{ class: 'btn btn-danger report-confirm-btn', data: { dismiss: 'modal' } }
+							Report
