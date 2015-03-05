@@ -49,7 +49,7 @@ Then(/^I should see my profile details$/) do
   page.should have_text @user.projects.where(:funding_successful => true).count
   page.should have_text @user.funds.count
   page.should have_text @user.funds.sum(:amount)
-  page.should have_text @user.funds.average(:amount)
+  page.should have_text @funds.present? ? @funds.average(:amount) : '0.0'
   
   if @user.feedbacks.any?
     for feedback in @user.feedbacks

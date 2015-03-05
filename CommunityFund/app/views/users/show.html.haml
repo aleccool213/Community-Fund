@@ -84,7 +84,7 @@
             .panel-body
               %p Projects Funded: #{@funds.count}
               %p Total Amount Funded: $#{@funds.sum(:amount)}
-              %p Average Amount Funded: $#{@funds.average(:amount)}
+              %p Average Amount Funded: $#{@funds.present? ? @funds.average(:amount) : '0.0'}
         .tab-pane.fade{id: "projects"}
           .list-group
             - if @projects.present?
