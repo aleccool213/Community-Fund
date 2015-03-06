@@ -9,7 +9,7 @@
           %h3.title   
             = c.name
           %p
-            = c.description
+            = truncate(c.description, length: 75)
           .more
             %a{:href => '/communities/' + c.id.to_s, :title => "Title Link"}
               %i.fa.fa-plus
