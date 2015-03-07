@@ -9,7 +9,7 @@ class Fund < ActiveRecord::Base
   #adds a milestone the project if it qualifies
   def add_milestone
     new_completion_status = self.project.completion_status
-    latestMilestone = self.project.milestones.find_by(:percentage => completion_status[:percentage])
+    latestMilestone = self.project.milestones.find_by(:percentage => new_completion_status[:percentage])
     if latestMilestone == nil
       newMilestone = Milestone.create(
         :project_id => self.project_id, 

@@ -5,9 +5,10 @@ class DashboardController < ApplicationController
 
   #creates @dashboard instance variable which is a list that stores hashs of differen  @dashboard which fill the dash
   def index
-    @dashboard = []
+    @dashboard = [] 
 
     #Project they are interested in has started, or reached milestones
+    
     #grab all communities, grab all *unique* projects
     unique_projects = []
 
