@@ -8,17 +8,25 @@ class DashboardController < ApplicationController
     @dashboard = []
 
     #Project they are interested in has started, or reached milestones
-    #TODO: bug when projects are apart of two communities and user is interested in more those communities
+    #grab all communities, grab all *unique* projects
+    unique_projects = []
+
     current_user.communities.each do |f|
       f.projects.each do |p|
-        p.milestones.each do |m|
-          if m.milestone_type == "Fund"
-            event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description, user_id: Fund.find(m.fund_id).user_id}
-            @dashboard.push(event)
-          elsif m.milestone_type == "Feedback"
-            event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description}
-            @dashboard.push(event)
-          end
+        if unique_projects.include?(p) == false
+          unique_projects << p
+        end
+      end
+    end
+
+    unique_projects.each do |p|
+      p.milestones.each do |m|
+        if m.milestone_type == "Fund"
+          event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description, user_id: Fund.find(m.fund_id).user_id}
+          @dashboard.push(event)
+        elsif m.milestone_type == "Feedback"
+          event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description}
+          @dashboard.push(event)
         end
       end
     end
@@ -30,9 +38,6 @@ class DashboardController < ApplicationController
         @dashboard.push(event)
       end
     end
-
-    #someone gives a rating to a project this user has intiated and project is now finished has ended
-
 
     @dashboard = @dashboard.sort_by { |k| k[:time] }
     @dashboard.reverse!

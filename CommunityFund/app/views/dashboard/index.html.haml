@@ -2,30 +2,44 @@
   .row
     .col-sm-9.col-md-9
       %h1{style:"text-align:center;"} Dashboard
+      %br
       
       - if !current_user
         %p
           sign in to see some cool stuff yo
       - else
-        .div{id:"events"}
-          = render partial: "event", locals: {event: @dashboard}
-        .div{id:"infinite-scrolling"}
-          = will_paginate 
+        - if @dashboard.count > 0
+          .div{id:"events"}
+            = render partial: "event", locals: {event: @dashboard}
+          .div{id:"infinite-scrolling"}
+            = will_paginate 
+        - else
+          .panel.panel-default
+            .panel-heading
+              .panel-title
+                %h3{class: "panel-title"} 
+                  Go join some communities!
+            .panel-body
+              %p Are you a robot? Go join communities!
+                
 
     //sidebar panels
 
     //communities
     .col-sm-3.col-md-3
       .panel.panel-default
-        .panel-heading
-          .panel-title
-          - if current_user.communities.length >= 1
-            = link_to "Browse all communities", communities_path
-          - else
-            %p
-              Hey, you haven't joined any communities yet!
-            %br
+        - if current_user.communities.length >= 1
+          .panel-heading
+            .panel-title
+              = link_to "Browse all communities", communities_path
+        - else
+          .panel-heading
+            .panel-title
+              %p
+                Hey, you haven't joined any communities yet!
+          .panel-body{:style => "text-align: center;" }
             = link_to "Wanna?", dashboard_collect_information_path
+          
 
     //feedbacks/reputation alerts
     .col-sm-3.col-md-3
