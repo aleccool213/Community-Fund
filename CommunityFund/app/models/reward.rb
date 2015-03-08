@@ -1,3 +1,3 @@
 class Reward < ActiveRecord::Base
-  belongs_to :fund
+  has_many :funds
 end

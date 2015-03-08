@@ -5,7 +5,7 @@ RSpec.describe ReportController, :type => :controller do
 		context 'when not logged in' do
 			it 'should not succeed' do
 				@project = create(:project)
-				xhr :post, path, { 'project_id': @project.id }
+				xhr :post, path, { :'project_id' => @project.id }
 
 				expect(response).not_to be_success
 			end
@@ -24,7 +24,7 @@ RSpec.describe ReportController, :type => :controller do
 
 			it 'should redirect to dashboard if not an admin' do
 				@report = Report.create(user: @user, reported_obj_id: @project.id, reported_obj_type: 'project')
-				xhr :post, :dismiss, { 'obj-type': 'project', 'obj-id': @project.id }
+				xhr :post, :dismiss, { :'obj-type' => 'project', :'obj-id' => @project.id }
 
 				expect(response).to redirect_to dashboard_path
 			end
@@ -46,7 +46,7 @@ RSpec.describe ReportController, :type => :controller do
 				expect(Report.count).to eq 4
 
 				# Act
-				xhr :post, :dismiss, { 'obj-type': 'project', 'obj-id': @project.id }
+				xhr :post, :dismiss, { :'obj-type' => 'project', :'obj-id' => @project.id }
 
 				# Assert
 				expect(response).to be_success
@@ -57,7 +57,7 @@ RSpec.describe ReportController, :type => :controller do
 
 			it 'should not succeed if missing obj-type' do
 				@report = Report.create(user: @user, reported_obj_id: @project.id, reported_obj_type: 'project')
-				xhr :post, :dismiss, { 'obj-id': @project.id }
+				xhr :post, :dismiss, { :'obj-id' => @project.id }
 
 				expect(response).not_to be_success
 				expect(response).to have_http_status 400
@@ -65,14 +65,14 @@ RSpec.describe ReportController, :type => :controller do
 
 			it 'should not succeed if missing obj-id' do
 				@report = Report.create(user: @user, reported_obj_id: @project.id, reported_obj_type: 'project')
-				xhr :post, :dismiss, { 'obj-type': 'project' }
+				xhr :post, :dismiss, { :'obj-type' => 'project' }
 
 				expect(response).not_to be_success
 				expect(response).to have_http_status 400
 			end
 
 			it 'should not succeed if no such reports exist' do
-				xhr :post, :dismiss, { 'obj-type': 'project', 'obj-id': @project.id }
+				xhr :post, :dismiss, { :'obj-type' => 'project', :'obj-id' => @project.id }
 
 				expect(response).not_to be_success
 				expect(response).to have_http_status 404
@@ -91,7 +91,7 @@ RSpec.describe ReportController, :type => :controller do
 			end
 
 			it 'should succeed' do
-				xhr :post, :project, { 'project_id': @project.id }
+				xhr :post, :project, { :'project_id' => @project.id }
 
 				expect(response).to be_success
 			end
@@ -104,15 +104,15 @@ RSpec.describe ReportController, :type => :controller do
 			end
 
 			it 'should not succeed if project is invalid' do
-				xhr :post, :project, { 'project_id': @project.id + 1 }
+				xhr :post, :project, { :'project_id' => @project.id + 1 }
 
 				expect(response).not_to be_success
 				expect(response).to have_http_status 404
 			end
 
 			it 'should not succeed if report already exists' do
-				xhr :post, :project, { 'project_id': @project.id }
-				xhr :post, :project, { 'project_id': @project.id }
+				xhr :post, :project, { :'project_id' => @project.id }
+				xhr :post, :project, { :'project_id' => @project.id }
 
 				expect(response).not_to be_success
 				expect(response).to have_http_status 400

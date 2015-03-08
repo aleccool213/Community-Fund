@@ -28,6 +28,7 @@ gem 'seed_migration'
 gem 'devise'
 gem 'omniauth'
 gem 'carrierwave'
+gem 'rmagick'
 
 # analytics
 gem 'dateslices'

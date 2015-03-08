@@ -1,6 +1,6 @@
 - if @project.open?
   - if current_user.present? && @project.is_initiator?(current_user)
-    = link_to "Edit", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-lg btn-primary action-button"
+    = link_to "Edit Project", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-lg btn-primary action-button"
   - elsif user_signed_in?
     - if user_has_funded?
       = link_to "Edit donation", edit_fund_path(id: @fund.id, project_id: @project.id), id: 'edit_funding_button', class: 'btn btn-lg btn-primary action-button funding-button'
