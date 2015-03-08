@@ -39,7 +39,7 @@ geo_community_selection = ->
 		$cur_country_select = $(e.target)
 		$cur_country_select.prop('disabled', true)
 		$cur_city_select = $cur_country_select.closest('tr').find('.city-select')
-		$cur_country_select.prop('disabled', true)
+		$cur_city_select.prop('disabled', true)
 
 		# Get list of cities
 		req_data = { 'type': 'GET', 'data': { 'country_id': $cur_country_select.val() } }

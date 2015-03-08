@@ -2,12 +2,51 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+geo_community_selection = ->
+	$country_select = $('.country-select')
+	$city_select = $('.city-select')
+
+	# Empty a city selector
+	empty_cities = (sel) ->
+		# Reset city selector
+		sel.empty()
+		$initial_option = $('<option></option>').text('Select City')
+		sel.append($initial_option)
+		sel.prop('disabled', true)
+
+	# Update the city selection options
+	update_cities = (e) ->
+		# Disable inputs
+		$country_select.prop('disabled', true)
+		$city_select.prop('disabled', true)
+
+		# Get list of cities
+		req_data = { 'type': 'GET', 'data': { 'country_id': $country_select.val() } }
+		$.ajax('/location/cities', req_data).success((data) ->
+			# Update city selector
+			$city_select.empty()
+			$.each(data, (index, obj) ->
+				option = $('<option></option>').attr('value', obj['id']).text(obj['city'])
+				$city_select.append(option))
+
+			# Reenable inputs
+			$country_select.prop('disabled', false)
+			$city_select.prop('disabled', false)
+		).error( ->
+			# Reenable country selector
+			empty_cities($city_select)
+			$country_select.prop('disabled', false))
+
+	# Register handlers
+	$country_select.change(update_cities)
+
+
 #fancy validators for username, email and password
-
 #every single time there is a text input, try to validate and give feedback to user
-
 #todo: make it turn to fail state when user deletes input after getting to a success state
 ready = ->
+  geo_community_selection()
+
   jQuery ->
     submit_show = () ->
       $('#signup_button').show()
@@ -132,4 +171,3 @@ ready = ->
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
-
