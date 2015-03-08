@@ -24,7 +24,6 @@ gem 'simple_form_fancy_uploads'
 gem 'cocoon'
 gem 'cancan'
 gem 'seed_migration'
-gem 'rmagick'
 
 #profiles
 gem 'devise'
