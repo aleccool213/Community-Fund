@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304210040) do
+ActiveRecord::Schema.define(version: 20150308190252) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 20150304210040) do
     t.decimal  "target_amount"
     t.boolean  "open"
     t.decimal  "current_funding"
-    t.string   "location"
     t.boolean  "funding_successful",  default: false
     t.string   "geo_communities_str", default: "",    null: false
     t.string   "banner"
@@ -135,10 +134,9 @@ ActiveRecord::Schema.define(version: 20150304210040) do
     t.string   "username"
     t.integer  "community_id"
     t.integer  "project_id"
-    t.string   "hometown"
-    t.string   "homestate"
     t.boolean  "admin",                  default: false, null: false
     t.string   "avatar"
+    t.string   "location"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
