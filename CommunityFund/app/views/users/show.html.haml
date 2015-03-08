@@ -38,7 +38,7 @@
               %a.btn.btn-default.top-margin-sm{href: community_path(community.id)} #{community.name}
           - else
             .top-margin-sm None
-            
+
     .col-lg-9.col-sm-8
       %ul.nav.nav-pills{role: "tablist"}
         %li.active{role: "presentation"}
@@ -57,7 +57,7 @@
           %a{href: "#feedbacks", data: {toggle: 'tab'}}
             %span.glyphicon.glyphicon-comment
               Feedback
-        
+
       .tab-content
         .tab-pane.fade.in.active{id: "profile"}
           .panel.panel-default
@@ -70,8 +70,8 @@
             .panel-heading
               %strong Location
             .panel-body
-              %p Hometown: #{@user.hometown.present? ? @user.hometown : 'Not Specified'}
-              %p Homestate: #{@user.homestate.present? ? @user.homestate : 'Not Specified'}
+              %p City: #{@user.geo_community.present? ? @user.geo_community.city : 'Not Specified'}
+              %p Country: #{@user.geo_community.present? ? @user.geo_community.country : 'Not Specified'}
           .panel.panel-default
             .panel-heading
               %strong Initiator Statistics
