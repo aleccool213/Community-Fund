@@ -12,8 +12,6 @@
 
 ActiveRecord::Base.transaction do
 
-  Community.destroy_all
-
   User.create({"admin"=>true, "community_id"=>nil, "created_at"=>"2015-03-04T17:42:57.600Z", "current_sign_in_at"=>nil, "current_sign_in_ip"=>nil, "email"=>"admin@community-fund.ca", "encrypted_password"=>"$2a$10$G5.LeM0j0CDv3cT/zhBekO/6UnZUnpFBLHE7iJTUxfr4eI7Xykuay", "homestate"=>nil, "hometown"=>nil, "last_sign_in_at"=>nil, "last_sign_in_ip"=>nil, "project_id"=>nil, "remember_created_at"=>nil, "reset_password_sent_at"=>nil, "reset_password_token"=>nil, "sign_in_count"=>0, "updated_at"=>"2015-03-04T17:42:57.600Z", "username"=>"administrator"})
 
   Community.create({"active"=>true, "created_at"=>"2015-03-04T17:42:57.623Z", "description"=>"Support the quest of animal lovers and wildlife activists to fundraise for their cause.", "name"=>"Animals", "project_id"=>nil, "updated_at"=>"2015-03-04T17:42:57.623Z", "user_id"=>nil})

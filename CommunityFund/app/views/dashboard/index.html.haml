@@ -87,3 +87,6 @@
             = link_to current_user.feedback_button_text, feedbacks_path
           - else 
             = current_user.feedback_button_text 
+        .panel-footer
+          - if current_user.feedbacks.count >= 1
+            //TODO: dismiss button will be here 

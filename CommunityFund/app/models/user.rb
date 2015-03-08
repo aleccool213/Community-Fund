@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     if feedbacks.count >= 1
       "You have (#{feedbacks.count}) projects to give feedback on"
     else
-      "No feedbacks are available"
+      "No feedbacks are available."
     end
   end
 

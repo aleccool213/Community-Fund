@@ -13,7 +13,7 @@ class Feedback < ActiveRecord::Base
     Milestone.create(
       :project_id => self.project_id, 
       :milestone_type => "Feedback",
-      :description => self.user + " has submitted feedback on " + self.project.name
+      :description => self.user.username + " has submitted feedback on " + self.project.name
     )
   end
 
