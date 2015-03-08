@@ -21,15 +21,12 @@ ActiveRecord::Schema.define(version: 20150304210040) do
   end
 
   create_table "communities", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "project_id"
-    t.boolean  "active",      default: true
-    t.string   "glyph"
-    t.string   "icon"
+    t.string  "name"
+    t.text    "description"
+    t.integer "user_id"
+    t.integer "project_id"
+    t.boolean "active",      default: true
+    t.string  "icon"
   end
 
   create_table "communities_projects", id: false, force: true do |t|
@@ -73,11 +70,8 @@ ActiveRecord::Schema.define(version: 20150304210040) do
     t.datetime "updated_at"
     t.string   "description"
     t.integer  "fund_id"
-    t.integer  "users_id"
     t.string   "milestone_type"
   end
-
-  add_index "milestones", ["users_id"], name: "index_milestones_on_users_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -92,7 +86,8 @@ ActiveRecord::Schema.define(version: 20150304210040) do
     t.boolean  "open"
     t.decimal  "current_funding"
     t.string   "location"
-    t.boolean  "funding_successful", default: false
+    t.boolean  "funding_successful",  default: false
+    t.string   "geo_communities_str", default: "",    null: false
     t.string   "banner"
   end
 
