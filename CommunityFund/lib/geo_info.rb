@@ -22,15 +22,25 @@ module GeoInfo
 		@countries ||= city_database.query(db_query).to_a.map { |r| LocationInfo.new(*r) }
 	end
 
-	def self.cities_for_country(country_name)
+	def self.cities_for_country(country_id)
 		db_query = 'SELECT   l2.id, l2.country, l2.city
 		            FROM     locations l1 JOIN locations l2 ON l1.country = l2.country
 		            WHERE    l1.id = ?
 		            AND      l1.city IS NULL
 		            AND      l2.city IS NOT NULL
 		            ORDER BY l2.city'
-		results = city_database.query(db_query, [country_name]).to_a
+		results = city_database.query(db_query, [country_id]).to_a
 		return results.map { |r| LocationInfo.new(*r) }
+	end
+
+	def self.country_by_name(country_name)
+		db_query = 'SELECT   id, country, NULL
+		            FROM     locations
+		            WHERE    country = ?
+		            AND      city IS NULL'
+		results = city_database.query(db_query, [country_name]).to_a
+		locations = results.map { |r| LocationInfo.new(*r) }
+		return locations[0]
 	end
 
 	def self.location_by_id(loc_id)
