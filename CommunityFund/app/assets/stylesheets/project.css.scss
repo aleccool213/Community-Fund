@@ -80,6 +80,10 @@ $correct-green: #49e20e;
   display: inline;
 }
 
+.project-lead {
+  margin: 10px;
+}
+
 .project-link {
   font-size: 22px;
   font-style: italic;
@@ -91,7 +95,7 @@ $correct-green: #49e20e;
 }
 
 .funding-status{
-  padding: 20px;
+  margin: 20px;
   text-align: center;
   font-weight: bold;
 }
@@ -109,8 +113,7 @@ $correct-green: #49e20e;
 
 .action-button {
   width: 100%;
-  padding: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .funding-button {
@@ -118,7 +121,7 @@ $correct-green: #49e20e;
 }
 
 .details-panel {
-  padding-top: 20px;
+  margin-top: 20px;
 }
 
 a { 
@@ -126,33 +129,33 @@ a {
 }
 
 .project-description {
-  padding: 10px;
+  margin: 10px;
   width: 100%;
   font-size: 20px;
   font-weight: 200;
 }
 
 .description-body {
-    padding-right: 30px;
-    padding-left: 30px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 .project-reward-box{
 }
 
 .project-reward{
-  padding-left: 10px;
-  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   width: 100%;
 }
 
 .project-reward-icon{
   float: left;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
   font-size: 1.5em;
 }
 
@@ -161,6 +164,20 @@ a {
 }
 
 .project-reward p {
-  padding-left: 10px;
+  margin-left: 10px;
   font-weight: 200;
+}
+
+.hint-text {
+  font-weight: 200;
+  margin: 5px;
+}
+
+.project-banner {
+  max-width: 700px;
+  max-height: 700px;
+}
+
+.project-banner img {
+  width: 80%;
 }

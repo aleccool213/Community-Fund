@@ -41,4 +41,5 @@ Rails.application.routes.draw do
       post :dismiss
     end
   end
+
 end

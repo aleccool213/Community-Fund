@@ -17,7 +17,12 @@ class ProjectsController < ApplicationController
     @new_project_form = ::NewProjectForm.new(user: current_user, communities: @communities)
     @new_project_form.submit(params)
     @project = @new_project_form.project
+    Milestone.create(:project_id => @project.id, :percentage => 0.0, :fund_id => nil, :description => 'Project has been initiated!')
     redirect_to project_path(id: @project.id)
+  end
+
+  def index
+    @projects = current_user.projects
   end
 
   def show
