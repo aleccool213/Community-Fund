@@ -30,7 +30,7 @@ class NewProjectForm < Form
     end
 
     # get geo community ids
-    geo_params = attrs[:geo_comunity] || []
+    geo_params = attrs[:geo_community] || []
     processed_geo_params = []
     geo_params.each do |data|
         if data.has_key? "city" and not data["city"].blank?
