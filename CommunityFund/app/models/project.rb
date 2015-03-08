@@ -24,6 +24,14 @@ class Project < ActiveRecord::Base
     DateTime.now.year + 10
   end
 
+  def self.near_user(u)
+    if u.location.blank?
+      return []
+    end
+  
+    Project.all.where("geo_communities_str LIKE '%#{u.location}%'")
+  end
+
   def donors
     User.where('id in (?)', funds.pluck(:user_id))
   end
