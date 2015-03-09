@@ -11,7 +11,7 @@ Feature: Navigation
 	Then I should see "Logged in as"
 	And I should see my username
 	And I should see "Start Project"
-	And I should see "Send Feedback"
+	And I should see "Give Feedbacks to finished projects:"
 	And I should see "Edit Profile"
 	And I should not see "Administration"
 	And I should see "Logout"
@@ -22,7 +22,7 @@ Feature: Navigation
 	Then I should see "Logged in as"
 	And I should see my username
 	And I should see "Start Project"
-	And I should see "Send Feedback"
+	And I should see "Give Feedbacks to finished projects:"
 	And I should see "Edit Profile"
 	And I should see "Administration"
 	And I should see "Logout"

@@ -54,6 +54,15 @@
                       = check_box_tag "community_#{community.id}", true, class: 'form-control'
                       = community.name
 
+      .banner
+        .form-group
+          .panel.panel-primary
+            .panel-heading Banner Image. This can be a logo or an informative graphic about your project.
+            .panel-body
+              .hint-text#banner-hint
+                This is optional, but for best display please ensure banner is at least 700px in width and 400px in height.
+                = f.input :banner, as: :image_preview, required: false, class: 'form-control btn', label: false, input_html: {preview_version: :thumb}
+
       #rewards
         .form-group
           .panel.panel-primary
@@ -67,7 +76,7 @@
                 .links
                   = link_to_add_association 'Add Reward Level', f, :rewards
 
-      -# TODO banner
+      
 
       = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right' 
 

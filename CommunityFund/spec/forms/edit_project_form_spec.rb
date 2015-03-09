@@ -4,7 +4,7 @@ RSpec.describe 'edit project form' do
   before(:each) do
     @project = FactoryGirl.create(:project)
     @communities = @project.communities
-    @user = User.find(@project.initiator_id)
+    @user = User.find(@project.initiator.id)
     @project_params = {
       project: {
         name: "New project",

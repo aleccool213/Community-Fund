@@ -2,6 +2,10 @@ Then(/^I go to the "(.*?)"$/) do |arg1|
   visit(visit_url[arg1])
 end
 
+When(/^I login$/) do 
+  visit(new_user_session_path)
+end
+
 Then(/^I am on the "(.*?)"$/) do |arg1|
   visit(visit_url[arg1])
 end
@@ -48,3 +52,4 @@ Given(/^I am signed in as an? (.*)$/) do |user_type|
     fill_in 'login-password-input', with: @user.password
 	click_button 'login_button'
 end
+

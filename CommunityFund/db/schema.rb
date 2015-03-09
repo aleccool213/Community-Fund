@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227205541) do
+ActiveRecord::Schema.define(version: 20150304210040) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20150227205541) do
     t.datetime "updated_at"
     t.integer  "project_id"
     t.boolean  "active",      default: true
+    t.string   "glyph"
+    t.string   "icon"
   end
 
   create_table "communities_projects", id: false, force: true do |t|
@@ -64,6 +66,19 @@ ActiveRecord::Schema.define(version: 20150227205541) do
   add_index "funds", ["project_id"], name: "index_funds_on_project_id"
   add_index "funds", ["user_id"], name: "index_funds_on_user_id"
 
+  create_table "milestones", force: true do |t|
+    t.integer  "project_id"
+    t.decimal  "percentage",     default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "description"
+    t.integer  "fund_id"
+    t.integer  "users_id"
+    t.string   "milestone_type"
+  end
+
+  add_index "milestones", ["users_id"], name: "index_milestones_on_users_id"
+
   create_table "projects", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -71,12 +86,14 @@ ActiveRecord::Schema.define(version: 20150227205541) do
     t.integer  "community_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "initiator_id"
     t.integer  "rewards_id"
     t.datetime "completion_date"
     t.decimal  "target_amount"
     t.boolean  "open"
+    t.decimal  "current_funding"
+    t.string   "location"
     t.boolean  "funding_successful", default: false
+    t.string   "banner"
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"
