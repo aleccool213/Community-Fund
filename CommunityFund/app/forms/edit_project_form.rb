@@ -16,8 +16,10 @@ class EditProjectForm < Form
       name: project_params[:name],
       description: project_params[:description],
       completion_date: DateTime.new(project_params["completion_date(1i)"].to_i, project_params["completion_date(2i)"].to_i, project_params["completion_date(3i)"].to_i),
-      target_amount: project_params["target_amount"],
+      target_amount: project_params["target_amount"]
       )
+
+    project.banner = project_params["banner"] if project_params.has_key?("banner")
 
     if reward_params.present?
       reward_params.values.each do |reward|

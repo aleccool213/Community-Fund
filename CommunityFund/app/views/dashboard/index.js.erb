@@ -1,0 +1,7 @@
+$('#events').append('<%= j render partial: "event", locals: {event: @dashboard} %>');
+<% if @dashboard.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @dashboard %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

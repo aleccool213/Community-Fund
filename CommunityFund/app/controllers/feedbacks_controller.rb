@@ -11,6 +11,7 @@ class FeedbacksController < ApplicationController
         description: params[:feedback_description],
         submitted: true
         )
+      @feedback.add_milestone
       render json: {status: 200}
     else
       redirect_to dashboard_path

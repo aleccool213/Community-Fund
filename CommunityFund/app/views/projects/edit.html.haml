@@ -40,6 +40,15 @@
         .error-text#completion_date_error.hidden
           Must be at least 1 week from now
 
+      .banner
+        .form-group
+          .panel.panel-primary
+            .panel-heading Banner Image This can be a logo or an informative graphic about your project.
+            .panel-body
+              .hint-text#banner-hint
+                This is optional, but for best display please ensure banner is at least 700px in width and 400px in height.
+                = f.input :banner, as: :image_preview, required: false, class: 'form-control btn', label: false, input_html: {preview_version: :thumb}
+
       #rewards
         .form-group
           .panel.panel-primary
