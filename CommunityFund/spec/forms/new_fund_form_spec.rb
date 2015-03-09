@@ -15,7 +15,7 @@ RSpec.describe 'new fund form' do
   end
 
   it "should create the new fund and add the user to the communities" do
-    @new_fund_form = NewFundForm.new(user: @user, communities: @communities)
+    @new_fund_form = NewFundForm.new(user: @user, project: @project, communities: @communities)
     @new_fund_form.submit(@fund_params)
     fund = @new_fund_form.fund
     expect(fund.reward_id).to eq(nil)
@@ -24,7 +24,7 @@ RSpec.describe 'new fund form' do
   end
 
   it "should add the reward to the fund" do
-    @new_fund_form = NewFundForm.new(user: @user, communities: @communities)
+    @new_fund_form = NewFundForm.new(user: @user, project: @project, communities: @communities)
     @fund_params[:reward_id] = @project.rewards.first.id
     @new_fund_form.submit(@fund_params)
     fund = @new_fund_form.fund

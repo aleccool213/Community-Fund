@@ -20,20 +20,25 @@ gem 'font-awesome-rails'
 gem 'font-awesome-sass'
 gem 'haml-rails'
 gem 'simple_form'
+gem 'simple_form_fancy_uploads'
 gem 'cocoon'
 gem 'cancan'
 gem 'seed_migration'
+gem 'rmagick'
 
 #profiles
 gem 'devise'
 gem 'omniauth'
 gem 'carrierwave'
-gem 'rmagick'
 
 # analytics
 gem 'dateslices'
 gem 'chartkick'
 gem 'geoip'
+
+#dashboard
+gem 'will_paginate', '~> 3.0.5'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
 
 group :development, :test do
   gem 'awesome_print'
@@ -45,10 +50,12 @@ group :development, :test do
   gem 'better_errors'
   gem 'pry'
   gem 'pry-nav'
+  gem 'pry-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails', :require => false
   gem 'faker'
   gem 'launchy'
+  gem 'randumb'
 end
 
 group :production do

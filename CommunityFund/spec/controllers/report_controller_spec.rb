@@ -1,19 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe ReportController, :type => :controller do
-	shared_examples_for 'a page requiring login' do |path|
+	describe 'POST #dismiss' do
 		context 'when not logged in' do
-			it 'should not succeed' do
+			before do
+				@user = create(:user)
 				@project = create(:project)
-				xhr :post, path, { :'project_id' => @project.id }
+			end
+
+			it 'should not be authorized' do
+				@report = Report.create(user: @user, reported_obj_id: @project.id, reported_obj_type: 'project')
+				xhr :post, :dismiss, { 'obj-type': 'project', 'obj-id': @project.id }
 
 				expect(response).not_to be_success
+				expect(response).to have_http_status 401
 			end
 		end
-	end
-
-	describe 'POST #dismiss' do
-		it_should_behave_like 'a page requiring login', :project
 
 		context 'when logged in as a user' do
 			before do
@@ -22,11 +24,12 @@ RSpec.describe ReportController, :type => :controller do
 				sign_in @user
 			end
 
-			it 'should redirect to dashboard if not an admin' do
+			it 'should not be authorized' do
 				@report = Report.create(user: @user, reported_obj_id: @project.id, reported_obj_type: 'project')
 				xhr :post, :dismiss, { :'obj-type' => 'project', :'obj-id' => @project.id }
 
-				expect(response).to redirect_to dashboard_path
+				expect(response).not_to be_success
+				expect(response).to have_http_status 401
 			end
 		end
 
@@ -81,7 +84,18 @@ RSpec.describe ReportController, :type => :controller do
 	end
 
 	describe 'POST #project' do
-		it_should_behave_like 'a page requiring login', :project
+		context 'when not logged in' do
+			before do
+				@project = create(:project)
+			end
+
+			it 'should not be authorized' do
+				xhr :post, :project, { 'project_id': @project.id }
+
+				expect(response).not_to be_success
+				expect(response).to have_http_status 401
+			end
+		end
 
 		context 'when logged in' do
 			before do

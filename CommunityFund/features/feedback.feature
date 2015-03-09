@@ -15,7 +15,6 @@ Feature: Feedback
     And I fill in my login details
     Then I should see "Dashboard"
     And I should see the pending feedback
-    And I dismiss the feedback
     # TODO - ajax calls not working - get selenium working and append @javascript tag to this case
     # And the feedback should be dismissed
 

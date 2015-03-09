@@ -31,9 +31,14 @@ class User < ActiveRecord::Base
 
   def feedback_button_text
     if feedbacks.count >= 1
-      "Send Feedback (#{feedbacks.count})"
+      "You have (#{feedbacks.count}) projects to give feedback on"
     else
-      "Send Feedback"
+      "No feedbacks are available."
     end
   end
+
+  def projects_funded
+    Project.find(self.funds.pluck(:project_id))
+  end
+
 end
