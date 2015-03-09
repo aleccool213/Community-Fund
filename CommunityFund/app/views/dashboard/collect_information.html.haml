@@ -7,13 +7,6 @@
         = simple_form_for @collect_information_form, url: dashboard_submit_information_path, input_html: {class: 'form-horizontal'} do |f|
           .form-group
             = f.error_notification
-          .form-group
-            %label{for: "hometown"} Hometown
-            = f.text_field :hometown, required: false, class: 'form-control', label: false, placeholder: "So we can find communities near you!"
-          .form-group
-            %label{for: "homestate"} Homestate
-            -# TODO list of states, do this as a select
-            = f.text_field :homestate, required: false, class: 'form-control', label: false
 
           .panel-group
             .panel.panel-default
@@ -26,5 +19,5 @@
                       %label
                         = f.input "community_#{community.id}".to_sym, required: false, as: :boolean, class: 'form-control', label: community.name
           .form-actions
-            = f.button :submit, "Submit", id: "submit_button", class: 'btn btn-primary'         
+            = f.button :submit, "Submit", id: "submit_button", class: 'btn btn-primary'
             = link_to "Do this later", dashboard_path, class: 'btn btn-sm', id: "do_this_later"
