@@ -1,9 +1,7 @@
 .container
   .row
     .col-sm-9.col-md-9
-
       = hidden_field_tag 'selected_reward_id', @fund.reward_id if @fund.present?
-
       - if @new_fund.present?
         .alert.alert-success
           Thank you for helping to fund this project! Click on "Edit donation" to change your donation amount or choose a different reward level
