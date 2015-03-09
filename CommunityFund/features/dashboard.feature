@@ -48,8 +48,15 @@ Feature: Dashboard
     Then should appear latest milestone
 
   Scenario: Go to Dashboard, see event panels for feedbacks
-    
-
+    Given a project exists
+    And I have created a user account
+    And the project has met funding requirements
+    When the project closes
+    Then the project should have closed successfully
+    And the latest feedback is submitted
+    When I login
+    And I fill in my login details
+    Then should appear latest feedback
 
   Scenario: Go to Dashboard, see event panels for projects located near them
 

@@ -23,3 +23,7 @@ Then(/^should appear latest milestone$/) do
   milestone = @project.milestones.first
   expect(page).to have_content milestone.description
 end
+
+Then(/^should appear latest feedback$/) do
+  expect(page).to have_content (@user.username + " has submitted feedback on #{@user.feedbacks.first.project.name}")
+end

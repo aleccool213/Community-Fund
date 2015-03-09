@@ -6,8 +6,6 @@ class Feedback < ActiveRecord::Base
   scope :open, -> { where(submitted: false)}
   scope :submitted, -> {where(submitted: true)}
 
-  after_save :add_milestone
-
   #Creates a milestone when a feedback is given
   def add_milestone
     Milestone.create(
