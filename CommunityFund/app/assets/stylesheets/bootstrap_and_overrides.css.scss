@@ -27,3 +27,7 @@ $fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
 	padding: 15px;
 }
 
+.navbar-nav>li>a.profile-image {
+  // TODO Make image scale with navbar height.
+  padding: 0px;
+}

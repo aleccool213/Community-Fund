@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20150304210040) do
     t.string   "hometown"
     t.string   "homestate"
     t.boolean  "admin",                  default: false, null: false
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
