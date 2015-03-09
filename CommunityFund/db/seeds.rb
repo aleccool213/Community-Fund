@@ -12,7 +12,7 @@
 
 ActiveRecord::Base.transaction do
 
-  User.create({"admin"=>true, "avatar"=>nil, "community_id"=>nil, "created_at"=>"2015-03-08T18:54:27.262Z", "current_sign_in_at"=>nil, "current_sign_in_ip"=>nil, "email"=>"admin@community-fund.ca", "encrypted_password"=>"$2a$10$c9zosxYIPG5OOtmaAr/NMe45p4gOQVadTRuL8DiMwo8HtCE0ldm6e", "homestate"=>nil, "hometown"=>nil, "last_sign_in_at"=>nil, "last_sign_in_ip"=>nil, "project_id"=>nil, "remember_created_at"=>nil, "reset_password_sent_at"=>nil, "reset_password_token"=>nil, "sign_in_count"=>0, "updated_at"=>"2015-03-08T18:54:27.262Z", "username"=>"administrator"})
+  User.create({"admin"=>true, "avatar"=>nil, "community_id"=>nil, "created_at"=>"2015-03-09T20:59:00.608Z", "current_sign_in_at"=>nil, "current_sign_in_ip"=>nil, "email"=>"admin@community-fund.ca", "encrypted_password"=>"$2a$10$XYf8oCX9koiXOkvA3DFCC.1va.SSzTArnkHn6gfkhlrn1mAC.gthC", "last_sign_in_at"=>nil, "last_sign_in_ip"=>nil, "location"=>nil, "project_id"=>nil, "remember_created_at"=>nil, "reset_password_sent_at"=>nil, "reset_password_token"=>nil, "sign_in_count"=>0, "updated_at"=>"2015-03-09T20:59:00.608Z", "username"=>"administrator"})
 
   Community.create({"active"=>true, "description"=>"Support the quest of animal lovers and wildlife activists to fundraise for their cause.", "icon"=>nil, "name"=>"Animals", "project_id"=>nil, "user_id"=>nil})
 

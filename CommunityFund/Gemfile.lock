@@ -81,7 +81,7 @@ GEM
       mime-types (>= 1.16, < 3)
       nokogiri (~> 1.5)
       rails (>= 3, < 5)
-    database_cleaner (1.4.0)
+    database_cleaner (1.4.1)
     dateslices (0.0.3)
       rails (~> 4.0)
     debug_inspector (0.0.2)
