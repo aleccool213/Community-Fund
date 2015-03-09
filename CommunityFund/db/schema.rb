@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20150304210040) do
     t.datetime "updated_at"
     t.integer  "project_id"
     t.boolean  "active",      default: true
-    t.string   "glyph"
     t.string   "icon"
   end
 
@@ -73,11 +72,8 @@ ActiveRecord::Schema.define(version: 20150304210040) do
     t.datetime "updated_at"
     t.string   "description"
     t.integer  "fund_id"
-    t.integer  "users_id"
     t.string   "milestone_type"
   end
-
-  add_index "milestones", ["users_id"], name: "index_milestones_on_users_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
