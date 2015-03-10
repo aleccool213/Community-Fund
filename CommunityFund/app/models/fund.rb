@@ -1,7 +1,7 @@
 class Fund < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-  has_one :reward
+  belongs_to :reward
 
   #always gonna be a milestone after a Fund is saved
   after_save :add_milestone
