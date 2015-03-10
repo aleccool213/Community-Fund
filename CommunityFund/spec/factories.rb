@@ -1,6 +1,7 @@
+
 FactoryGirl.define do
 	factory :user do
-		sequence(:username)		{ |n| Faker::Internet.user_name }
+		sequence(:username)		{ |n| Faker::Internet.user_name(nil, ['_'])}
 		sequence(:email)		{ |n| Faker::Internet.email }
 		password				'password1-'
 		password_confirmation	'password1-'
@@ -27,7 +28,7 @@ FactoryGirl.define do
 		target_amount			1600
 		completion_date			{ DateTime.now + 1.month }
 		communities				{ [ FactoryGirl.create(:community) ] }
-		initiator_id			{ FactoryGirl.create(:user).id }
+		user_id			{ FactoryGirl.create(:user).id }
 		open					true
 
 		trait :with_rewards do

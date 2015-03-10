@@ -8,7 +8,10 @@
         .alert.alert-success
           Thank you for helping to fund this project! Click on "Edit donation" to change your donation amount or choose a different reward level
       .jumbotron
-        %h3.inline= "#{@project.name}: #{@project.description_lead}"
+        - if @project.banner.present? # TODO might be different call when no file
+          .project-banner
+            = image_tag @project.banner.url
+        %h3.inline.project-lead= "#{@project.name}: #{@project.description_lead}"
         .project-link.inline
           - @project.communities.each do |community|
             = "#{(@project.communities.count > 1) && (@project.communities.last == community) ? 'and' : ''}"
@@ -72,10 +75,9 @@
           .panel-collapse.collapse.in
             %ul.list-group
               %li.list-group-item
-                -# TODO link to initiator's profile + displayer username
-                %a{href: "#"}
+                %a{href: users_path(@project.initiator.username)}
                   %span.glyphicon.glyphicon-user.text-primary
-                  Creator
+                  = "Created by #{@project.initiator.username}"
       .panel-group
         .panel.panel-default
           .panel-heading

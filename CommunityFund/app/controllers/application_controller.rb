@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :email
   end
@@ -14,7 +14,12 @@ class ApplicationController < ActionController::Base
   def authenticate_admin!
     authenticate_user!
     if not current_user.admin?
-      redirect_to :dashboard
+      if request.format.js?
+        render json: {}, status: 401
+      else
+        redirect_to dashboard_path
+      end
     end
   end
+
 end

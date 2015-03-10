@@ -8,6 +8,6 @@ class ProjectCloser
 
   # for testing and development only! close a specific project!
   def self.close_project(id)
-    Project.find(id).close!
+    Project.try(:find, id).try(:close!)
   end
 end

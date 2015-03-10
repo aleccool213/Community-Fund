@@ -11,12 +11,11 @@
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.active
-            -# TODO link to profile page
-            = link_to "Logged in as #{current_user.username}", "#"
+            = link_to "Logged in as #{current_user.username}", users_path(current_user.username)
+          %li.active
+            = link_to image_tag(avatar_url(current_user, 50)), users_path(current_user.username), :class => "profile-image"
           %li
             = link_to "Start Project", new_project_path, id: 'create_project_button'
-          %li
-            = link_to current_user.feedback_button_text, feedbacks_path, id: 'send_feedback_button'
           %li.active
             = link_to "Edit Profile", edit_user_registration_path
           - if current_user.admin?

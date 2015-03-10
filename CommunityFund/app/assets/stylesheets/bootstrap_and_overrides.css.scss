@@ -20,12 +20,14 @@ $fontAwesomeEotPath_iefix: font-url("fontawesome-webfont.eot?#iefix");
 $fontAwesomeWoffPath: font-url("fontawesome-webfont.woff");
 $fontAwesomeTtfPath: font-url("fontawesome-webfont.ttf");
 $fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
-
-// Your custom SASS stylesheets goes here
-@import "project";
+@import "project";		
 @import "funds";
 
 .container {
 	padding: 15px;
 }
 
+.navbar-nav>li>a.profile-image {
+  // TODO Make image scale with navbar height.
+  padding: 0px;
+}

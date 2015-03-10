@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303175342) do
+ActiveRecord::Schema.define(version: 20150310152953) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150303175342) do
     t.datetime "updated_at"
     t.integer  "project_id"
     t.boolean  "active",      default: true
+    t.string   "icon"
   end
 
   create_table "communities_projects", id: false, force: true do |t|
@@ -66,11 +67,21 @@ ActiveRecord::Schema.define(version: 20150303175342) do
 
   create_table "milestones", force: true do |t|
     t.integer  "project_id"
-    t.decimal  "percentage",  default: 0.0
+    t.decimal  "percentage",     default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
     t.integer  "fund_id"
+    t.string   "milestone_type"
+  end
+
+  create_table "posts", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "communities_id"
+    t.integer  "projects_id"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "projects", force: true do |t|
@@ -88,6 +99,7 @@ ActiveRecord::Schema.define(version: 20150303175342) do
     t.decimal  "current_funding"
     t.string   "location"
     t.string   "banner"
+    t.integer  "initiator_id"
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"
@@ -137,6 +149,7 @@ ActiveRecord::Schema.define(version: 20150303175342) do
     t.string   "hometown"
     t.string   "homestate"
     t.boolean  "admin",                  default: false, null: false
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

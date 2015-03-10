@@ -1,11 +1,11 @@
 - if user_signed_in?
 	- if current_user.admin?
 		// Edit button (for admins)
-		= link_to "Edit", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-danger edit-btn"
+		= link_to "Edit as Administrator", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-danger edit-btn"
 
 	- elsif not current_user.has_reported?('project', @project.id)
 		// Report button
-		.btn.btn-danger.report-btn{ data: { project_id: @project.id, toggle: 'modal', target: '#report-modal' } }
+		.btn.btn-danger.report-btn{ data: { :'project_id' => @project.id, toggle: 'modal', target: '#report-modal' } }
 			Report Project
 
 		// Report modal

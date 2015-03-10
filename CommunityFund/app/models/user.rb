@@ -4,13 +4,18 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
-  validates :username, presence: true
+  validates :username, presence: true, uniqueness: true, 
+            format: { with: /\A[A-Za-z0-9_]+\z/,
+                      message: "Only alphanumerical characters and underscores allowed." }
 
   has_many :communities
   has_many :projects
   has_many :funds
   has_many :feedbacks
   has_many :reports
+  has_many :posts
+  
+  mount_uploader :avatar, AvatarUploader
 
   def in_community?(community)
     communities.include? community
@@ -27,9 +32,14 @@ class User < ActiveRecord::Base
 
   def feedback_button_text
     if feedbacks.count >= 1
-      "Send Feedback (#{feedbacks.count})"
+      "You have (#{feedbacks.count}) projects to give feedback on"
     else
-      "Send Feedback"
+      "No feedbacks are available."
     end
   end
+
+  def projects_funded
+    Project.find(self.funds.pluck(:project_id))
+  end
+
 end
