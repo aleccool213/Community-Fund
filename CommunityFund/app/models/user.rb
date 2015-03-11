@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
             format: { with: /\A[A-Za-z0-9_]+\z/,
                       message: "Only alphanumerical characters and underscores allowed." }
 
-  has_many :communities
+  has_and_belongs_to_many :communities
   has_many :projects
   has_many :funds
   has_many :feedbacks

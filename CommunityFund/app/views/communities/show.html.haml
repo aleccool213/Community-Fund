@@ -25,6 +25,10 @@
           %a{href: "#discussion", data: {toggle: 'tab'}}
             %span.glyphicon.glyphicon-comment
               Discussion
+        %li{role: "presentation"}
+          %a{href: "#members", data: {toggle: 'tab'}}
+            %i.fa.fa-users
+              Members
 
       .tab-content
         #projects.tab-pane.fade.in.active
@@ -35,23 +39,49 @@
                   No projects have been started for this community yet :(
             - else
               - @community.projects.each do |p|
-                .panel.panel-default
-                  .panel-heading
-                    .panel-title.community
-                      - if p.banner?
-                        .project-banner-community
-                          = image_tag p.banner.url
-                      %h3 
-                        = p.name
-                      
-                  .panel-body
-                    = p.description
-                    %br
-                    = link_to 'Details', project_path(p.id)
+                - if p.closed? == false
+                  .panel.panel-success
+                    .panel-heading
+                      .panel-title.community
+                        - if p.banner?
+                          .project-banner-community
+                            = image_tag p.banner.url
+                        %h3 
+                          = p.name
+                        
+                    .panel-body
+                      = p.description
+                      %br
+                      = link_to 'Details', project_path(p.id)
+                - if p.closed?
+                  .panel.panel-danger
+                    .panel-heading
+                      .panel-title.community
+                        - if p.banner?
+                          .project-banner-community
+                            = image_tag p.banner.url
+                        %h3 
+                          = p.name
+                        
+                    .panel-body
+                      = p.description
+                      %br
+                      = link_to 'Details', project_path(p.id)
 
         #discussion.tab-pane.fade
           .row
             = render "posts/discussion", locals: {type: "community", id: @community.id}
+
+        #members.tab-pane.fade
+          .row
+            - if @community.users.count < 1
+              .panel.panel-default
+                .panel-body
+                  No members in this community yet :(
+            - else
+              %div.list-group
+                - @community.users.each do |c|
+                  = link_to c.username, '/users/' + c.username,html_options = {:class => "list-group-item"}
 
     .col-sm-3.col-md-3
       .panel.panel-primary

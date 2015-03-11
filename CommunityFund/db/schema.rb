@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310164149) do
+ActiveRecord::Schema.define(version: 20150311203939) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20150310164149) do
 
   add_index "communities_projects", ["community_id"], name: "index_communities_projects_on_community_id"
   add_index "communities_projects", ["project_id"], name: "index_communities_projects_on_project_id"
+
+  create_table "communities_users", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "community_id"
+  end
+
+  add_index "communities_users", ["community_id"], name: "index_communities_users_on_community_id"
+  add_index "communities_users", ["user_id"], name: "index_communities_users_on_user_id"
 
   create_table "feedbacks", force: true do |t|
     t.integer  "user_id"
@@ -96,11 +104,10 @@ ActiveRecord::Schema.define(version: 20150310164149) do
     t.datetime "completion_date"
     t.decimal  "target_amount"
     t.boolean  "open"
-    t.boolean  "funding_successful", default: false
     t.decimal  "current_funding"
     t.string   "location"
+    t.boolean  "funding_successful", default: false
     t.string   "banner"
-    t.integer  "initiator_id"
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"

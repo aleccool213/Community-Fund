@@ -15,7 +15,7 @@ class CollectInformationForm < Form
     user.homestate = attrs.delete(:homestate)
 
     # if we add anything else here then remove it before we start extracting the communities
-    add_communities(attrs)
+    add_communities_and_users(attrs)
 
     # TODO check if can be saved, return error if it can't
     user.save
