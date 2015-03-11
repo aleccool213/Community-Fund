@@ -42,4 +42,14 @@ class User < ActiveRecord::Base
     Project.find(self.funds.pluck(:project_id))
   end
 
+  def avatar_url(size = 80)
+     default_url = "mm"  #"#{root_url}images/guest.png"
+    if url = avatar.url
+      url
+    else
+      gravatar_id = Digest::MD5.hexdigest(email.downcase)
+      "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=#{CGI.escape(default_url)}"
+    end
+  end
+
 end

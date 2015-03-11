@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310152953) do
+ActiveRecord::Schema.define(version: 20150310164149) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 20150310152953) do
 
   create_table "posts", force: true do |t|
     t.integer  "user_id"
-    t.integer  "communities_id"
-    t.integer  "projects_id"
+    t.integer  "community_id"
+    t.integer  "project_id"
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"

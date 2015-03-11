@@ -1,0 +1,61 @@
+- # support both project and community post, so pass in what we are loading
+- locals ||= {type: type, id: id}
+- @object = locals[:type].capitalize.constantize.find(locals[:id])
+
+= hidden_field_tag "posts_url", posts_path
+= hidden_field_tag "posts_type", locals[:type]
+= hidden_field_tag "posts_object_id", locals[:id]
+
+- if user_signed_in?
+  .row
+    .col-md-9
+      #posting_error.alert.alert-danger.hidden
+        Please enter a comment to post.
+      .comment-box
+        .input-group
+          %span.input-group-addon.poster-avatar
+            = image_tag(avatar_url(current_user, 50))
+          = text_area_tag "post_content", nil, class: "form-control", rows: "5"
+    .col-md-offset-1.col-md-2
+      %button.btn.btn-md#post_button Post
+.row
+  .col-md-9
+    .project-comments
+      - @object.posts.order("updated_at DESC").each do |post|
+        .comment
+          .commenter-avatar
+            = image_tag(avatar_url(post.user, 50))
+          .comment-text
+            %p= post.content
+            %span.timestamp
+              = post.updated_at.strftime("%m/%d/%Y at %I:%M%p")
+              
+- # TODO infinite scroll/pagination?
+
+:coffeescript
+  $('#post_button').click ->
+    $('#posting_error').addClass('hidden')
+    $.ajax
+      type: 'POST'
+      url: $('#posts_url').val()
+      dataType: 'json'
+      data:
+        object_type: $('#posts_type').val()
+        object_id: $('#posts_object_id').val()
+        content: $('#post_content').val()
+      success: (data) ->
+        if data.status == "failure"
+          $('#posting_error').removeClass('hidden')
+        else
+          $('.project-comments').prepend(
+            '<div class="comment">' +
+            '<div class="commenter-avatar">' +
+            '<img src="' + data.url + '">' +
+            '</div>' +
+            '<div class="comment-text">' + 
+            '<p>' + data.content + '</p>' +
+            '<span class="timestamp">' + data.timestamp + '</span>'
+            '</div>' +
+            '</div>'
+          )
+          $('#post_content').val("")

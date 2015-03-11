@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :communities
   resources :projects
   resources :funds
+  resources :posts
   resources :feedbacks do
     member do
       post :submit
