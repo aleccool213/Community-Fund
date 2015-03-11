@@ -50,7 +50,8 @@
                     = link_to 'Details', project_path(p.id)
 
         #discussion.tab-pane.fade
-          TODO discussion functionality
+          .row
+            = render "posts/discussion", locals: {type: "community", id: @community.id}
 
     .col-sm-3.col-md-3
       .panel.panel-primary
