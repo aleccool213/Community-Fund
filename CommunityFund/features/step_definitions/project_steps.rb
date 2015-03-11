@@ -64,10 +64,6 @@ Then(/^I have created a project$/) do
   @project = FactoryGirl.create(:project, :with_rewards, user: @user)
 end
 
-Then(/^a project exists$/) do
-  step %{"I have created a project"}
-end
-
 Then(/^the project has posted comments$/) do
   @post = Post.create(user_id: FactoryGirl.create(:user).id, project_id: @project.id, content: "Some arbitrary comment")
 end

@@ -1,9 +1,6 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!
 
-  def new
-  end
-
   def create
     if params[:content].present?
       post = Post.new
