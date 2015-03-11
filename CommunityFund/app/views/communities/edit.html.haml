@@ -1,0 +1,9 @@
+= simple_form_for @community do |builder|
+  .form-group
+    .panel.panel-primary
+      .panel-heading Banner Image This can be a logo or an informative graphic about the community.
+      .panel-body
+        .hint-text#banner-hint
+          This is optional, but for best display please ensure banner is at least 700px in width and 400px in height.
+          = builder.input :banner, as: :image_preview, required: false, class: 'form-control btn', label: false, input_html: {preview_version: :thumb}
+        = builder.submit "Submit"

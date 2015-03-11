@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   #communities
   get 'communities' => 'communities#index'
+  get 'communities/:id/edit_photo' => 'communities#edit_photo'
 
   namespace :admin do
     get :analytics

@@ -1,0 +1,62 @@
+.container
+  .row
+    .col-sm-9.col-md-9
+      - if @new_join.present?
+        .alert.alert-success
+          Thank you for joining this Community, you will now receive updates from projects within this Community on your dashboard. 
+      .jumbotron
+        - if @community.banner.present?
+          .project-banner
+            = image_tag @community.banner.url
+        - if current_user.admin?
+          - if @community.banner.present?
+            = link_to 'Edit this community banner', '/communities/'+ params[:id] + '/edit'
+          - else
+            = link_to 'Add a banner for this community', '/communities/'+ params[:id] + '/edit'
+
+        %h3.project-lead= "#{@community.name}: #{@community.description}"
+
+      %ul.nav.nav-pills
+        %li.active{role: "presentation"}
+          %a{href: "#projects", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-ice-lolly-tasted
+              Projects
+        %li{role: "presentation"}
+          %a{href: "#discussion", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-comment
+              Discussion
+
+      .tab-content
+        #projects.tab-pane.fade.in.active
+          .project-description
+            - if @community.projects.count == 0
+              .panel.panel-default
+                .panel-body
+                  No projects have been started for this community yet :(
+            - else
+              - @community.projects.each do |p|
+                .panel.panel-default
+                  .panel-heading
+                    .panel-title.community
+                      - if p.banner?
+                        .project-banner-community
+                          = image_tag p.banner.url
+                      %h3 
+                        = p.name
+                      
+                  .panel-body
+                    = p.description
+                    %br
+                    = link_to 'Details', project_path(p.id)
+
+        #discussion.tab-pane.fade
+          TODO discussion functionality
+
+    .col-sm-3.col-md-3
+      .panel.panel-primary
+        .panel-body
+          .funding-status
+            .completion-amount
+              Total donated to projects within this community: 
+              = "$" + @community.total.to_s
+      = render partial: 'moderate_buttons'
