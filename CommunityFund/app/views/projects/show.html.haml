@@ -73,10 +73,9 @@
           .panel-collapse.collapse.in
             %ul.list-group
               %li.list-group-item
-                -# TODO link to initiator's profile + displayer username
-                %a{href: "#"}
+                %a{href: users_path(@project.initiator.username)}
                   %span.glyphicon.glyphicon-user.text-primary
-                  Creator
+                  = "Created by #{@project.initiator.username}"
       .panel-group
         .panel.panel-default
           .panel-heading

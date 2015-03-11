@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :funds
   has_many :feedbacks
   has_many :reports
+  has_many :posts
   
   mount_uploader :avatar, AvatarUploader
 
