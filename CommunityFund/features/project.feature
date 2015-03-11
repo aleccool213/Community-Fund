@@ -60,6 +60,7 @@ Feature: Projects
     # TODO - test this in a funding.feature file
 
   Scenario: Viewing project publicly, clicking on signup
+    Given a project exists
     When I go to the "newest project"
     Then I should not see "Fund this"
     And I should not see "Edit"
@@ -77,3 +78,9 @@ Feature: Projects
     And I go to the "newest project"
     Then I should not see "Edit Project"
     Then I should see "Project Closed"
+
+  Scenario: Public viewers should be able to see comments
+    Given a project exists
+    And the project has posted comments
+    When I go to the "newest project"
+    Then I should see "Some arbitrary comment"

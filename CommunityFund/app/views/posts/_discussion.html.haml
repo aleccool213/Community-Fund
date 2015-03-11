@@ -1,5 +1,4 @@
 - # support both project and community post, so pass in what we are loading
-- locals ||= {type: type, id: id}
 - @object = locals[:type].capitalize.constantize.find(locals[:id])
 
 = hidden_field_tag "posts_url", posts_path
@@ -29,9 +28,10 @@
             %p= post.content
             %span.timestamp
               = post.updated_at.strftime("%m/%d/%Y at %I:%M%p")
-              
+
 - # TODO infinite scroll/pagination?
 
+- # TODO just disable button if there is no input
 :coffeescript
   $('#post_button').click ->
     $('#posting_error').addClass('hidden')
