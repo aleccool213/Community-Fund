@@ -8,11 +8,6 @@ class Community < ActiveRecord::Base
   scope :active, -> { where(active: true)}
 
   def total
-  	total = 0
-  	self.projects.map do |p|
-      total = total + p.total_amount
-    end
-    total
-    #self.funds.sum(:amount)
+    self.projects.map(&:total_amount).inject(0, &:+)
   end
 end
