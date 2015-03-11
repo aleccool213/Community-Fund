@@ -1,0 +1,31 @@
+$correct-green: #49e20e;
+
+.reward-box{
+  width: 100%;
+  float: left;
+  border-radius: 6px;
+  border: 1px solid #e3e3e3;
+  font-weight: 200;
+}
+
+.reward-box:hover {
+  background-color: #e3e3e3; 
+}
+
+.reward-content{
+  float: left;
+  padding: 10px;
+}
+
+.reward-icon{
+  float: left;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 30px;
+  font-size: 2em;
+}
+
+.reward-option{
+  font-size: 2em;
+  color: $correct-green;
+}

@@ -1,0 +1,222 @@
+$font-color: #23527c;
+$money-color: #216C2a;
+$error-red: #ff0033;
+$correct-green: #49e20e;
+
+#accordion .glyphicon {
+    margin-right: 10px;
+}
+.panel-collapse > .list-group .list-group-item:first-child {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+.panel-collapse > .list-group .list-group-item {
+    border-width: 1px 0;
+}
+.panel-collapse > .list-group {
+    margin-bottom: 0;
+}
+.panel-collapse .list-group-item {
+    border-radius: 0;
+}
+.panel-collapse .list-group .list-group {
+    margin: 0;
+    margin-top: 10px;
+}
+.panel-collapse .list-group-item li.list-group-item {
+    margin: 0 -15px;
+    border-top: 1px solid #ddd;
+    border-bottom: 0;
+    padding-left: 30px;
+}
+
+.panel-collapse .list-group-item a{
+  text-decoration: none;
+}
+
+.panel-collapse .list-group-item li.list-group-item:last-child {
+    padding-bottom: 0;
+}
+.panel-collapse div.list-group div.list-group {
+    margin: 0;
+}
+.panel-collapse div.list-group .list-group a.list-group-item {
+    border-top: 1px solid #ddd;
+    border-bottom: 0;
+    padding-left: 30px;
+}
+
+.error-text{
+  font-weight: 200;
+  color: $error-red;
+  font-size: 14px;
+}
+
+.has-error:focus {
+  border-color: $error-red;
+}
+
+.has-error-select {
+  color: $error-red;
+}
+
+.fa-exclamation-circle {
+  color: $error-red;
+}
+
+.fa-check {
+  color: $correct-green;
+}
+
+.has-money-error {
+  color: $error-red;
+}
+
+.correct-money {
+  color: $correct-green
+}
+
+.inline{
+  display: inline;
+}
+
+.project-lead {
+  margin: 10px;
+}
+
+.project-link {
+  font-size: 22px;
+  font-style: italic;
+  display: inline;
+}
+
+.project-link a{
+  text-decoration: none;
+}
+
+.funding-status{
+  margin: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.completion-amount{
+  font-size: 16px;
+  color: $money-color;
+}
+
+.completion-date{
+  font-weight: bold;
+  color: $font-color;
+  font-size: 16px;
+}
+
+.action-button {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.funding-button {
+  background-color: $money-color;
+}
+
+.details-panel {
+  margin-top: 20px;
+}
+
+a { 
+  text-decoration: none;
+}
+
+.project-description {
+  margin: 10px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.description-body {
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.project-reward-box{
+}
+
+.project-reward{
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 100%;
+}
+
+.project-reward-icon{
+  float: left;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 1.5em;
+}
+
+.project-reward-selected {
+  color: $correct-green;
+}
+
+.project-reward p {
+  margin-left: 10px;
+  font-weight: 200;
+}
+
+.hint-text {
+  font-weight: 200;
+  margin: 5px;
+}
+
+.project-banner {
+  max-width: 700px;
+  max-height: 700px;
+}
+
+.project-banner img {
+  width: 80%;
+}
+
+.project-comments {
+  display: inline-block;
+  margin: 20px;
+  width: 100%
+}
+
+.comment {
+  margin-bottom: 20px;
+}
+
+.commenter-avatar {
+  float: left;
+  margin-right: 20px;
+}
+
+.commenter-avatar img {
+  border-radius: 50%;
+}
+
+.poster-avatar img {
+  border-radius: 50%;
+}
+
+.comment-text {
+  margin-left: 30px;
+}
+
+.comment-text p {
+  font-weight: 300;
+  font-size: 1.25em;
+  word-wrap: break-word; 
+}
+
+.comment-text .timestamp {
+  font-weight: 200;
+  font-size: 0.8em;
+}
+

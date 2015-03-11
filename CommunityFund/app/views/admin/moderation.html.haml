@@ -1,0 +1,18 @@
+%h1 Moderation
+
+%h3 Projects
+%table{ class: 'reported-projects' }
+	%thead
+		%th Project
+		%th # Reports
+
+	%tbody
+		- @projects.each do |proj, count|
+			%tr{ class: 'reported-obj' }
+				%td{ class: 'reported-obj-name' }
+					=link_to proj.name, proj
+				%td{ class: 'report-count'}
+					=count
+				%td
+					=button_tag type: 'button', class: 'dismiss-btn', data: { 'obj-id': proj.id, 'obj-type': 'project' } do
+						&times;
