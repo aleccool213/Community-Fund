@@ -8,13 +8,13 @@
         - if @community.banner.present?
           .project-banner
             = image_tag @community.banner.url
-        - elsif current_user.admin?
+        - if current_user.admin?
           - if @community.banner.present?
-            = link_to 'edit', 'communities/'+ params[:id] + '/edit_photo'
+            = link_to 'Edit this community banner', '/communities/'+ params[:id] + '/edit'
           - else
-            = link_to 'new', 'communities/'+ params[:id] + '/edit_photo'
+            = link_to 'Add a banner for this community', '/communities/'+ params[:id] + '/edit'
 
-        %h3.inline.project-lead= "#{@community.name}: #{@community.description}"
+        %h3.project-lead= "#{@community.name}: #{@community.description}"
 
       %ul.nav.nav-pills
         %li.active{role: "presentation"}
@@ -29,10 +29,25 @@
       .tab-content
         #projects.tab-pane.fade.in.active
           .project-description
-            - @community.projects.each do |p|
+            - if @community.projects.count == 0
               .panel.panel-default
                 .panel-body
-                  = p.name
+                  No projects have been started for this community yet :(
+            - else
+              - @community.projects.each do |p|
+                .panel.panel-default
+                  .panel-heading
+                    .panel-title.community
+                      - if p.banner?
+                        .project-banner-community
+                          = image_tag p.banner.url
+                      %h3 
+                        = p.name
+                      
+                  .panel-body
+                    = p.description
+                    %br
+                    = link_to 'Details', projects_path(p.id)
 
         #discussion.tab-pane.fade
           TODO discussion functionality
