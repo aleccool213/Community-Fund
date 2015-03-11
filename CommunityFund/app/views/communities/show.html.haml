@@ -6,15 +6,15 @@
           Thank you for joining this Community, you will now receive updates from projects within this Community on your dashboard. 
       .jumbotron
         - if @community.banner.present?
-          .project-banner
+          .community-banner
             = image_tag @community.banner.url
-        - if current_user.admin?
+        - if current_user.try(:admin?)
           - if @community.banner.present?
-            = link_to 'Edit this community banner', '/communities/'+ params[:id] + '/edit'
+            = link_to 'Edit this community banner', edit_community_path(@community.id)
           - else
-            = link_to 'Add a banner for this community', '/communities/'+ params[:id] + '/edit'
+            = link_to 'Add a banner for this community', edit_community_path(@community.id)
 
-        %h3.project-lead= "#{@community.name}: #{@community.description}"
+        %h3.community-lead= "##{@community.name}: #{@community.description}"
 
       %ul.nav.nav-pills
         %li.active{role: "presentation"}
@@ -57,7 +57,6 @@
       .panel.panel-primary
         .panel-body
           .funding-status
-            .completion-amount
-              Total donated to projects within this community: 
-              = "$" + @community.total.to_s
+            Total donated to projects within this community:
+            %h4.completion-amount= "$#{number_with_precision(@community.total, precision: 2)}"
       = render partial: 'moderate_buttons'
