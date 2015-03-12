@@ -10,11 +10,12 @@ User.create(
   username: "TimoVink",
   email: "timovink@gmail.com",
   password: "password1-",
-  password_confirmation: "password1-")
+  password_confirmation: "password1-",
+  admin: true)
 
 User.create(
   username: "chris",
-  email: "chris@community-fund.ca",
+  email: "chris.sandison@gmail.com",
   password: "password",
   password_confirmation: "password",
   admin: true)
@@ -35,6 +36,7 @@ Project.destroy_all
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
     created_at: Faker::Time.backward(30, :day),
+    user_id: User.all.random.id,
     target_amount: rand(100...6000),
     communities: Community.order_by_rand.limit(2),
     completion_date: Faker::Time.backward(20, :day) + 1.month,

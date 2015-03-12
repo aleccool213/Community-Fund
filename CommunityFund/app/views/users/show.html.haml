@@ -3,7 +3,7 @@
     .col-lg-3.col-sm-4
       = image_tag avatar_url(@user, 300), :class => "img-thumbnail center-block"
       %h1 #{@user.username}
-      %span.label.label-info.tags
+      %span.label.label-info.tags.badge
         - if @user.admin?
           admin
         - else
@@ -83,8 +83,8 @@
               %strong Funder Statistics
             .panel-body
               %p Projects Funded: #{@funds.count}
-              %p Total Amount Funded: $#{@funds.sum(:amount)}
-              %p Average Amount Funded: $#{@funds.present? ? @funds.average(:amount) : '0.0'}
+              %p= "Total Amount Funded: $#{number_with_precision(@funds.sum(:amount), precision: 2)}"
+              %p= "Average Amount Funded: $#{number_with_precision(@funds.present? ? @funds.average(:amount) : '0.0', precision: 2)}"
         .tab-pane.fade{id: "projects"}
           .list-group
             - if @projects.present?
@@ -113,7 +113,7 @@
                     .media-body
                       .media-heading
                         %strong #{fund.project.name}
-                      %h4 $#{fund.amount}
+                      %h4= "$#{number_with_precision(fund.amount, precision: 2)}"
                       #{fund.reward.present? ? "Reward: #{fund.reward.description}" : nil}
                       %span.pull-right #{time_ago(fund.updated_at)}
             - else

@@ -17,7 +17,8 @@
                   - @communities.each do |community|
                     .checkbox
                       %label
-                        = f.input "community_#{community.id}".to_sym, required: false, as: :boolean, class: 'form-control', label: community.name
+                        = f.check_box "community_#{community.id}".to_sym, required: false, as: :boolean
+                        = community.name
           .form-actions
             = f.button :submit, "Submit", id: "submit_button", class: 'btn btn-primary'
             = link_to "Do this later", dashboard_path, class: 'btn btn-sm', id: "do_this_later"

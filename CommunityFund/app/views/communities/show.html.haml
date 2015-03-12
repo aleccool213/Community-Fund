@@ -1,0 +1,95 @@
+.container
+  .row
+    .col-sm-9.col-md-9
+      - if @new_join.present?
+        .alert.alert-success
+          Thank you for joining this Community, you will now receive updates from projects within this Community on your dashboard. 
+      .jumbotron
+        - if @community.banner.present?
+          .community-banner
+            = image_tag @community.banner.url
+        - if current_user.try(:admin?)
+          - if @community.banner.present?
+            = link_to 'Edit this community banner', edit_community_path(@community.id)
+          - else
+            = link_to 'Add a banner for this community', edit_community_path(@community.id)
+
+        %h3.community-lead= "##{@community.name}: #{@community.description}"
+
+      %ul.nav.nav-pills
+        %li.active{role: "presentation"}
+          %a{href: "#projects", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-ice-lolly-tasted
+              Projects
+        %li{role: "presentation"}
+          %a{href: "#discussion", data: {toggle: 'tab'}}
+            %span.glyphicon.glyphicon-comment
+              Discussion
+        %li{role: "presentation"}
+          %a{href: "#members", data: {toggle: 'tab'}}
+            %i.fa.fa-users
+              Members
+
+      .tab-content
+        #projects.tab-pane.fade.in.active
+          .project-description
+            - if @community.projects.count == 0
+              .panel.panel-default
+                .panel-body
+                  No projects have been started for this community yet :(
+            - else
+              - @community.projects.each do |p|
+                - unless p.closed?
+                  .panel.panel-success
+                    .panel-heading
+                      - if p.banner?
+                        .panel-title.community
+                          .project-banner-community
+                            = image_tag p.banner.url
+                          %h3 
+                            = p.name
+                      - else
+                        %h3 
+                          = p.name
+                        
+                    .panel-body
+                      = p.description
+                      %br
+                      = link_to 'Details', project_path(p.id)
+                - if p.closed?
+                  .panel.panel-danger
+                    .panel-heading
+                      .panel-title.community
+                        - if p.banner?
+                          .project-banner-community
+                            = image_tag p.banner.url
+                        %h3 
+                          = p.name
+                        
+                    .panel-body
+                      = p.description
+                      %br
+                      = link_to 'Details', project_path(p.id)
+
+        #discussion.tab-pane.fade
+          .row
+            = render "posts/discussion", locals: {type: "community", id: @community.id}
+
+        #members.tab-pane.fade
+          .row
+            - if @community.users.count < 1
+              .panel.panel-default
+                .panel-body
+                  No members in this community yet :(
+            - else
+              %div.list-group
+                - @community.users.each do |c|
+                  = link_to c.username, '/users/' + c.username,html_options = {:class => "list-group-item"}
+
+    .col-sm-3.col-md-3
+      .panel.panel-primary
+        .panel-body
+          .funding-status
+            Total donated to projects within this community:
+            %h4.completion-amount= "$#{number_with_precision(@community.total, precision: 2)}"
+      = render partial: 'moderate_buttons'

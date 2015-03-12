@@ -51,4 +51,18 @@ FactoryGirl.define do
 		user_id 				{ FactoryGirl.create(:user).id }
 		project_id	 			{ FactoryGirl.create(:project).id }
 	end
+
+	factory :post do
+		content				{ |n| Faker::Company.catch_phrase}
+		user_id				{ FactoryGirl.create(:user).id }
+
+		trait :project_post do
+			project_id    { FactoryGirl.crete(:project).id }
+		end
+
+		trait :community_post do
+			community_id    { FactoryGirl.crete(:community).id }
+		end
+
+	end
 end

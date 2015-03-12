@@ -17,7 +17,7 @@ class Form
     end
   end
 
-  def add_communities(attrs)
+  def add_communities_and_users(attrs)
     attrs.each do |community_key, value|
       if community_key =~ /community_/ && value == "1"
         community = Community.active.find(community_key.gsub(/community_/, ''))
@@ -25,4 +25,5 @@ class Form
       end
     end
   end
+
 end

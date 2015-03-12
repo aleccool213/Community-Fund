@@ -27,6 +27,7 @@ class NewProjectForm < Form
     # add communities to project
     Community.active.each do |community|
       project.communities << community if attrs["community_#{community.id}"] == "true"
+      user.communities << community if (attrs["community_#{community.id}"] == "true") && !user.in_community?(community)
     end
 
     # get geo community ids

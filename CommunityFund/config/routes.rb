@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   #communities
   get 'communities' => 'communities#index'
+  get 'communities/:id/edit_photo' => 'communities#edit_photo'
+  post 'communities/:id/join' => 'communities#join'
 
   namespace :admin do
     get :analytics
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
   resources :communities
   resources :projects
   resources :funds
+  resources :posts
   resources :feedbacks do
     member do
       post :submit

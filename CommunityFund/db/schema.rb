@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150308190252) do
+ActiveRecord::Schema.define(version: 20150311203939) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150308190252) do
     t.integer "project_id"
     t.boolean "active",      default: true
     t.string  "icon"
+    t.string  "banner"
   end
 
   create_table "communities_projects", id: false, force: true do |t|
@@ -36,6 +37,14 @@ ActiveRecord::Schema.define(version: 20150308190252) do
 
   add_index "communities_projects", ["community_id"], name: "index_communities_projects_on_community_id"
   add_index "communities_projects", ["project_id"], name: "index_communities_projects_on_project_id"
+
+  create_table "communities_users", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "community_id"
+  end
+
+  add_index "communities_users", ["community_id"], name: "index_communities_users_on_community_id"
+  add_index "communities_users", ["user_id"], name: "index_communities_users_on_user_id"
 
   create_table "feedbacks", force: true do |t|
     t.integer  "user_id"
@@ -71,6 +80,15 @@ ActiveRecord::Schema.define(version: 20150308190252) do
     t.string   "description"
     t.integer  "fund_id"
     t.string   "milestone_type"
+  end
+
+  create_table "posts", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "community_id"
+    t.integer  "project_id"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "projects", force: true do |t|
