@@ -104,9 +104,9 @@ ActiveRecord::Schema.define(version: 20150311203939) do
     t.datetime "completion_date"
     t.decimal  "target_amount"
     t.boolean  "open"
+    t.boolean  "funding_successful", default: false
     t.decimal  "current_funding"
     t.string   "location"
-    t.boolean  "funding_successful", default: false
     t.string   "banner"
   end
 
