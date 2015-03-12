@@ -24,7 +24,6 @@ Feature: Log In
     Then the new user should be created
     Then I should see "Welcome! You have signed up successfully."
     Then I should see "Mind if we grab some more information from you?"
-    Then I should see "Hometown"
     Then I click on the first community
     Then I should belong to the selected community
     Then I should see "Communities Updated!"

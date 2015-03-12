@@ -5,7 +5,7 @@ Given(/^I am apart of communities$/) do
 end
 
 Given(/^I have started projects$/) do
-  @project = FactoryGirl.create(:project, :with_rewards, communities: [Community.active.first])
+  @project = FactoryGirl.create(:project, :with_rewards, communities: [@user.communities.first])
   @user.projects << @project
 end
 

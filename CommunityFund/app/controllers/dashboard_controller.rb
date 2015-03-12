@@ -5,10 +5,10 @@ class DashboardController < ApplicationController
 
   #creates @dashboard instance variable which is a list that stores hashs of differen  @dashboard which fill the dash
   def index
-    @dashboard = [] 
+    @dashboard = []
 
     #Project they are interested in has started, or reached milestones
-    
+
     #grab all communities, grab all *unique* projects
     unique_projects = []
 
@@ -33,11 +33,9 @@ class DashboardController < ApplicationController
     end
 
     #projects located near them has started
-    Project.all.each do |p|
-      if p.location == current_user.homestate #right here tim
-        event = {name: p.name, type_id: p.id, description: "Project has been started in your area!", time: p.created_at}
-        @dashboard.push(event)
-      end
+    Project.near_user(current_user).each do |p|
+      event = {name: p.name, type_id: p.id, description: "Project has been started in your area!", time: p.created_at}
+      @dashboard.push(event)
     end
 
     @dashboard = @dashboard.sort_by { |k| k[:time] }
@@ -71,6 +69,6 @@ class DashboardController < ApplicationController
     redirect_to dashboard_path
   end
 
-  
+
 
 end

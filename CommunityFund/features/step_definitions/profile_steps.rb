@@ -15,7 +15,7 @@ Then(/^I should see my profile details$/) do
   end
   page.should have_text @user.created_at.to_date
   page.should have_text @user.email
-  
+
   if @user.communities.any?
     for community in @user.communities
       page.should have_text community.name
@@ -23,7 +23,7 @@ Then(/^I should see my profile details$/) do
   else
     page.should have_text "None"
   end
-  
+
   if @user.projects.any?
     for project in @user.projects
       page.should have_text project.name
@@ -32,7 +32,7 @@ Then(/^I should see my profile details$/) do
   else
     page.should have_text "hasn't started any projects."
   end
-  
+
   if @user.funds.any?
     for fund in @user.funds
       page.should have_text fund.project.name
@@ -42,16 +42,16 @@ Then(/^I should see my profile details$/) do
   else
     page.should have_text "hasn't funded any projects."
   end
-  
-  page.should have_text "Hometown: #{@user.hometown.present? ? @user.hometown : 'Not Specified'}"
-  page.should have_text "Homestate: #{@user.homestate.present? ? @user.homestate : 'Not Specified'}"
-  
+
+  page.should have_text "City: #{@user.geo_community.present? ? @user.geo_community.city : 'Not Specified'}"
+  page.should have_text "Country: #{@user.geo_community.present? ? @user.geo_community.city : 'Not Specified'}"
+
   page.should have_text @user.projects.count
   page.should have_text @user.projects.where(:funding_successful => true).count
   page.should have_text @user.funds.count
   page.should have_text @user.funds.sum(:amount)
   page.should have_text @funds.present? ? @funds.average(:amount) : '0.0'
-  
+
   if @user.feedbacks.any?
     for feedback in @user.feedbacks
       page.should have_text feedback.user.username

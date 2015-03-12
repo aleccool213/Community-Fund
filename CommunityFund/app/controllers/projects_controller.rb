@@ -5,20 +5,24 @@ class ProjectsController < ApplicationController
   before_filter :ensure_open, only: [:edit, :update]
 
   def new
+    country_data = GeoInfo::countries.map { |c| [c.country, c.id] }
+    @countries = Hash[*country_data.flatten]
     @communities = Community.active
     @new_project_form = ::NewProjectForm.new(user: current_user, communities: @communities)
     @project = @new_project_form.project
   end
 
-
   def create
     @communities = Community.active
-    @new_project_form = ::NewProjectForm.new(user:
-      current_user, communities: @communities)
+    @new_project_form = ::NewProjectForm.new(user: current_user, communities: @communities)
     @new_project_form.submit(params)
     @project = @new_project_form.project
     Milestone.create(:project_id => @project.id, :percentage => 0.0, :fund_id => nil, :description => 'Project has been initiated!')
     redirect_to project_path(id: @project.id)
+  end
+
+  def index
+    @projects = current_user.projects
   end
 
   def show
@@ -42,24 +46,21 @@ class ProjectsController < ApplicationController
     redirect_to project_path(id: @project.id)
   end
 
-  def ensure_open
-    @project ||= Project.find(params[:id])
-    if @project.closed?
-      redirect_to project_path(id: @project.id)
+  private
+    def ensure_open
+      @project ||= Project.find(params[:id])
+      if @project.closed?
+        redirect_to project_path(id: @project.id)
+      end
     end
-  end
 
-  def ensure_initiator
-    @project = Project.find(params[:id])
-    initiator_or_admin = (current_user.id == @project.initiator.id) || current_user.admin?
-    if (not initiator_or_admin) || @project.closed?
-      # TODO get this working
-      flash[:error] = "Permission Denied"
-      redirect_to project_path(id: @project.id)
+    def ensure_initiator
+      @project = Project.find(params[:id])
+      initiator_or_admin = (current_user.id == @project.initiator.id) || current_user.admin?
+      if (not initiator_or_admin) || @project.closed?
+        # TODO get this working
+        flash[:error] = "Permission Denied"
+        redirect_to project_path(id: @project.id)
+      end
     end
-  end
-
-  def index
-    @projects = current_user.projects
-  end
 end

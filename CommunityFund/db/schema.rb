@@ -21,15 +21,13 @@ ActiveRecord::Schema.define(version: 20150311203939) do
   end
 
   create_table "communities", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "project_id"
-    t.boolean  "active",      default: true
-    t.string   "icon"
-    t.string   "banner"
+    t.string  "name"
+    t.text    "description"
+    t.integer "user_id"
+    t.integer "project_id"
+    t.boolean "active",      default: true
+    t.string  "icon"
+    t.string  "banner"
   end
 
   create_table "communities_projects", id: false, force: true do |t|
@@ -104,9 +102,9 @@ ActiveRecord::Schema.define(version: 20150311203939) do
     t.datetime "completion_date"
     t.decimal  "target_amount"
     t.boolean  "open"
-    t.boolean  "funding_successful", default: false
     t.decimal  "current_funding"
-    t.string   "location"
+    t.boolean  "funding_successful",  default: false
+    t.string   "geo_communities_str", default: "",    null: false
     t.string   "banner"
   end
 
@@ -154,10 +152,9 @@ ActiveRecord::Schema.define(version: 20150311203939) do
     t.string   "username"
     t.integer  "community_id"
     t.integer  "project_id"
-    t.string   "hometown"
-    t.string   "homestate"
     t.boolean  "admin",                  default: false, null: false
     t.string   "avatar"
+    t.string   "location"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
