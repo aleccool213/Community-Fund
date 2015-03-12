@@ -17,5 +17,7 @@
 //= require cocoon
 //= require turbolinks
 //= require chartkick
+//= require ripples.min.js
+//= require material.min.js
 //= require_tree .
 

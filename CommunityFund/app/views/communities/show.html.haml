@@ -39,13 +39,16 @@
                   No projects have been started for this community yet :(
             - else
               - @community.projects.each do |p|
-                - if p.closed? == false
+                - unless p.closed?
                   .panel.panel-success
                     .panel-heading
-                      .panel-title.community
-                        - if p.banner?
+                      - if p.banner?
+                        .panel-title.community
                           .project-banner-community
                             = image_tag p.banner.url
+                          %h3 
+                            = p.name
+                      - else
                         %h3 
                           = p.name
                         
