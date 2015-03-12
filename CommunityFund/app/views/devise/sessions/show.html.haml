@@ -1,0 +1,18 @@
+- if current_user
+  /display all info here pertaining to the logged in user
+  %h1 Profile
+    %br
+      %img{:src => current_user.avatar_url}
+      %h2
+        @user.name
+      %div.item_description
+        %p
+          @user.description
+      %p.icon_layout
+        /display social network icons/links
+      - if current_user.communities.length >= 1
+        /display communities apart of here
+      - if current_user.projects.length >= 1
+        /display projects contributed to here
+      - if current_user.starred.length >= 1
+        /display starred items here, starred items are items maybe in the future he will contribute to
