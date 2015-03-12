@@ -1,6 +1,4 @@
 ready = ->
-	return if not $('body').hasClass('projects')
-
 	$report_btn = $('.report-btn');
 	$report_modal_btn = $('.report-confirm-btn');
 
