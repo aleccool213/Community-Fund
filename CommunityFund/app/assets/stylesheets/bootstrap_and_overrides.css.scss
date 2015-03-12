@@ -22,8 +22,8 @@ $fontAwesomeTtfPath: font-url("fontawesome-webfont.ttf");
 $fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
 @import "project";		
 @import "funds";
-@import "material";
-@import "ripples";
+@import "material.min";
+@import "ripples.min";
 @import "devise";
 
 .container {
