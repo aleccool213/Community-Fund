@@ -10,11 +10,12 @@ User.create(
   username: "TimoVink",
   email: "timovink@gmail.com",
   password: "password1-",
-  password_confirmation: "password1-")
+  password_confirmation: "password1-",
+  admin: true)
 
 User.create(
   username: "chris",
-  email: "chris@community-fund.ca",
+  email: "chris.sandison@gmail.com",
   password: "password",
   password_confirmation: "password",
   admin: true)
