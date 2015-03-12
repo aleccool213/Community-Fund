@@ -3,7 +3,7 @@
 		= link_to "Edit as Administrator", edit_community_path(id: @community.id), id: "edit_button", class: "btn btn-danger edit-btn"
 
 	- elsif not current_user.has_reported?('community', @community.id)
-		- if current_user.communities.include?(@community) == false
+		- unless current_user.communities.include?(@community)
 			.btn.btn-success.join-btn{ data: { :'community-id'=> @community.id, toggle: 'modal', target: '#join-modal' } }
 				Join Community
 
