@@ -23,7 +23,7 @@
       - @object.posts.order("updated_at DESC").each do |post|
         .comment
           .commenter-avatar
-            = image_tag(avatar_url(post.user, 50))
+            = link_to image_tag(avatar_url(post.user, 50)), users_path(post.user.username)
           .comment-text
             %p= post.content
             %span.timestamp
@@ -50,7 +50,8 @@
           $('.project-comments').prepend(
             '<div class="comment">' +
             '<div class="commenter-avatar">' +
-            '<img src="' + data.url + '">' +
+            '<a href="' + data.userpath + '">' +
+            '<img src="' + data.url + '">' + '</a>' +
             '</div>' +
             '<div class="comment-text">' + 
             '<p>' + data.content + '</p>' +
