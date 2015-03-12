@@ -29,6 +29,11 @@ Rails.application.routes.draw do
     post :project
   end
 
+  namespace :location do
+    get :countries
+    get :cities
+  end
+
   resources :communities
   resources :projects
   resources :funds

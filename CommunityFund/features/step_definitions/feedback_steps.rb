@@ -8,7 +8,7 @@ Then(/^the project should have created feedback$/) do
 end
 
 Then(/^the user has pending feedback$/) do
-  @feedback = FactoryGirl.create(:feedback, user: User.last, project: FactoryGirl.create(:project))
+  @feedback = FactoryGirl.create(:feedback, user: @user, project: FactoryGirl.create(:project))
 end
 
 Then(/^I should see the pending feedback$/) do

@@ -4,6 +4,7 @@
     = simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, input_html: {class: 'form-horizontal'} do |f|
       .form-group
         = f.error_notification
+        = devise_error_messages!
       .form-group
         %label{for: "username"} Username
         = f.text_field :username, required: true, class: 'form-control', label: false
@@ -15,7 +16,10 @@
             = "Currently waiting confirmation for: #{resource.unconfirmed_email}"
       .form-group
         %label{for: "hometown"} Hometown
-        = f.text_field :hometown, required: false, class: 'form-control', label: false
+        .form-group
+          = select_tag :country, options_for_select(@countries, @selected_country), prompt: 'Select Country', class: 'country-select'
+          = f.select :location, options_for_select(@cities, @selected_city), { prompt: 'Select City' }, { class: 'city-select' }
+
       .form-group
         %label{for: "password"} Password
         = f.password_field :password, autocomplete: "off", placeholder: "leave it blank if you don't want to change it", required: false, class: 'form-control', label: false

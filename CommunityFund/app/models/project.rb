@@ -25,6 +25,14 @@ class Project < ActiveRecord::Base
     DateTime.now.year + 10
   end
 
+  def self.near_user(u)
+    if u.location.blank?
+      return []
+    end
+  
+    Project.all.where("geo_communities_str LIKE '%#{u.location}%'")
+  end
+
   def donors
     User.where('id in (?)', funds.pluck(:user_id))
   end
@@ -104,6 +112,11 @@ class Project < ActiveRecord::Base
     end
 
     self.save
+  end
+
+  def geo_communities
+    geo_ids = self.geo_communities_str.split(',').map(&:to_i)
+    GeoInfo::locations_by_ids(geo_ids)
   end
 
   def average_rating

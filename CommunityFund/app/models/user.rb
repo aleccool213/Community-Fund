@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
-  validates :username, presence: true, uniqueness: true, 
+  validates :username, presence: true, uniqueness: true,
             format: { with: /\A[A-Za-z0-9_]+\z/,
                       message: "Only alphanumerical characters and underscores allowed." }
 
@@ -52,4 +52,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def geo_community
+    if self.location.present?
+        return GeoInfo::location_by_id(self.location)
+    end
+
+    return nil
+  end
 end
