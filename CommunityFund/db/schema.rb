@@ -108,7 +108,6 @@ ActiveRecord::Schema.define(version: 20150311203939) do
     t.decimal  "current_funding"
     t.string   "location"
     t.string   "banner"
-    t.integer  "initiator_id"
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"
