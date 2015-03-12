@@ -1,0 +1,22 @@
+.containertype_id
+  .row
+    %h1{style:"text-align:center;"} Communities
+    %br
+  - @communities.each do |c|
+    .col-xs-12.col-sm-6.col-lg-4
+      .box
+        .icon
+          .image
+            %span.icon
+              %img{src:c.icon, class:"icons"}
+          .info
+            %h3.title   
+              = c.name
+            %p
+              = truncate(c.description, length: 75)
+            .more
+              %a{:href => '/communities/' + c.id.to_s, :title => "Title Link"}
+                %i.fa.fa-plus
+                Details
+        .space
+  

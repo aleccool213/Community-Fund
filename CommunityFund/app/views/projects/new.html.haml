@@ -1,0 +1,215 @@
+.row
+  %h2 Create a New Project
+.row
+  = simple_form_for @project, url: projects_path do |f|
+    .col-lg-8
+
+      .form-group
+        - if f.error_notification.present?
+          .alert.alert-warning
+            = f.error_notification
+        %label{for: 'project_name'} Project Title
+        .input-group
+          = f.text_field :name, required: true, class: 'form-control'
+          %span.input-group-addon
+            %span#name_icon.glyphicon.glyphicon-asterisk
+        .error-text#name_error.hidden
+          Please enter a name
+      .form-group
+        %label{for: 'project_description'} Description
+        .input-group
+          = f.text_area :description, required: true, class: 'form-control', rows: 5, placeholder: "Why should people choose to fund you?"
+          %span.input-group-addon
+            %span#description_icon.glyphicon.glyphicon-asterisk
+        .error-text#description_error.hidden
+          Please enter a description
+      .form-group
+        %label{for: 'target_amount'} Target Amount
+        .input-group
+          = f.text_field :target_amount, required: true, class: 'form-control', placeholder: "$ CAD, $100 minimum"
+          %span.input-group-addon
+            %span#target_amount_icon.fa.fa-money
+        .error-text#target_amount_error.hidden
+          Please enter an amount greater than $100
+      .form-group
+        %label{for: 'project_completion_date'}
+          Completion Date
+          %span#completion_date_icon.fa.fa-check.hidden
+        .form-inline
+          = f.input :completion_date, as: :date, required: true, class: 'form-control', start_year: Project.minimum_start_year, end_year: Project.maximum_end_year, order: [:day, :month, :year], label: false
+        .error-text#completion_date_error.hidden
+          Must be at least 1 week from now
+
+      #communities
+        .form-group
+          .panel.panel-primary
+            .panel-heading Which Communities is your project involved with? Please select at least one.
+            .panel-body
+              .error-text#communities_error.hidden
+                Please select at least one community
+              %ul.list-group.communities
+                - @communities.each do |community|
+                  .checkbox.community-box
+                    %label
+                      = check_box_tag "community_#{community.id}", true, class: 'form-control'
+                      = community.name
+
+      .banner
+        .form-group
+          .panel.panel-primary
+            .panel-heading Banner Image. This can be a logo or an informative graphic about your project.
+            .panel-body
+              .hint-text#banner-hint
+                This is optional, but for best display please ensure banner is at least 700px in width and 400px in height.
+                = f.input :banner, as: :image_preview, required: false, class: 'form-control btn', label: false, input_html: {preview_version: :thumb}
+
+      #rewards
+        .form-group
+          .panel.panel-primary
+            .panel-heading Reward Levels
+            .panel-body
+              .error-text#rewards_error.hidden
+                Please finish filling out rewards
+              %ul.list-group
+                = f.simple_fields_for :rewards do |reward|
+                  = render 'reward_fields', f: reward
+                .links
+                  = link_to_add_association 'Add Reward Level', f, :rewards
+
+      
+
+      = f.button :submit, "Submit", id: 'submit_button', class: 'btn btn-info pull-right' 
+
+:coffeescript
+# validation for both project/new and project/edit
+
+jQuery ->
+  $ ->
+    $("select").addClass('form-control')
+    $('.checkbox').find('input').attr('checked', false)
+    $('#project_completion_date_3i').val((new Date().getDate() + 7).toString())
+
+  $('form').submit (event) ->
+    if valid_content($('#project_name')) && valid_content($('#project_description')) && valid_amount($("#project_target_amount")) && valid_date && valid_communities() && valid_rewards()
+      return true
+    else
+      event.preventDefault()
+      empty_content_validator(valid_content($('#project_name')), $('#project_name'), '#name_icon', '#name_error')
+      empty_content_validator(valid_content($('#project_description')), $('#project_description'), '#description_icon', '#description_error')
+      money_validator(valid_amount($('#project_target_amount')), $('#project_target_amount'), '#target_amount_icon', '#target_amount_error')
+      date_validator(valid_date(), '#completion_date_error')
+      communities_validator(valid_communities())
+      reward_validator(valid_rewards())
+
+  $('#project_name').bind 'input', ->
+    empty_content_validator(valid_content($(this)), $(this), '#name_icon', '#name_error')
+    
+  $('#project_description').bind 'input', ->
+    empty_content_validator(valid_content($(this)), $(this), '#description_icon', '#description_error')
+
+  $('#project_target_amount').bind 'input', ->
+    money_validator(valid_amount($(this)), $(this), '#target_amount_icon', '#target_amount_error')
+
+  $('#project_completion_date_3i, #project_completion_date_2i, #project_completion_date_1i').change ->
+    date_validator(valid_date(), '#completion_date_error')
+
+  $('.community-box').change ->
+    communities_validator(valid_communities())
+
+  valid_content = (ref) ->
+    if ref.val() == ""
+      return false
+    else
+      return true
+
+  valid_amount = (ref) ->
+    num = parseInt(ref.val())
+    if (num >= 100) && !(isNaN(num))
+      return true
+    else
+      return false
+
+  valid_date =->
+    day = parseInt($('#project_completion_date_3i').val())
+    month = parseInt($('#project_completion_date_2i').val())
+    year = parseInt($('#project_completion_date_1i').val())
+
+    current_date = new Date()
+
+    # apparently month is zero ordered??
+    if (new Date(year, month - 1, day) < new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate() + 7))
+      return false
+    else
+      return true
+
+  valid_communities =->
+    if $('.communities').find('input:checked').length >= 1
+      return true
+    else
+      return false
+
+  valid_rewards =->
+    reward_groups = $('.reward-group')
+
+    if reward_groups == undefined
+      return true
+    else
+      is_valid = true
+      for reward in reward_groups
+        do ->
+          if ($(reward).find('.reward-level').val() == "") || ($(reward).find('.reward-description').val() == "")
+            is_valid = false
+
+      return is_valid
+
+  reward_validator = (value) ->
+    if value
+      $('#rewards_error').addClass('hidden')
+    else
+      $('#rewards_error').removeClass('hidden')
+
+  empty_content_validator = (value, ref, icon, error_text) ->
+    if value
+      ref.removeClass('has-error')
+      $(error_text).addClass('hidden')
+      field_span = ref.parent().find(icon)
+      field_span.removeClass("glyphicon glyphicon-asterisk fa fa-exclamation-circle")
+      field_span.addClass("fa fa-check")
+    else
+      ref.addClass('has-error')
+      $(error_text).removeClass('hidden')
+      field_span = ref.parent().find(icon)
+      field_span.removeClass("glyphicon glyphicon-asterisk fa fa-check")
+      field_span.addClass("fa fa-exclamation-circle")
+
+  money_validator = (value, ref, icon, error_text) ->
+    if value
+      ref.removeClass('has-error')
+      $(error_text).addClass('hidden')
+      field_span = ref.parent().find(icon)
+      field_span.removeClass("has-money-error")
+      field_span.addClass("correct-money")
+    else
+      ref.addClass('has-error')
+      $(error_text).removeClass('hidden')
+      field_span = ref.parent().find(icon)
+      field_span.removeClass("correct-money")
+      field_span.addClass("has-money-error")
+
+  date_validator = (value, error_text) ->
+    if value
+      $('#completion_date_icon').addClass('fa fa-check hidden')
+      $('#completion_date_icon').removeClass('fa fa-exclamation-circle')
+      $('#project_completion_date_3i, #project_completion_date_2i, #project_completion_date_1i').removeClass('has-error-select')
+      $(error_text).addClass('hidden')
+    else
+      $('#completion_date_icon').removeClass('fa fa-check')
+      $('#completion_date_icon').addClass('fa fa-exclamation-circle')
+      $('#project_completion_date_3i, #project_completion_date_2i, #project_completion_date_1i').addClass('has-error-select')
+      $(error_text).removeClass('hidden')
+
+  communities_validator = (value) ->
+    if value
+      $('#communities_error').addClass('hidden')
+    else
+      $('#communities_error').removeClass('hidden')

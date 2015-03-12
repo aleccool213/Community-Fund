@@ -1,0 +1,92 @@
+.containertype_id
+  .row
+    %h1{style:"text-align:center;"} Dashboard
+    %br
+    .col-sm-9.col-md-9
+      - if !current_user
+        %p
+          sign in to see some cool stuff yo
+      - else
+        - if @dashboard.count > 0
+          .div{id:"events"}
+            = render partial: "event", locals: {event: @dashboard}
+          .div{id:"infinite-scrolling"}
+            = will_paginate 
+        - else
+          .panel.panel-default
+            .panel-heading
+              .panel-title
+                %h3{class: "panel-title"} 
+                  Go join some communities!
+            .panel-body
+              %p Are you a robot? Go join communities!
+                
+    //sidebar panels
+
+    //communities
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        - if current_user.communities.length >= 1
+          .panel-heading
+            .panel-title
+              = link_to "Browse all communities", communities_path
+        - else
+          .panel-heading
+            .panel-title
+              %p
+                Hey, you haven't joined any communities yet!
+          .panel-body{:style => "text-align: center;" }
+            = link_to "Wanna?", dashboard_collect_information_path
+          
+    //projects given funds too
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title
+            %h4 Projects you have funded:
+        .panel-body
+          - if current_user.projects_funded.count > 5 
+            %ul
+            - current_user.projects_funded[0 .. 5].each do |p|
+              %li
+                = link_to p.name, project_path(p.id)
+            %p ... and more!
+          - elsif current_user.projects_funded.count >= 1
+            %ul
+            - current_user.projects_funded[0 .. 5].each do |p|
+              %li
+                = link_to p.name, project_path(p.id) 
+          - else
+            No projects have yet been funded.
+
+    //initiated projects
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title
+            %h4 Projects you have started:
+        .panel-body
+          - if current_user.projects.count >= 1
+            %ul
+            - current_user.projects.each do |p|
+              %li
+                = link_to p.name, project_path(p.id) 
+              
+          - else
+            No projects have been started.
+
+    //feedbacks/reputation alerts
+    .col-sm-3.col-md-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title
+            %h4 Give Feedbacks to finished projects:
+        .panel-body
+          - if current_user.feedbacks.count >= 1
+            %i{class:"fa fa-exclamation-circle"}
+            = link_to current_user.feedback_button_text, feedbacks_path
+          - else 
+            = current_user.feedback_button_text 
+        .panel-footer
+          - if current_user.feedbacks.count >= 1
+            //TODO: dismiss button will be here 

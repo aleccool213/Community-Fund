@@ -1,0 +1,24 @@
+.row
+  .col-md-offset-3.col-md-6
+    .login-panel.panel.panel-default
+      .panel-heading
+        %h1.panel-title.text-center Log In
+      .panel-body
+        = simple_form_for resource, as: resource_name, url: session_path(resource_name), input_html: {class: 'form-horiztonal'} do |f|
+          .form-group
+            = f.error_notification
+            - @errors = resource.errors
+          .div{class: 'form-group has-warning', id: 'login-username'}
+            %div{class: "input-group"}
+              = f.text_field :username, required: true, class: "form-control", label: false, placeholder: "Username", id: 'login-username-input', size: 100
+              .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'login-username-icon'}
+          .div{class: 'form-group has-warning', id: 'login-password'}
+            %div{class: "input-group"}
+              = f.password_field :password, required: true, label: false, class: 'form-control', placeholder: "Password", id: 'login-password-input', size: 100
+              .span{class: "glyphicon glyphicon-warning-sign form-control-feedback", id: 'login-password-icon'}
+          - if devise_mapping.rememberable?
+            .checkbox
+              %label
+                = f.input :password_confirmation, as: :boolean, label: "Remember Me?"
+          = f.button :submit, "Log In", id: "login_button", class: 'btn btn-info btn-block'
+          = link_to "Don't have an account?", new_user_registration_path, class: "btn btn-block"
