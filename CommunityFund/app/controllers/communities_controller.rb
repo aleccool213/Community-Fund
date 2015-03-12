@@ -30,7 +30,7 @@ class CommunitiesController < ApplicationController
     # Check if community exists
     community_id = params[:community_id]
     community = Community.find_by_id(community_id)
-    if (community == nil)
+    if community.blank?
       render json: { errors: 'Community not found' }, status: 404
       return
     end

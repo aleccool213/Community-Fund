@@ -39,7 +39,7 @@
                   No projects have been started for this community yet :(
             - else
               - @community.projects.each do |p|
-                - if p.closed? == false
+                - unless p.closed?
                   .panel.panel-success
                     .panel-heading
                       - if p.banner?
