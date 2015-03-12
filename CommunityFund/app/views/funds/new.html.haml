@@ -55,15 +55,16 @@
     money_validator(valid_amount($(this)), $(this), '#amount_icon', '#amount_error')
 
   enable_rewards = (ref) ->
-    for reward_box in $('.reward-box')
-      reward_amount = parseInt($(reward_box).data().rewardLevel)
-      entered_amount = parseInt(ref.val())
-      if isNaN(entered_amount) || entered_amount < reward_amount
-        $(reward_box).addClass('cant-afford')
-        $(reward_box).find('.reward-option').removeClass('been-chose')
-        $(reward_box).find('.reward-option').addClass('hidden')
-      else
-        $(reward_box).removeClass('cant-afford')
+    if $('.reward-box').length
+      for reward_box in $('.reward-box')
+        reward_amount = parseInt($(reward_box).data().rewardLevel)
+        entered_amount = parseInt(ref.val())
+        if isNaN(entered_amount) || entered_amount < reward_amount
+          $(reward_box).addClass('cant-afford')
+          $(reward_box).find('.reward-option').removeClass('been-chose')
+          $(reward_box).find('.reward-option').addClass('hidden')
+        else
+          $(reward_box).removeClass('cant-afford')
 
   valid_award_selection =->
     if $('.reward-box .been-chose').length > 1
@@ -71,7 +72,6 @@
       return false
     else
       $('#reward_error').addClass('hidden')
-      debugger
       $('#reward_id').val($('.reward-box .been-chose').parent().data().rewardId)
 
   valid_amount = (ref) ->
