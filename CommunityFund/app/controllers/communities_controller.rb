@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController
-	before_action :authenticate_user!
-	
+  before_action :authenticate_user!, except: [:show]
+  
   def index
     @communities = Community.active
   end
@@ -10,7 +10,7 @@ class CommunitiesController < ApplicationController
   end
 
   def edit
-	  @community = Community.find(params[:id])
+    @community = Community.find(params[:id])
   end
 
   def update

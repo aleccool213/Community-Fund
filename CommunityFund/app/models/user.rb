@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
             format: { with: /\A[A-Za-z0-9_]+\z/,
                       message: "Only alphanumerical characters and underscores allowed." }
 
-  has_many :communities
+  has_and_belongs_to_many :communities
   has_many :projects
   has_many :funds
   has_many :feedbacks
@@ -40,6 +40,16 @@ class User < ActiveRecord::Base
 
   def projects_funded
     Project.find(self.funds.pluck(:project_id))
+  end
+
+  def avatar_url(size = 80)
+     default_url = "mm"  #"#{root_url}images/guest.png"
+    if url = avatar.url
+      url
+    else
+      gravatar_id = Digest::MD5.hexdigest(email.downcase)
+      "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=#{CGI.escape(default_url)}"
+    end
   end
 
 end

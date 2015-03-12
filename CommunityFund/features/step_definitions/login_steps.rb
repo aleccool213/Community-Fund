@@ -1,7 +1,3 @@
-Given(/^a community exists$/) do
-  @community = FactoryGirl.create(:community)
-end
-
 Given(/^I have created a user account$/) do
   @user = FactoryGirl.create(:user)
 end

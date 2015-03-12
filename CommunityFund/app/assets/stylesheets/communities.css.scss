@@ -72,12 +72,8 @@
     height: 30px;
 }
 
-.icons{
+.icons {
 	margin-top: -15%;
-}
-
-.project-banner-community{
-    
 }
 
 .project-banner-community img{
@@ -90,4 +86,11 @@
 .panel-title.community h3{
     position: relative;
     padding-left: 15%;
+}
+
+.community-lead {
+  margin: 10px;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2em;
 }
