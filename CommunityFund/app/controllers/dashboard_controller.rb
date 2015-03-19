@@ -23,8 +23,10 @@ class DashboardController < ApplicationController
     unique_projects.each do |p|
       p.milestones.each do |m|
         if m.milestone_type == "Fund"
-          event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description, username: User.find(Fund.find(m.fund_id).user_id).username}
-          @dashboard.push(event)
+          if Fund.find(m.fund_id).user_id.present?
+            event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description, username: User.find(Fund.find(m.fund_id).user_id).username}
+            @dashboard.push(event)
+          end
         elsif m.milestone_type == "Feedback"
           event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description}
           @dashboard.push(event)
