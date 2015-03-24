@@ -1,3 +1,89 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.container {
+  padding: 0px;
+}
+
+h1, h3 {
+  font-color: #eeeeee;
+  font-weight: 700;
+}
+
+.intro-message {
+  position: relative;
+  margin-top: 20%;
+  margin-bottom: 20%;
+}
+
+.intro-message > h1 {
+  margin: 0;
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+  font-size: 5em;
+}
+
+.intro-divider {
+  width: 400px;
+  border-top: 1px solid #f8f8f8;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.intro-message > h3 {
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+@media(max-width:767px) {
+  .intro-message {
+      padding-bottom: 15%;
+  }
+
+  .intro-message > h1 {
+      font-size: 3em;
+  }
+
+  ul.intro-social-buttons > li {
+      display: block;
+      margin-bottom: 20px;
+      padding: 0;
+  }
+
+  ul.intro-social-buttons > li:last-child {
+      margin-bottom: 0;
+  }
+
+  .intro-divider {
+      width: 50%;
+  }
+}
+
+.intro-header {
+    width: 100%;
+    text-align: center;
+    color: #f8f8f8;
+    background: url(landing.jpg) no-repeat center center;
+    background-size: cover;
+    margin-bottom: 20px;
+}
+
+.lead-text {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.lead-text p{
+  font-size: 1.35em;
+}
+
+.landing-icon {
+  font-size: 3em;
+  margin: 5px;
+}
+
+.bottom-buttons {
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.banner {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  background-size: cover;
+}

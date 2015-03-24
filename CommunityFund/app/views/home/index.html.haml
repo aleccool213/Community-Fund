@@ -1,11 +1,39 @@
--# TODO this page shouldn't be shown when user is logged in
-.jumbotron 
-  %h1.home-header CommunityFund
-  %p Welcome to CommunityFund, a community-based crowd funding solution
-  %span
-    = link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary btn-lg'
-    = link_to "Login", new_user_session_path, class: 'btn btn-lg'
+.row
+  .intro-header
+    .row
+      .col-lg-12
+        .intro-message
+          %h1.home-header CommunityFund
+          %h3 A community-based crowd-funding solution
+          %hr.intro-divider
+          %ul.list-inline.intro-social-buttons
+            %li
+              = link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary btn-lg'
+              = link_to "Login", new_user_session_path, class: 'btn btn-lg'
+
+.row
+  .lead-text
+    .col-lg-4.col-md-4
+      .text-center
+        .fa.fa-plus-square.landing-icon
+      %h2 Initiate
+      %p Create projects for just about any interest, or for your immediate community.
+    .col-lg-4.col-md-4
+      .text-center
+        .fa.fa-money.landing-icon
+      %h2 Fund
+      %p Donate money to any project anywhere
+    .col-lg-4.col-md-4
+      .text-center
+        .fa.fa-connectdevelop.landing-icon
+      %h2 Connect
+      %p Connect with community initiators down the street or from anywhere in the world!
+.row
+  .banner
+    .text-center.bottom-buttons
+      = link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary btn-lg'
+      = link_to "Login", new_user_session_path, class: 'btn btn-lg'
+
+      
 
 
-
-TODO - any other enticing content to put on this page?
