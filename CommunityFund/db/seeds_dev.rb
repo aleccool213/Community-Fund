@@ -1,4 +1,5 @@
 # Add random images for icons to communties
+puts "Creating communities...."
 Community.all.each do |c|
   #assign a random image to this community
   c.update_attributes(:icon => Faker::Avatar.image(c.name, "50x50"))
@@ -6,6 +7,7 @@ end
 
 User.where('username != "administrator"').destroy_all
 
+puts "Creating users..."
 User.create(
   username: "TimoVink",
   email: "timovink@gmail.com",
@@ -30,6 +32,7 @@ User.create(
     created_at: Faker::Time.backward(30, :day))
 end
 
+puts "Creating projects..."
 Project.destroy_all
 20.times do
   Project.create(
@@ -43,6 +46,7 @@ Project.destroy_all
     open: true)
 end
 
+puts "Adding funds..."
 Fund.destroy_all
 fund_project = false
 user_index = 0
@@ -58,3 +62,27 @@ Project.all.each do |project|
   end
   fund_project = !fund_project
 end
+
+puts "Adding posts..."
+
+Post.destroy_all
+Community.all.each do |community|
+  10.times do
+    Post.create(
+      community_id: community.id,
+      user_id: User.all.random.id,
+      content: Faker::Lorem.sentence(2)
+      )
+  end
+end
+
+Project.all.each do |project|
+  rand(1..5).times do
+    Post.create(
+      project_id: project.id,
+      user_id: User.all.random.id,
+      content: Faker::Lorem.sentence(2)
+      )
+  end
+end
+

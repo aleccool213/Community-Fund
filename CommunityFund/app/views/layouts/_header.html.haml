@@ -1,13 +1,11 @@
 .navbar.navbar-default
   .container-fluid
     .navbar-header
-      %button.navbar-toggle.collapsed{toggle: 'collapse', target: '#navbar-collapse'}
+      %button.navbar-toggle.collapsed{data: {toggle: 'collapse', target: '#navbar-collapse'}}
         %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
+        .glyphicon.glyphicon-collapse-down
       %a.navbar-brand{href: root_path} CommunityFund
-    .collapse.navbar-collapse{id: 'navbar-collapse-1'}
+    .collapse.navbar-collapse{id: 'navbar-collapse'}
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.active
@@ -34,3 +32,4 @@
             = link_to "Sign Up", new_user_registration_path
           %li
             = link_to "Login", new_user_session_path
+

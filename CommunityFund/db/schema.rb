@@ -102,10 +102,11 @@ ActiveRecord::Schema.define(version: 20150311203939) do
     t.datetime "completion_date"
     t.decimal  "target_amount"
     t.boolean  "open"
-    t.decimal  "current_funding"
     t.boolean  "funding_successful",  default: false
-    t.string   "geo_communities_str", default: "",    null: false
+    t.decimal  "current_funding"
     t.string   "banner"
+    t.integer  "initiator_id"
+    t.string   "geo_communities_str", default: "",    null: false
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"
