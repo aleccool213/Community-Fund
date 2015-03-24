@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       @type = params[:object_type]
       @id = params[:object_id]
 
-      render json: {status: :success, content: params[:content], url: post.user.avatar_url(50), userpath: "/users/#{post.user.username}", timestamp: post.updated_at.strftime("%m/%d/%Y at %I:%M%p")}
+      render json: {status: :success, content: params[:content], url: post.user.avatar_url(70), username: post.title_text,  userpath: "/users/#{post.user.username}", timestamp: post.updated_at.strftime("%m/%d/%Y at %I:%M%p")}
     else
       render json: {status: :failure}
     end

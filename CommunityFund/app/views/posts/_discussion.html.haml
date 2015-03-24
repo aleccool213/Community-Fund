@@ -14,7 +14,7 @@
         .input-group
           %span.input-group-addon.poster-avatar
             = image_tag(avatar_url(current_user, 50))
-          = text_area_tag "post_content", nil, class: "form-control", rows: "5"
+          = text_area_tag "post_content", nil, class: "form-control", rows: "3"
     .col-md-offset-1.col-md-2
       %button.btn.btn-md#post_button Post
 .row
@@ -23,9 +23,10 @@
       - @object.posts.order("updated_at DESC").each do |post|
         .comment
           .commenter-avatar
-            = link_to image_tag(avatar_url(post.user, 50)), users_path(post.user.username)
+            = link_to image_tag(avatar_url(post.user, 70)), users_path(post.user.username)
           .comment-text
-            %p= post.content
+            = link_to post.title_text, users_path(post.user.username)
+            %p.content= post.content
             %span.timestamp
               = post.updated_at.strftime("%m/%d/%Y at %I:%M%p")
 
@@ -54,7 +55,8 @@
             '<img src="' + data.url + '">' + '</a>' +
             '</div>' +
             '<div class="comment-text">' + 
-            '<p>' + data.content + '</p>' +
+            '<a href="' + data.userpath + '">' + data.username + '</a>' +
+            '<p class="content">' + data.content + '</p>' +
             '<span class="timestamp">' + data.timestamp + '</span>'
             '</div>' +
             '</div>'

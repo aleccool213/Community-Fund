@@ -29,7 +29,8 @@ User.create(
     password: "password1-",
     password_confirmation: "password1-",
     last_sign_in_ip: Faker::Internet.ip_v4_address,
-    created_at: Faker::Time.backward(30, :day))
+    created_at: Faker::Time.backward(30, :day),
+    admin: false)
 end
 
 puts "Creating projects..."

@@ -203,10 +203,14 @@ a {
 
 .poster-avatar img {
   border-radius: 50%;
+  text-align: center;
 }
 
 .comment-text {
-  margin-left: 30px;
+  margin-top: 10px;
+  margin-left: 50px;
+  font-weight: 180;
+  font-size: 1.1em;
 }
 
 .comment-text p {
