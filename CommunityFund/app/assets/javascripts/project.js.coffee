@@ -104,6 +104,5 @@ ready = ->
 	report()
 	geo_community_selection()
 
-
 $(document).ready(ready)
 $(document).on('page:load', ready)

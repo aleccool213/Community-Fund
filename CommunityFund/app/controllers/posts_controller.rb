@@ -17,4 +17,14 @@ class PostsController < ApplicationController
       render json: {status: :failure}
     end
   end
+
+  def index
+    type = params[:type]
+    id = params[:id]
+    page = params[:page]
+    @posts = type.capitalize.constantize.find_by_id(id).posts.paginate(page: page, per_page: 15).order("updated_at DESC")
+    if request.xhr?
+      render json: {success: true, html: render_to_string("index", layout: false)}
+    end
+  end
 end

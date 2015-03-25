@@ -29,6 +29,8 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @rewards = @project.rewards.order('reward_level ASC')
     @fund = current_user.try(:fund_for_project, @project)
+
+    @posts = @project.posts.paginate(page: params[:page], per_page: 15).order("updated_at DESC")
     if params.has_key?(:new_fund_id)
       @new_fund = true
     end

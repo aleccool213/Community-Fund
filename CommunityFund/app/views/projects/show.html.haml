@@ -34,7 +34,7 @@
 
         #discussion.tab-pane.fade
           .row
-            = render "posts/discussion", locals: {type: "project", id: @project.id}
+            = render "posts/discussion", locals: {type: "project", id: @project.id, posts: @posts}
 
     -# TODO project banner
 
@@ -96,9 +96,3 @@
                     %p= reward.description
 
       = render partial: 'moderate_buttons'
-
-
-:coffeescript
-  $ ->
-    if $('#selected_reward_id').val() != ""
-      $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('project-reward-selected')

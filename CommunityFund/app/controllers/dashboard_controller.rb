@@ -1,4 +1,3 @@
-require 'will_paginate/array'
 class DashboardController < ApplicationController
 
   before_action :authenticate_user!

@@ -9,6 +9,7 @@ class CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
+    @posts = @community.posts.paginate(page: params[:page], per_page: 15).order("updated_at DESC")
   end
 
   def edit

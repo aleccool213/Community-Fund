@@ -73,7 +73,7 @@
 
         #discussion.tab-pane.fade
           .row
-            = render "posts/discussion", locals: {type: "community", id: @community.id}
+            = render "posts/discussion", locals: {type: "community", id: @community.id, posts: @posts}
 
         #members.tab-pane.fade
           .row

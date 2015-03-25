@@ -8,9 +8,9 @@
           sign in to see some cool stuff yo
       - else
         - if @dashboard.count > 0
-          .div{id:"events"}
+          #events
             = render partial: "event", locals: {event: @dashboard}
-          .div{id:"infinite-scrolling"}
+          #infinite-scrolling
             = will_paginate 
         - else
           .panel.panel-default
