@@ -35,7 +35,11 @@ Rails.application.routes.draw do
   end
 
   resources :communities
-  resources :projects
+  resources :projects do
+    member do
+      post :cancel
+    end
+  end
   resources :funds
   resources :posts
   resources :feedbacks do

@@ -114,6 +114,12 @@ class Project < ActiveRecord::Base
     self.save
   end
 
+  def cancel!
+    self.open = false
+    self.funding_successful = false
+    self.save
+  end
+
   def geo_communities
     geo_ids = self.geo_communities_str.split(',').map(&:to_i)
     GeoInfo::locations_by_ids(geo_ids)

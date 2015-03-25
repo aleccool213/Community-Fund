@@ -1,8 +1,8 @@
 class ProjectsController < ApplicationController
 
   before_action :authenticate_user!, except: [:show]
-  before_filter :ensure_initiator, only: [:edit, :update]
-  before_filter :ensure_open, only: [:edit, :update]
+  before_filter :ensure_initiator, only: [:edit, :update, :cancel]
+  before_filter :ensure_open, only: [:edit, :update, :cancel]
 
   def new
     country_data = GeoInfo::countries.map { |c| [c.country, c.id] }
@@ -46,6 +46,11 @@ class ProjectsController < ApplicationController
     @edit_project_form = ::EditProjectForm.new(user: current_user, communities: @communities, project: @project)
     @edit_project_form.submit(params)
     redirect_to project_path(id: @project.id)
+  end
+
+  def cancel
+    @project.cancel!
+    render nothing: true
   end
 
   private

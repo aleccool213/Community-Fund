@@ -1,13 +1,30 @@
-- if @project.open?
-  - if current_user.present? && @project.is_initiator?(current_user)
-    = link_to "Edit Project", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-lg btn-primary action-button"
-  - elsif user_signed_in?
-    - if user_has_funded?
-      = link_to "Edit donation", edit_fund_path(id: @fund.id, project_id: @project.id), id: 'edit_funding_button', class: 'btn btn-lg btn-primary action-button funding-button'
-    - else
-      = link_to "Fund this", new_fund_path(project_id: @project.id), id: 'funding_button', class: "btn btn-lg btn-primary action-button funding-button"
-  - else # not logged in, let's get them to sign up!
-    = link_to "Sign up to fund this", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
-- else
-  .btn.btn-lg.action-button.disabled
-    Project Closed
+.action-buttons
+  - if @project.open?
+    - if current_user.present? && @project.is_initiator?(current_user)
+      = link_to "Edit Project", edit_project_path(id: @project.id), id: "edit_button", class: "btn btn-lg btn-primary action-button"
+      = link_to "Cancel Project", cancel_project_path(id: @project.id), id: "cancel_button", class: "btn btn-lg action-button btn-danger cancel-button", data: {:'project-id' => @project.id, toggle: 'modal', target: '#cancel-modal'}
+    - elsif user_signed_in?
+      - if user_has_funded?
+        = link_to "Edit donation", edit_fund_path(id: @fund.id, project_id: @project.id), id: 'edit_funding_button', class: 'btn btn-lg btn-primary action-button funding-button'
+      - else
+        = link_to "Fund this", new_fund_path(project_id: @project.id), id: 'funding_button', class: "btn btn-lg btn-primary action-button funding-button"
+    - else # not logged in, let's get them to sign up!
+      = link_to "Sign up to fund this", new_user_registration_path, class: 'btn btn-lg btn-primary action-button'
+  - else
+    .btn.btn-lg.action-button.disabled
+      Project Closed
+
+#cancel-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{ class: 'close', data: { dismiss: 'modal' } } &times;
+        %h4 Close Project
+
+      .modal-body
+        %p Are you sure you wish to cancel this project?
+        %p Once you close this project, it will remain closed to good. No funds will go through and you will not be responsible for fulfilling any rewards.
+
+      .modal-footer
+        %button{ class: 'btn btn-default', data: { dismiss: 'modal' } } Dismiss
+        %button{ class: 'btn btn-danger cancel-confirm-btn', data: { dismiss: 'modal' } } Cancel Project

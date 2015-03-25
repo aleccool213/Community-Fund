@@ -16,6 +16,21 @@ report = ->
 		)
 	)
 
+cancel = ->
+	return if not $('body').hasClass('show')
+
+	$cancel_btn = $('.cancel-button');
+	$cancel_confirm_btn = $('.cancel-confirm-btn');
+
+	$cancel_confirm_btn.click( ->
+		proj_id = $cancel_btn.data('project-id')
+		req_data = { 'type': 'POST', 'data': { 'project_id' : proj_id } }
+
+		$.ajax('/projects/' + proj_id + '/cancel/', req_data).success( ->
+			$('.action-buttons').html('<div class="btn btn-lg action-button disabled">Project Closed</div>')
+		)
+	)
+
 geo_community_selection = ->
 	return if not $('body').hasClass('new')
 
@@ -103,6 +118,7 @@ ready = ->
 
 	report()
 	geo_community_selection()
+	cancel()
 
 	if $('#selected_reward_id').val() != ""
     $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('project-reward-selected')
