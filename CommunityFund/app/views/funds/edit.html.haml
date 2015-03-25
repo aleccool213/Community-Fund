@@ -1,5 +1,6 @@
 .row
-  %h2= "Edit donation for #{@project.name}"
+  .col-lg-12
+    %h2= "Edit donation for #{@project.name}"
 .row
   = simple_form_for @edit_fund_form, url: fund_path(id: @edit_fund_form.fund.id, project_id: @project.id), method: :put do |f|
     .col-lg-4

@@ -1,5 +1,6 @@
 .row
-  %h2= "Donate to #{@project.name}"
+  .col-lg-12
+    %h2= "Donate to #{@project.name}"
 .row
   = simple_form_for @new_fund_form, url: funds_path(project_id: @project.id) do |f|
     .col-lg-4

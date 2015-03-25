@@ -104,5 +104,8 @@ ready = ->
 	report()
 	geo_community_selection()
 
+	if $('#selected_reward_id').val() != ""
+    $('.project-reward-box[data-reward-id=' + $('#selected_reward_id').val() + ']').find('.project-reward-icon').addClass('project-reward-selected')
+
 $(document).ready(ready)
 $(document).on('page:load', ready)
