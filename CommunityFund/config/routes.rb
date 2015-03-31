@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   #dashboard
   get 'dashboard' => 'dashboard#index'
-  get 'dashboard/collect_information' => 'dashboard#collect_information'
-  post 'dashboard/submit_information' => 'dashboard#submit_information'
   get 'users/:username' => 'users#show', as: 'users'
 
   #communities

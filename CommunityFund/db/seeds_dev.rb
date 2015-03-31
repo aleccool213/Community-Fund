@@ -11,7 +11,7 @@ puts "Creating users..."
 User.create(
   username: "TimoVink",
   email: "timovink@gmail.com",
-  password: "password1-",
+  password: "password",
   password_confirmation: "password1-",
   admin: true)
 
@@ -86,4 +86,3 @@ Project.all.each do |project|
       )
   end
 end
-

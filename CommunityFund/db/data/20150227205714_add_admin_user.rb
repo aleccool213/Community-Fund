@@ -2,8 +2,8 @@ class AddAdminUser < SeedMigration::Migration
   def up
     User.create!(username: "administrator",
                 email: "admin@community-fund.ca",
-                password: "password1-",
-                password_confirmation: "password1-",
+                password: "password",
+                password_confirmation: "password",
                 admin: true)
   end
 
