@@ -34,7 +34,7 @@
         .panel-body.community-panel
           - if @communities.present?
             - @communities.each do |community|
-              %a.btn.btn-default.top-margin-sm{href: community_path(community.id)} #{community.name}
+              %a.span.label.label-info.tags.badge{href: community_path(community.id)} ##{community.name}
           - else
             .top-margin-sm None
 
