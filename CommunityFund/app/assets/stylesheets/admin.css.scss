@@ -2,18 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.admin {
+	.btn-xs {
+		width: 100px;
+
+		padding: 1px 5px;
+		border-radius: 3px;
+
+		margin: 0;
+	}
+}
+
 .admin.settings {
 	.table {
 		width: 500px;
-
-		.btn-xs {
-			width: 100px;
-
-			padding: 1px 5px;
-			border-radius: 3px;
-
-			margin: 0;
-		}
 	}
 
 	input {

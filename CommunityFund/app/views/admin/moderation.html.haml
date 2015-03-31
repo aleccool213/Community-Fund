@@ -1,18 +1,20 @@
 %h1 Moderation
 
-%h3 Projects
-%table{ class: 'reported-projects' }
+%table{ class: 'reported-projects table' }
 	%thead
 		%th Project
 		%th # Reports
+		%th Most recently
 
 	%tbody
-		- @projects.each do |proj, count|
+		- @projects.each do |proj, count, time|
 			%tr{ class: 'reported-obj' }
 				%td{ class: 'reported-obj-name' }
 					=link_to proj.name, proj
 				%td{ class: 'report-count'}
 					=count
+				%td{ class: 'report-time' }
+					=time_ago_in_words(time)
 				%td
-					=button_tag type: 'button', class: 'dismiss-btn', data: { 'obj-id': proj.id, 'obj-type': 'project' } do
-						&times;
+					=button_tag type: 'button', class: 'dismiss-btn btn btn-xs btn-warning', data: { 'obj-id': proj.id, 'obj-type': 'project' } do
+						Dismiss

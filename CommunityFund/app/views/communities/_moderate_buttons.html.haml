@@ -7,30 +7,6 @@
 			.btn.btn-success.join-btn{ data: { :'community-id'=> @community.id, toggle: 'modal', target: '#join-modal' } }
 				Join Community
 
-		.btn.btn-danger.report-btn{ data: { :'community-id'=> @community.id, toggle: 'modal', target: '#report-modal' } }
-			Report Community
-
-		#report-modal.modal.fade
-			.modal-dialog
-				.modal-content
-					.modal-header
-						%button{ class: 'close', data: { dismiss: 'modal' } }
-							&times;
-						%h4
-							Report Community
-
-					.modal-body
-						%p
-							Are you sure you wish to report this content as offensive or inappropriate?
-						%p
-							Upon submission the CommunityFund administrators will be notified and will conduct a review of this project.
-
-					.modal-footer
-						%button{ class: 'btn btn-default', data: { dismiss: 'modal' } }
-							Cancel
-						%button{ class: 'btn btn-danger report-confirm-btn', data: { dismiss: 'modal' } }
-							Report
-
 		#join-modal.modal.fade
 			.modal-dialog
 				.modal-content
@@ -42,7 +18,7 @@
 
 					.modal-body
 						%p
-							Are you sure you?
+							= "Are you sure you want to join the #{@community.name} community?"
 
 					.modal-footer
 						%button{ class: 'btn btn-default', data: { dismiss: 'modal' } }
