@@ -19,7 +19,16 @@
         .form-group
           = select_tag :country, options_for_select(@countries, @selected_country), prompt: 'Select Country', class: 'country-select'
           = f.select :location, options_for_select(@cities, @selected_city), { prompt: 'Select City' }, { class: 'city-select' }
-
+      .form-group
+        %label{for: "first_name"} First (Given) Name
+        = f.text_field :first_name, required: false, class: 'form-control', label: false
+      .form-group
+        %label{for: "last_name"} Last (Family) Name
+        = f.text_field :last_name, required: false, class: 'form-control', label: false
+      .form-group
+        %label{for: "description"} About Me
+        = f.text_area :description, required: false, class: 'form-control', rows: 4, placeholder: "A short description about yourself!"
+        
       .form-group
         %label{for: "password"} Password
         = f.password_field :password, autocomplete: "off", placeholder: "leave it blank if you don't want to change it", required: false, class: 'form-control', label: false

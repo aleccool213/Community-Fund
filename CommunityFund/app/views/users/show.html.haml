@@ -12,8 +12,7 @@
         %li.list-group-item.text-right
           %span.pull-left
             %strong Full Name:
-          [Full name]
-          -# TODO Fill in full name here
+          #{@user.first_name} #{@user.last_name}
         %li.list-group-item.text-right
           %span.pull-left
             %strong Date Joined:
@@ -64,8 +63,7 @@
             .panel-heading
               %strong About Me
             .panel-body
-              [Insert user description]
-              -# TODO Put user's description here
+              = @user.description
           .panel.panel-default
             .panel-heading
               %strong Location
@@ -91,14 +89,13 @@
               - @projects.each do |project|
                 %a{href: project_path(project.id), class: "list-group-item"}
                   .media
-                    .media-left
-                      Project Picture
-                      -# TODO Place project picture here
                     .media-body
                       .media-heading
                         %strong #{project.name}
-                      #{project.description}
-                      %span.pull-right Created: project.created_at.to_date Updated: #{time_ago(project.updated_at)}
+                      %p #{project.description}
+                      %span.pull-right
+                        Created: #{project.created_at.to_date}
+                        %br Updated: #{time_ago(project.updated_at)}
             - else
               %li.list-group-item #{@user.username} hasn't started any projects.
         .tab-pane.fade{id: "funds"}
@@ -107,14 +104,11 @@
               - @funds.each do |fund|
                 %a{href: project_path(fund.project_id), class: "list-group-item"}
                   .media
-                    .media-left
-                      Project Picture
-                      -# TODO Place project picture here
                     .media-body
                       .media-heading
                         %strong #{fund.project.name}
-                      %h4= "$#{number_with_precision(fund.amount, precision: 2)}"
-                      #{fund.reward.present? ? "Reward: #{fund.reward.description}" : nil}
+                      %p %h4 = "$#{number_with_precision(fund.amount, precision: 2)}"
+                      %p #{fund.reward.present? ? "Reward: #{fund.reward.description}" : nil}
                       %span.pull-right #{time_ago(fund.updated_at)}
             - else
               %li.list-group-item #{@user.username} hasn't funded any projects.
