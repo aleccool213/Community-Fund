@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # devise overrides
-  devise_for :users, controllers: {registrations: 'registrations'}
+  devise_for :users, controllers: {registrations: 'registrations', omniauth_callbacks: 'omniauth_callbacks'}
 
   root "home#index"
 

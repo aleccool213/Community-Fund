@@ -1,6 +1,6 @@
 .container
   .row
-    .col-lg-3.col-sm-4
+    .col-lg-3.col-sm-5
       = image_tag avatar_url(@user, 300), :class => "img-thumbnail center-block"
       %h1 #{@user.username}
       %span.label.label-info.tags.badge
@@ -12,8 +12,7 @@
         %li.list-group-item.text-right
           %span.pull-left
             %strong Full Name:
-          [Full name]
-          -# TODO Fill in full name here
+          #{@user.first_name} #{@user.last_name}
         %li.list-group-item.text-right
           %span.pull-left
             %strong Date Joined:
@@ -26,20 +25,27 @@
           %span.pull-left
             %strong Email:
           #{@user.email}
-        %li.list-group-item.text-center
-          [Social media links]
-          -# TODO Put social media links here
+        - if !@user.facebook_url.blank?
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Facebook:
+            = link_to "#{@user.facebook_url}", @user.facebook_url
+        - if !@user.twitter_url.blank?
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Twitter:
+            = link_to "#{@user.twitter_url}", @user.twitter_url
       .panel.panel-default
         .panel-heading
           %strong Communities
         .panel-body.community-panel
           - if @communities.present?
             - @communities.each do |community|
-              %a.btn.btn-default.top-margin-sm{href: community_path(community.id)} #{community.name}
+              %a.span.label.label-info.tags.badge{href: community_path(community.id)} ##{community.name}
           - else
             .top-margin-sm None
 
-    .col-lg-9.col-sm-8
+    .col-lg-9.col-sm-7
       %ul.nav.nav-pills{role: "tablist"}
         %li.active{role: "presentation"}
           %a{href: "#profile", data: {toggle: 'tab'}}
@@ -53,10 +59,11 @@
           %a{href: "#funds", data: {toggle: 'tab'}}
             %span.glyphicon.glyphicon-heart
               Funded
-        %li{role: "presentation"}
-          %a{href: "#feedbacks", data: {toggle: 'tab'}}
-            %span.glyphicon.glyphicon-comment
-              Feedback
+        - if current_user == @user
+          %li{role: "presentation"}
+            %a{href: "#feedbacks", data: {toggle: 'tab'}}
+              %span.glyphicon.glyphicon-comment
+                Feedback
 
       .tab-content
         .tab-pane.fade.in.active{id: "profile"}
@@ -64,8 +71,7 @@
             .panel-heading
               %strong About Me
             .panel-body
-              [Insert user description]
-              -# TODO Put user's description here
+              = @user.description
           .panel.panel-default
             .panel-heading
               %strong Location
@@ -86,38 +92,87 @@
               %p= "Total Amount Funded: $#{number_with_precision(@funds.sum(:amount), precision: 2)}"
               %p= "Average Amount Funded: $#{number_with_precision(@funds.present? ? @funds.average(:amount) : '0.0', precision: 2)}"
         .tab-pane.fade{id: "projects"}
-          .list-group
-            - if @projects.present?
-              - @projects.each do |project|
-                %a{href: project_path(project.id), class: "list-group-item"}
-                  .media
-                    .media-left
-                      Project Picture
-                      -# TODO Place project picture here
-                    .media-body
-                      .media-heading
-                        %strong #{project.name}
-                      #{project.description}
-                      %span.pull-right Created: project.created_at.to_date Updated: #{time_ago(project.updated_at)}
-            - else
-              %li.list-group-item #{@user.username} hasn't started any projects.
+          - if @projects.count == 0
+            .panel.panel-default
+              .panel-body
+                #{@user.username} hasn't started any projects yet.
+          - else
+            - @projects.each do |p|
+              - unless p.closed?
+                .panel.panel-success
+                  .panel-heading
+                    .panel-title.community
+                      - if p.banner?
+                        .project-banner-community
+                          = image_tag p.banner.url
+                      %h3 
+                        = p.name
+                      Created: #{p.created_at.to_date}
+                      .pull-right Updated: #{time_ago(p.updated_at)}
+                  .panel-body
+                    = p.description
+                    %br
+                    .pull-right
+                      = link_to 'Details', project_path(p.id)
+              - else
+                .panel.panel-danger
+                  .panel-heading
+                    .panel-title.community
+                      - if p.banner?
+                        .project-banner-community
+                          = image_tag p.banner.url
+                      %h3 
+                        = p.name
+                      Created: #{p.created_at.to_date}
+                    .pull-right Updated: #{time_ago(p.updated_at)}
+                  .panel-body
+                    = p.description
+                    %br
+                    .pull-right
+                      = link_to 'Details', project_path(p.id)
         .tab-pane.fade{id: "funds"}
-          .list-group
-            - if @funds.present?
-              - @funds.each do |fund|
-                %a{href: project_path(fund.project_id), class: "list-group-item"}
-                  .media
-                    .media-left
-                      Project Picture
-                      -# TODO Place project picture here
-                    .media-body
-                      .media-heading
-                        %strong #{fund.project.name}
-                      %h4= "$#{number_with_precision(fund.amount, precision: 2)}"
-                      #{fund.reward.present? ? "Reward: #{fund.reward.description}" : nil}
-                      %span.pull-right #{time_ago(fund.updated_at)}
-            - else
-              %li.list-group-item #{@user.username} hasn't funded any projects.
+          - if @funds.count == 0
+            .panel.panel-default
+              .panel-body
+                #{@user.username} hasn't funded any projects yet.
+          - else
+            - @funds.each do |f|
+              - unless f.project.closed?
+                .panel.panel-success
+                  .panel-heading
+                    .panel-title.community
+                      - if f.project.banner?
+                        .project-banner-community
+                          = image_tag f.project.banner.url
+                      %h3 
+                        = f.project.name
+                      .text-right
+                        Donated $#{number_with_precision(f.amount, precision: 2)} #{time_ago(f.updated_at)}
+                  .panel-body
+                    %strong Reward:
+                    %br
+                    = f.reward.present? ? "#{f.reward.description}" : "None"
+                    %br
+                    .pull-right
+                      = link_to 'Details', project_path(f.project.id)
+              - else
+                .panel.panel-danger
+                  .panel-heading
+                    .panel-title.community
+                      - if f.project.banner?
+                        .project-banner-community
+                          = image_tag f.project.banner.url
+                      %h3 
+                        = f.project.name
+                      .text-right
+                        Donated $#{number_with_precision(f.amount, precision: 2)} #{time_ago(f.updated_at)}
+                  .panel-body
+                    %strong Reward:
+                    %br
+                    = f.reward.present? ? "#{f.reward.description}" : "None"
+                    %br
+                    .pull-right
+                      = link_to 'Details', project_path(f.project.id)
         .tab-pane.fade{id: "feedbacks"}
           .list-group
             - if @feedbacks.present?
@@ -131,4 +186,4 @@
                         %strong #{feedback.user.username} - #{feedback.project.name}
                       #{feedback.description} #{time_ago(feedback.updated_at)}
             - else
-              %li.list-group-item #{@user.username} hasn't received any feedback.
+              %li.list-group-item No feedback received.

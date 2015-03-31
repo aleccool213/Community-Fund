@@ -5,7 +5,9 @@ class UsersController < ApplicationController
     @projects = @user.projects.order('updated_at DESC')
     @funds = @user.funds.order('updated_at DESC')
     @communities = @user.communities.active
-    @feedbacks = @user.feedbacks.order('updated_at DESC')
+    if @user == current_user
+      @feedbacks = @user.feedbacks.order('updated_at DESC')
+    end
   end
 
   def user_exists

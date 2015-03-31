@@ -30,7 +30,20 @@ $fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
 	padding: 15px;
 }
 
-.navbar-nav>li>a.profile-image {
-  // TODO Make image scale with navbar height.
-  padding: 0px;
+.navbar-nav > li > a.profile-picture {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
+
+@media (max-width: $screen-lg) {
+  .profile-img {
+    height: 40px;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .profile-img {
+    height: 50px;
+  }
+}
+
