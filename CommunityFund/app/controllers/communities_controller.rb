@@ -2,7 +2,7 @@ class CommunitiesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
   respond_to :json
-  
+
   def index
     @communities = Community.active
   end
@@ -39,7 +39,6 @@ class CommunitiesController < ApplicationController
     # Join Community
     community.users << current_user
 
-    render json: @community.users
+    render json: community.users
   end
-
 end
