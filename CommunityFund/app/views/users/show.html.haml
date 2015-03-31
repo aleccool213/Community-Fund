@@ -52,10 +52,11 @@
           %a{href: "#funds", data: {toggle: 'tab'}}
             %span.glyphicon.glyphicon-heart
               Funded
-        %li{role: "presentation"}
-          %a{href: "#feedbacks", data: {toggle: 'tab'}}
-            %span.glyphicon.glyphicon-comment
-              Feedback
+        - if current_user == @user
+          %li{role: "presentation"}
+            %a{href: "#feedbacks", data: {toggle: 'tab'}}
+              %span.glyphicon.glyphicon-comment
+                Feedback
 
       .tab-content
         .tab-pane.fade.in.active{id: "profile"}
@@ -107,7 +108,7 @@
                     .media-body
                       .media-heading
                         %strong #{fund.project.name}
-                      %p %h4 = "$#{number_with_precision(fund.amount, precision: 2)}"
+                      %p.h4 $#{number_with_precision(fund.amount, precision: 2)}
                       %p #{fund.reward.present? ? "Reward: #{fund.reward.description}" : nil}
                       %span.pull-right #{time_ago(fund.updated_at)}
             - else
@@ -125,4 +126,4 @@
                         %strong #{feedback.user.username} - #{feedback.project.name}
                       #{feedback.description} #{time_ago(feedback.updated_at)}
             - else
-              %li.list-group-item #{@user.username} hasn't received any feedback.
+              %li.list-group-item No feedback received.

@@ -29,11 +29,21 @@ $fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
 .container {
 	padding: 15px;
 }
-.navbar-nav>li>a.profile-picture {
-  max-height: 50px;
-  overflow: visible;
-  padding-top: 0;
-  padding-bottom: 0;
+
+.navbar-nav > li > a.profile-picture {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
-.profile-img {
+
+@media (max-width: $screen-lg) {
+  .profile-img {
+    height: 40px;
+  }
 }
+
+@media (min-width: $screen-lg) {
+  .profile-img {
+    height: 50px;
+  }
+}
+
