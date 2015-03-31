@@ -12,7 +12,7 @@
 
 ActiveRecord::Base.transaction do
 
-  User.create({"admin"=>true, "avatar"=>nil, "community_id"=>nil, "created_at"=>"2015-03-31T21:42:26.224Z", "current_sign_in_at"=>nil, "current_sign_in_ip"=>nil, "email"=>"admin@community-fund.ca", "encrypted_password"=>"$2a$10$HtBbZxNz4T3v3cmUZvPPJuiv/oKZRpAw4DKhGUg3xva3lfTnl5mTe", "last_sign_in_at"=>nil, "last_sign_in_ip"=>nil, "location"=>nil, "project_id"=>nil, "remember_created_at"=>nil, "reset_password_sent_at"=>nil, "reset_password_token"=>nil, "sign_in_count"=>0, "updated_at"=>"2015-03-31T21:42:26.224Z", "username"=>"administrator"})
+  User.create({"admin"=>true, "avatar"=>nil, "community_id"=>nil, "created_at"=>"2015-03-31T23:08:17.907Z", "current_sign_in_at"=>nil, "current_sign_in_ip"=>nil, "description"=>nil, "email"=>"admin@community-fund.ca", "encrypted_password"=>"$2a$10$u5M4kTYXPs4tSlS6.XOwB.lgYVNgQXlSxcvHihbBEhXJIqM2hhV0K", "facebook_url"=>nil, "first_name"=>nil, "last_name"=>nil, "last_sign_in_at"=>nil, "last_sign_in_ip"=>nil, "location"=>nil, "project_id"=>nil, "provider"=>nil, "remember_created_at"=>nil, "reset_password_sent_at"=>nil, "reset_password_token"=>nil, "sign_in_count"=>0, "twitter_url"=>nil, "uid"=>nil, "updated_at"=>"2015-03-31T23:08:17.907Z", "username"=>"administrator"})
 
   Community.create({"active"=>true, "banner"=>nil, "description"=>"Be inspired through innovation and creativity. Support the next big crowdfunding idea!", "icon"=>nil, "name"=>"Art & Design", "project_id"=>nil, "user_id"=>nil})
 

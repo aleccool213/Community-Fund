@@ -12,7 +12,7 @@ User.create(
   username: "TimoVink",
   email: "timovink@gmail.com",
   password: "password",
-  password_confirmation: "password1-",
+  password_confirmation: "password",
   admin: true)
 
 User.create(
