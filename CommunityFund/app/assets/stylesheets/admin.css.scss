@@ -3,7 +3,20 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .admin.settings {
-	th, td {
-		padding: 5px 10px;
+	.table {
+		width: 500px;
+
+		.btn-xs {
+			width: 100px;
+
+			padding: 1px 5px;
+			border-radius: 3px;
+
+			margin: 0;
+		}
+	}
+
+	input {
+		width: 100%;
 	}
 }
