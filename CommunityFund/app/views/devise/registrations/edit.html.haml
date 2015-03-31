@@ -36,7 +36,12 @@
           = f.check_box :remove_avatar 
         = f.file_field :avatar 
         = f.hidden_field :avatar_cache
-      
+      .form-group
+        %label{for: "facebook_url"} Facebook Page
+        = f.text_field :facebook_url, required: false, class: 'form-control', label: false
+      .form-group
+        %label{for: "twitter_url"} Twitter Page
+        = f.text_field :twitter_url, required: false, class: 'form-control', label: false
       .form-group
         %label{for: "password"} Password
         = f.password_field :password, autocomplete: "off", placeholder: "leave it blank if you don't want to change it", required: false, class: 'form-control', label: false

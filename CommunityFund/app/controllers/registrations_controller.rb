@@ -47,7 +47,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up).push(:email)
-      devise_parameter_sanitizer.for(:account_update).push(:email, :location, :first_name, :last_name, :description, :avatar, :avatar_cache, :remove_avatar)
+      devise_parameter_sanitizer.for(:account_update).push(:email, :location, :first_name, :last_name, :description, :avatar, :avatar_cache, :remove_avatar, :facebook_url, :twitter_url)
     end
 
     def after_sign_up_path_for(resource)
