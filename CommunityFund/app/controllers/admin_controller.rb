@@ -3,6 +3,8 @@ require 'geoip'
 class AdminController < ApplicationController
 	before_action :authenticate_admin!
 
+	autocomplete :user, :username
+
 	def analytics
 		@signups_by_day = add_missing_data(User.group_by_day)
 		@projects_by_day = add_missing_data(Project.group_by_day)

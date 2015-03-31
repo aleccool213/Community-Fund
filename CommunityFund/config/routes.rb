@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get :analytics
 
     get :settings
+    get 'settings/autocomplete',   to: :autocomplete_user_username
     post 'settings/update_admins', to: :update_admins
 
     get :moderation

@@ -10,8 +10,8 @@
 				= button_tag type: 'button', class: 'remove-admin-btn btn btn-xs btn-danger' do
 					Revoke
 	%tr
-		%td= text_field_tag 'make-admin-input btn btn-xs btn-default'
-		%td= button_tag 'Make Admin', type: 'button', class: 'make-admin-btn'
+		%td= autocomplete_field_tag 'make-admin-input', '', admin_settings_autocomplete_path
+		%td= button_tag 'Make Admin', type: 'button', class: 'make-admin-btn btn btn-xs btn-primary'
 
 %h3 Save Changes
-= button_tag 'Save Changes', type: 'button', class: 'save-changes-btn'
+= button_tag 'Save Changes', type: 'button', class: 'save-changes-btn btn btn-xs btn-primary'
