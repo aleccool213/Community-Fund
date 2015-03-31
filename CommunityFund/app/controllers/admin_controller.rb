@@ -8,6 +8,7 @@ class AdminController < ApplicationController
 	def analytics
 		@signups_by_day = add_missing_data(User.group_by_day)
 		@projects_by_day = add_missing_data(Project.group_by_day)
+		@category_distribution = Community.all.includes(:projects).map { |c| [c.name, c.projects.size] }
 		@geo_data = get_geo_data
 	end
 
@@ -50,8 +51,11 @@ class AdminController < ApplicationController
 	private
 		# Takes the data and adds entries with value 0 for any missing dates
 		def add_missing_data(data)
+			# Remove time component
+			date_format = '%Y-%m-%d'
+			data = Hash[data.map { |k,v| [Date.parse(k).strftime(date_format), v] }]
+
 			# Get oldest entry
-			date_format = '%Y-%m-%d 00:00:00 UTC'
 			min_date_str = data.keys.min || Date.today.strftime(date_format)
 
 			# Find missing entries and add them with value 0
@@ -64,7 +68,9 @@ class AdminController < ApplicationController
 				cur_date += 1.day
 			end
 
-			return data
+			# Sort by date
+			return data.to_a.sort_by { |a| a[0] }
+
 		end
 
 		# Return a hash of the form [country_name => num_users] based on the IP
