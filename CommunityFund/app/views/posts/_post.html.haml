@@ -1,9 +1,2 @@
 - @posts.each do |post|
-  .comment
-    .commenter-avatar
-      = link_to image_tag(avatar_url(post.user, 70)), users_path(post.user.username)
-    .comment-text
-      = link_to post.title_text, users_path(post.user.username)
-      %p.content= post.content
-      %span.timestamp
-        = post.updated_at.strftime("%m/%d/%Y at %I:%M%p")
+  = render partial: "posts/single_post", locals: {post: post}

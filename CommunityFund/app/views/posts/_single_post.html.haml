@@ -1,0 +1,12 @@
+.comment
+  .commenter-avatar
+    = link_to image_tag(avatar_url(post.user, 70)), users_path(post.user.username)
+  .comment-text
+    = link_to post.title_text, users_path(post.user.username)
+    %p.content= post.content
+    %span.sub-content
+      .timestamp
+        = post.updated_at.strftime("%m/%d/%Y at %I:%M%p")
+        - if current_user.admin? || post.made_by?(current_user)
+          %a.delete-button{href: "#", id: post.id}
+            %span.badge Delete
