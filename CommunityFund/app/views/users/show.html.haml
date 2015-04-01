@@ -8,33 +8,39 @@
           admin
         - else
           member
-      %ul.list-group.top-margin-md
-        %li.list-group-item.text-right
-          %span.pull-left
-            %strong Full Name:
-          #{@user.first_name} #{@user.last_name}
-        %li.list-group-item.text-right
-          %span.pull-left
-            %strong Date Joined:
-          #{@user.created_at.to_date}
-        %li.list-group-item.text-right
-          %span.pull-left
-            %strong Last Login:
-          #{time_ago(@user.current_sign_in_at)}
-        %li.list-group-item.text-right
-          %span.pull-left
-            %strong Email:
-          #{@user.email}
-        - if !@user.facebook_url.blank?
+      %br
+      %br
+      .panel.panel-default.panel-body
+        %ul.list-group
           %li.list-group-item.text-right
             %span.pull-left
-              %strong Facebook:
-            = link_to "#{@user.facebook_url}", "https://www.facebook.com/" + @user.facebook_url
-        - if !@user.twitter_url.blank?
+              %strong Full Name:
+            #{@user.first_name} #{@user.last_name}
           %li.list-group-item.text-right
             %span.pull-left
-              %strong Twitter:
-            = link_to "#{@user.twitter_url}", "https://www.twitter.com/" + @user.twitter_url
+              %strong Date Joined:
+            #{@user.created_at.to_date}
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Last Login:
+            #{time_ago(@user.current_sign_in_at)}
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Email:
+            #{@user.email}
+          - if !@user.facebook_url.blank?
+            %li.list-group-item.text-right
+              %span.pull-left
+                %strong Facebook:
+              = link_to "#{@user.facebook_url}", "https://www.facebook.com/" + @user.facebook_url
+          - if !@user.twitter_url.blank?
+            %li.list-group-item.text-right
+              %span.pull-left
+                %strong Twitter:
+              = link_to "#{@user.twitter_url}", "https://www.twitter.com/" + @user.twitter_url
+      - if @user == current_user and not @linked
+        .panel.panel-default.panel-body
+          = link_to "Link Account with Facebook", user_omniauth_authorize_path(:facebook)
       .panel.panel-default
         .panel-heading
           %strong Communities
