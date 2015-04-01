@@ -4,8 +4,20 @@ class UsersController < ApplicationController
     @projects = @user.projects.order('updated_at DESC')
     @funds = @user.funds.order('updated_at DESC')
     @communities = @user.communities.active
-    if @user == current_user
-      @feedbacks = @user.feedbacks.order('updated_at DESC')
+    feedbacks = Feedback.where("project_id in (?)", @user.projects.pluck(:id))
+    if feedbacks.present?
+      sum = 0
+      total = 0
+      feedbacks.each do |feedback|
+        sum += feedback.rating
+        total += 1
+      end
+      @average_rating = (sum.to_f() / total).round(1)
+      if @user == current_user
+        @feedbacks = feedbacks
+      end
+    else
+      @average_rating = 'No feedback received.'
     end
   end
   

@@ -77,6 +77,8 @@ class User < ActiveRecord::Base
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"] if user.email.blank?
+        user.uid = data["uid"]
+        user.provider = data["provider"]
       end
     end
   end

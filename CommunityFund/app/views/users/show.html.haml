@@ -82,6 +82,7 @@
             .panel-heading
               %strong Initiator Statistics
             .panel-body
+              %p Average Rating: #{@average_rating}
               %p Projects Started: #{@projects.count}
               %p Successfully Funded: #{@projects.where(:funding_successful => true).count}
           .panel.panel-default
@@ -183,7 +184,7 @@
                       = image_tag avatar_url(feedback.user, 100)
                     .media-body
                       .media-heading
-                        %strong #{feedback.user.username} - #{feedback.project.name}
+                        %strong #{feedback.user.username} - #{feedback.project.name} - #{feedback.rating}
                       #{feedback.description} #{time_ago(feedback.updated_at)}
             - else
               %li.list-group-item No feedback received.

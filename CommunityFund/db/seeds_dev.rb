@@ -87,3 +87,15 @@ Project.all.each do |project|
   end
 end
 
+puts "Adding feedbacks..."
+Project.all.each do |project|
+  rand(1..5).times do
+    Feedback.create(
+      user_id: User.all.random.id,
+      project_id: project.id,
+      rating: rand(1..5),
+      description: Faker::Lorem.sentence(1)
+      )
+  end
+end
+
