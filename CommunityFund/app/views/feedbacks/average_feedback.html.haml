@@ -1,0 +1,18 @@
+%p
+  Average feedback rating:
+  - if average_rating == 1
+    Bad :(
+    .progress
+      .div{class:"progress-bar progress-bar-danger",style:"width: 25%"}
+  - elsif average_rating == 2
+    Not very good!
+    .progress
+      .div{class:"progress-bar progress-bar-danger",style:"width: 50%"}
+  - elsif average_rating == 3
+    Almost perfect!
+    .progress
+      .div{class:"progress-bar progress-bar-warning",style:"width: 75%"}
+  - else
+    Perfect!
+    .progress
+      .div{class:"progress-bar progress-bar-success",style:"width: 100%"}
