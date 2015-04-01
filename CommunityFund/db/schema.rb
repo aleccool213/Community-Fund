@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(version: 20150331034047) do
     t.boolean  "open"
     t.decimal  "current_funding"
     t.boolean  "funding_successful",  default: false
-    t.string   "geo_communities_str", default: "",    null: false
     t.string   "banner"
+    t.string   "geo_communities_str", default: "",    null: false
   end
 
   add_index "projects", ["rewards_id"], name: "index_projects_on_rewards_id"
