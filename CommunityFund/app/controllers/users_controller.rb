@@ -7,9 +7,11 @@ class UsersController < ApplicationController
     # find average feedback for this user
     @average_rating = @user.average_rating
     if @user == current_user
-      @feedbacks = Feedback.where("project_id in (?)", current_user.projects.pluck(:id))
-    else
-      @feedbacks = Feedback.where("project_id in (?)", @user.projects.pluck(:id))
+      # Only send feedback records if the user is looking at his/her own profile
+      @received_feedbacks = Feedback.where("project_id in (?)", @user.projects.pluck(:id))
+      @sent_feedbacks = @user.feedbacks
+      # Only send whether facebook is linked or not as well
+      @not_linked = @user.uid.blank?
     end
   end
   

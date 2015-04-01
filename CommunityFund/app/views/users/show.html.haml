@@ -8,33 +8,39 @@
           admin
         - else
           member
-      %ul.list-group.top-margin-md
-        %li.list-group-item.text-right
-          %span.pull-left
-            %strong Full Name:
-          #{@user.first_name} #{@user.last_name}
-        %li.list-group-item.text-right
-          %span.pull-left
-            %strong Date Joined:
-          #{@user.created_at.to_date}
-        %li.list-group-item.text-right
-          %span.pull-left
-            %strong Last Login:
-          #{time_ago(@user.current_sign_in_at)}
-        %li.list-group-item.text-right
-          %span.pull-left
-            %strong Email:
-          #{@user.email}
-        - if !@user.facebook_url.blank?
+      %br
+      %br
+      .panel.panel-default.panel-body
+        %ul.list-group
           %li.list-group-item.text-right
             %span.pull-left
-              %strong Facebook:
-            = link_to "#{@user.facebook_url}", "https://www.facebook.com/" + @user.facebook_url
-        - if !@user.twitter_url.blank?
+              %strong Full Name:
+            #{@user.first_name} #{@user.last_name}
           %li.list-group-item.text-right
             %span.pull-left
-              %strong Twitter:
-            = link_to "#{@user.twitter_url}", "https://www.twitter.com/" + @user.twitter_url
+              %strong Date Joined:
+            #{@user.created_at.to_date}
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Last Login:
+            #{time_ago(@user.current_sign_in_at)}
+          %li.list-group-item.text-right
+            %span.pull-left
+              %strong Email:
+            #{@user.email}
+          - if !@user.facebook_url.blank?
+            %li.list-group-item.text-right
+              %span.pull-left
+                %strong Facebook:
+              = link_to "#{@user.facebook_url}", "https://www.facebook.com/" + @user.facebook_url
+          - if !@user.twitter_url.blank?
+            %li.list-group-item.text-right
+              %span.pull-left
+                %strong Twitter:
+              = link_to "#{@user.twitter_url}", "https://www.twitter.com/" + @user.twitter_url
+      - if @not_linked
+        .panel.panel-default.panel-body
+          = link_to "Link Account with Facebook", user_omniauth_authorize_path(:facebook)
       .panel.panel-default
         .panel-heading
           %strong Communities
@@ -61,9 +67,13 @@
               Funded
         - if current_user == @user
           %li{role: "presentation"}
-            %a{href: "#feedbacks", data: {toggle: 'tab'}}
+            %a{href: "#received_feedbacks", data: {toggle: 'tab'}}
               %span.glyphicon.glyphicon-comment
-                Feedback
+                Received Feedback
+          %li{role: "presentation"}
+            %a{href: "#sent_feedbacks", data: {toggle: 'tab'}}
+              %span.glyphicon.glyphicon-comment
+                Sent Feedback
 
       .tab-content
         .tab-pane.fade.in.active{id: "profile"}
@@ -197,22 +207,35 @@
                     %br
                     .pull-right
                       = link_to 'Details', project_path(f.project.id)
-        .tab-pane.fade{id: "feedbacks"}
+        .tab-pane.fade{id: "received_feedbacks"}
           .list-group
-            - if @feedbacks.present?
-              - @feedbacks.each do |feedback|
-                .panel
+            - if @received_feedbacks.present?
+              - @received_feedbacks.each do |feedback|
+                .panel.panel-default
                   .panel-body
                     .pull-left
                       = image_tag avatar_url(feedback.user, 100), class: 'img-circle avatar'
-                    %strong
+                    %h4
                       = link_to "#{feedback.user.username}", users_path(feedback.user.username)
                       on
                       = link_to "#{feedback.project.name}", project_path(feedback.project.id)
-                    %br
                     
                     %p #{feedback.description}
                     Rating: #{feedback.rating}
                     .pull-right #{time_ago(feedback.updated_at)}
             - else
-              %li.list-group-item No feedback received.
+              .panel.panel-default.panel-body No feedback received.
+        .tab-pane.fade{id: "sent_feedbacks"}
+          .list-group
+            - if @sent_feedbacks.present?
+              - @sent_feedbacks.each do |feedback|
+                .panel.panel-default
+                  .panel-body
+                    %h4
+                      = link_to "#{feedback.project.name}", project_path(feedback.project.id)
+                    
+                    %p #{feedback.description}
+                    Rating: #{feedback.rating}
+                    .pull-right #{time_ago(feedback.updated_at)}
+            - else
+              .panel.panel-default.panel-body No feedback sent.
