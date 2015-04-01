@@ -3,9 +3,19 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user_signed_in?
       # If user is already logged in, link account with facebook
       auth = request.env["omniauth.auth"]
-      current_user.update(uid: auth.uid, provider: auth.provider)
-      redirect_to users_path(current_user.username)
-      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+      
+      if User.exists?(uid: auth.uid, provider: auth.provider)
+        # Facebook account already linked to another user, abort
+        redirect_to users_path(current_user.username)
+        set_flash_message(:notice, :failure, :kind => "Facebook", :reason => "this Facebook account already linked with another existing account") if is_navigational_format?
+      else
+        # Link account
+        current_user.update(uid: auth.uid, provider: auth.provider)
+        redirect_to users_path(current_user.username)
+        set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+      end
+      
+      
     else
       # User is not logged in, try to register new user
       @user = User.from_omniauth(request.env["omniauth.auth"])
