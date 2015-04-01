@@ -202,13 +202,18 @@
           .list-group
             - if @feedbacks.present?
               - @feedbacks.each do |feedback|
-                %a{href: users_path(feedback.user.username), class: "list-group-item"}
-                  .media
-                    .media-left
-                      = image_tag avatar_url(feedback.user, 100)
-                    .media-body
-                      .media-heading
-                        %strong #{feedback.user.username} - #{feedback.project.name} - #{feedback.rating}
-                      #{feedback.description} #{time_ago(feedback.updated_at)}
+                .panel
+                  .panel-body
+                    .pull-left
+                      = image_tag avatar_url(feedback.user, 100), class: 'img-circle avatar'
+                    %strong
+                      = link_to "#{feedback.user.username}", users_path(feedback.user.username)
+                      on
+                      = link_to "#{feedback.project.name}", project_path(feedback.project.id)
+                    %br
+                    
+                    %p #{feedback.description}
+                    Rating: #{feedback.rating}
+                    .pull-right #{time_ago(feedback.updated_at)}
             - else
               %li.list-group-item No feedback received.

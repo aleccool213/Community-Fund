@@ -8,6 +8,8 @@ class UsersController < ApplicationController
     @average_rating = @user.average_rating
     if @user == current_user
       @feedbacks = Feedback.where("project_id in (?)", current_user.projects.pluck(:id))
+    else
+      @feedbacks = Feedback.where("project_id in (?)", @user.projects.pluck(:id))
     end
   end
   
