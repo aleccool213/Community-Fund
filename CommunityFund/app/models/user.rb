@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :posts
   
   mount_uploader :avatar, AvatarUploader
+  
 
   def in_community?(community)
     communities.include? community
@@ -74,6 +75,8 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
+      user.uid = auth.info.uid
+      user.provider = auth.info.provider
       user.password = Devise.friendly_token[0,20]
       user.username = auth.info.first_name
       user.first_name = auth.info.first_name
@@ -84,9 +87,10 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.username = data["first_name"].downcase if user.username.blank?
         user.email = data["email"] if user.email.blank?
-        user.uid = data["uid"]
-        user.provider = data["provider"]
+        user.uid = data["id"]
+        user.provider = "facebook"
       end
     end
   end
@@ -94,14 +98,12 @@ class User < ActiveRecord::Base
   # Returns 1, 2, 3, or 4 based on Feedbacks given on initiated projects
   def average_rating
     feedbacks = Feedback.where("project_id in (?)", self.projects.pluck(:id))
-    if feedbacks.present?
+    if feedbacks.count >= 1
       sum = 0
-      total = 0
       feedbacks.each do |feedback|
         sum += feedback.rating
-        total += 1
       end
-      average_rating = (sum.to_f() / total).round(1)
+      average_rating = (sum.to_f() / feedbacks.count).round(1)
       #return 1, 2, 3, or 4 based on average_rating
       if average_rating > 0 and average_rating <= 2.5
         average_rating = 1
