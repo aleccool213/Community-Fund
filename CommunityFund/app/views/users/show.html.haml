@@ -61,9 +61,13 @@
               Funded
         - if current_user == @user
           %li{role: "presentation"}
-            %a{href: "#feedbacks", data: {toggle: 'tab'}}
+            %a{href: "#received_feedbacks", data: {toggle: 'tab'}}
               %span.glyphicon.glyphicon-comment
-                Feedback
+                Received Feedback
+          %li{role: "presentation"}
+            %a{href: "#sent_feedbacks", data: {toggle: 'tab'}}
+              %span.glyphicon.glyphicon-comment
+                Sent Feedback
 
       .tab-content
         .tab-pane.fade.in.active{id: "profile"}
@@ -197,10 +201,10 @@
                     %br
                     .pull-right
                       = link_to 'Details', project_path(f.project.id)
-        .tab-pane.fade{id: "feedbacks"}
+        .tab-pane.fade{id: "received_feedbacks"}
           .list-group
-            - if @feedbacks.present?
-              - @feedbacks.each do |feedback|
+            - if @received_feedbacks.present?
+              - @received_feedbacks.each do |feedback|
                 .panel
                   .panel-body
                     .pull-left
@@ -209,10 +213,23 @@
                       = link_to "#{feedback.user.username}", users_path(feedback.user.username)
                       on
                       = link_to "#{feedback.project.name}", project_path(feedback.project.id)
-                    %br
                     
                     %p #{feedback.description}
                     Rating: #{feedback.rating}
                     .pull-right #{time_ago(feedback.updated_at)}
             - else
               %li.list-group-item No feedback received.
+        .tab-pane.fade{id: "sent_feedbacks"}
+          .list-group
+            - if @sent_feedbacks.present?
+              - @sent_feedbacks.each do |feedback|
+                .panel
+                  .panel-body
+                    %strong
+                      = link_to "#{feedback.project.name}", project_path(feedback.project.id)
+                    
+                    %p #{feedback.description}
+                    Rating: #{feedback.rating}
+                    .pull-right #{time_ago(feedback.updated_at)}
+            - else
+              %li.list-group-item No feedback sent.
