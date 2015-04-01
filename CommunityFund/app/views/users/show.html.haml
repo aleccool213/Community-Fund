@@ -96,24 +96,7 @@
                 %p
                   Average rating: No feedback received :(
               - else
-                %p
-                  Average rating:
-                - if @average_rating == 1
-                  Bad :(
-                  .progress
-                    .div{class:"progress-bar progress-bar-danger",style:"width: 25%"}
-                - elsif @average_rating == 2
-                  Not very good!
-                  .progress
-                    .div{class:"progress-bar progress-bar-danger",style:"width: 50%"}
-                - elsif @average_rating == 3
-                  Almost perfect!
-                  .progress
-                    .div{class:"progress-bar progress-bar-warning",style:"width: 75%"}
-                - else
-                  Perfect!
-                  .progress
-                    .div{class:"progress-bar progress-bar-success",style:"width: 100%"}
+                = render template: "feedbacks/average_feedback", :locals => { :average_rating => @average_rating }
               %p Projects Started: #{@projects.count}
               %p Successfully Funded: #{@projects.where(:funding_successful => true).count}
               //progress bar showing reputation score based on user feedbacks
