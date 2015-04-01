@@ -24,7 +24,7 @@ class Post < ActiveRecord::Base
     self.project_id.present?
   end
 
-  def made_by(user)
+  def made_by?(user)
     user_id == user.id
   end
 end

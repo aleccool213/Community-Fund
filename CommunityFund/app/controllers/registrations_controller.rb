@@ -3,11 +3,13 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     prep_geo_communities
+    @communities = Community.active
     super
   end
 
   def update
     prep_geo_communities
+    @communities = Community.active
     super
   end
 
@@ -32,17 +34,20 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    def update_resource(resource, params)
-      if not params.has_key? :location
-        resource.location = nil
-        resource.save!
-      end
+    def update_resource(resource, update_params)
+        if not update_params.has_key? :location
+          resource.location = nil
+          resource.save!
+        end
 
-      if params[:password].blank? and params[:password_confirmation].blank?
-        resource.update_without_password(params)
-      else
-        resource.update(params)
-      end
+        resource.community_ids = params[:user][:community_ids]
+        resource.save!
+
+        if update_params[:password].blank? and update_params[:password_confirmation].blank?
+          resource.update_without_password(update_params)
+        else
+          resource.update(update_params)
+        end
     end
 
     def configure_permitted_parameters
@@ -51,7 +56,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def after_sign_up_path_for(resource)
-      '/dashboard/collect_information'
+      '/users/edit'
     end
 
     def after_update_path_for(resource)

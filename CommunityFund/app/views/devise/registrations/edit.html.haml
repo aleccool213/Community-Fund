@@ -15,11 +15,6 @@
           .alert.alert-warning
             = "Currently waiting confirmation for: #{resource.unconfirmed_email}"
       .form-group
-        %label{for: "hometown"} Hometown
-        .form-group
-          = select_tag :country, options_for_select(@countries, @selected_country), prompt: 'Select Country', class: 'country-select'
-          = f.select :location, options_for_select(@cities, @selected_city), { prompt: 'Select City' }, { class: 'city-select' }
-      .form-group
         %label{for: "first_name"} First (Given) Name
         = f.text_field :first_name, required: false, class: 'form-control', label: false
       .form-group
@@ -31,10 +26,10 @@
       .form-group
         %label{for: "avatar"} Avatar
         - if current_user.avatar.url.present?
-          = image_tag(current_user.avatar.url) 
+          = image_tag(current_user.avatar.url)
           %label{for: "remove_avatar"} Remove Avatar
-          = f.check_box :remove_avatar 
-        = f.file_field :avatar 
+          = f.check_box :remove_avatar
+        = f.file_field :avatar
         = f.hidden_field :avatar_cache
       .form-group
         %label{for: "facebook_url"} Facebook Page
@@ -48,6 +43,22 @@
       .form-group
         %label{for: "password_confirmation"} Password Confirmation
         = f.password_field :password_confirmation, required: false, class: 'form-control', placeholder: "and leave this blank too", label: false
+
+      .form-group
+        %label{for: "hometown"} Hometown
+        .form-group
+          = select_tag :country, options_for_select(@countries, @selected_country), prompt: 'Select Country', class: 'country-select'
+          = f.select :location, options_for_select(@cities, @selected_city), { prompt: 'Select City' }, { class: 'city-select' }
+
+      .form-group
+        %label Interests
+        %ul.list-group
+          - @communities.each do |community|
+            .checkbox
+              %label
+                = check_box_tag "user[community_ids][]", community.id, resource.community_ids.include?(community.id)
+                = community.name
+
       = f.button :submit, "Update", class: 'btn btn-primary'
       = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", method: :delete}, class: 'btn btn-info'
       = link_to "Back", :back, class: "btn btn-info"

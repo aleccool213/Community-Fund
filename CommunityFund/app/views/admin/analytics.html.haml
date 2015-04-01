@@ -1,10 +1,13 @@
 %h1 Analytics
 
 %h3 User Signup
-= line_chart @signups_by_day
+= column_chart @signups_by_day, library: { backgroundColor: "#eee" }
 
 %h3 Project Creation
-= line_chart @projects_by_day
+= column_chart @projects_by_day, library: { backgroundColor: "#eee" }
+
+%h3 Category Distribution
+= pie_chart @category_distribution, library: { backgroundColor: "#eee" }
 
 %h3 Visitor Origin
-= geo_chart @geo_data, height: '500px'
+= geo_chart @geo_data, height: '500px', library: { backgroundColor: "#eee" }

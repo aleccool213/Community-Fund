@@ -19,5 +19,6 @@
 //= require chartkick
 //= require ripples.min.js
 //= require material.min.js
+//= require jquery-ui/autocomplete
+//= require autocomplete-rails
 //= require_tree .
-

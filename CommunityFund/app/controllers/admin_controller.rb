@@ -3,9 +3,12 @@ require 'geoip'
 class AdminController < ApplicationController
 	before_action :authenticate_admin!
 
+	autocomplete :user, :username
+
 	def analytics
 		@signups_by_day = add_missing_data(User.group_by_day)
 		@projects_by_day = add_missing_data(Project.group_by_day)
+		@category_distribution = Community.all.includes(:projects).map { |c| [c.name, c.projects.size] }
 		@geo_data = get_geo_data
 	end
 
@@ -42,14 +45,17 @@ class AdminController < ApplicationController
 		all_reports = Report.all
 
 		project_reports = process_reports(all_reports, :project)
-		@projects = project_reports.map { |proj_id, count| [Project.find_by_id(proj_id), count] }
+		@projects = project_reports.map { |i, c, d| [Project.find_by_id(i), c, d] }
 	end
 
 	private
 		# Takes the data and adds entries with value 0 for any missing dates
 		def add_missing_data(data)
+			# Remove time component
+			date_format = '%Y-%m-%d'
+			data = Hash[data.map { |k,v| [Date.parse(k).strftime(date_format), v] }]
+
 			# Get oldest entry
-			date_format = '%Y-%m-%d 00:00:00 UTC'
 			min_date_str = data.keys.min || Date.today.strftime(date_format)
 
 			# Find missing entries and add them with value 0
@@ -62,7 +68,9 @@ class AdminController < ApplicationController
 				cur_date += 1.day
 			end
 
-			return data
+			# Sort by date
+			return data.to_a.sort_by { |a| a[0] }
+
 		end
 
 		# Return a hash of the form [country_name => num_users] based on the IP
@@ -84,7 +92,7 @@ class AdminController < ApplicationController
 		def process_reports(reports, obj_type)
 			filtered = reports.select { |r| r.reported_obj_type == obj_type.to_s }
 			grouped = filtered.group_by { |r| r.reported_obj_id }
-			counted = grouped.map { |g, r| [g, r.length] }
+			counted = grouped.map { |g, r| [g, r.length, r.max_by(&:created_at).created_at] }
 			sorted = counted.sort_by { |a| a[1] }.reverse
 
 			return sorted

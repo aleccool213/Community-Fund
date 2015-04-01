@@ -34,6 +34,10 @@ gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem 'carrierwave'
 
+# admin
+gem 'jquery-ui-rails'
+gem 'rails4-autocomplete'
+
 # analytics
 gem 'dateslices'
 gem 'chartkick'

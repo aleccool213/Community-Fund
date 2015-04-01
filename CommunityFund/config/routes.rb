@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   #dashboard
   get 'dashboard' => 'dashboard#index'
-  get 'dashboard/collect_information' => 'dashboard#collect_information'
-  post 'dashboard/submit_information' => 'dashboard#submit_information'
   get 'users/:username' => 'users#show', as: 'users'
 
   #communities
@@ -19,6 +17,7 @@ Rails.application.routes.draw do
     get :analytics
 
     get :settings
+    get 'settings/autocomplete',   to: :autocomplete_user_username
     post 'settings/update_admins', to: :update_admins
 
     get :moderation

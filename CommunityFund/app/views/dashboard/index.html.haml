@@ -11,16 +11,16 @@
           #events
             = render partial: "event", locals: {event: @dashboard}
           #infinite-scrolling
-            = will_paginate 
+            = will_paginate
         - else
           .panel.panel-default
             .panel-heading
               .panel-title
-                %h3{class: "panel-title"} 
+                %h3{class: "panel-title"}
                   Go join some communities!
             .panel-body
               %p Are you a robot? Go join communities!
-                
+
     //sidebar panels
 
     //communities
@@ -36,13 +36,13 @@
               %p
                 Hey, you haven't joined any communities yet!
           .panel-body{:style => "text-align: center;" }
-            = link_to "Wanna?", dashboard_collect_information_path
+            = link_to "Wanna?", edit_user_registration_path
       .panel.panel-default
         .panel-heading
           .panel-title
             %h4 Projects you have funded:
         .panel-body
-          - if current_user.projects_funded.count > 5 
+          - if current_user.projects_funded.count > 5
             %ul
             - current_user.projects_funded[0 .. 5].each do |p|
               %li
@@ -52,7 +52,7 @@
             %ul
             - current_user.projects_funded[0 .. 5].each do |p|
               %li
-                = link_to p.name, project_path(p.id) 
+                = link_to p.name, project_path(p.id)
           - else
             No projects have yet been funded.
       .panel.panel-default
@@ -64,8 +64,8 @@
             %ul
             - current_user.projects.each do |p|
               %li
-                = link_to p.name, project_path(p.id) 
-              
+                = link_to p.name, project_path(p.id)
+
           - else
             No projects have been started.
       .panel.panel-default
@@ -80,4 +80,4 @@
             = current_user.feedback_button_text
         .panel-footer
           - if current_user.feedbacks.count >= 1
-            //TODO: dismiss button will be here 
+            //TODO: dismiss button will be here
