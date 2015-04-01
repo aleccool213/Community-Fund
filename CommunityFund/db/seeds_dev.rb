@@ -93,6 +93,7 @@ Project.all.each do |project|
     Feedback.create(
       user_id: User.all.random.id,
       project_id: project.id,
+      submitted: true,
       rating: rand(1..10),
       description: Faker::Lorem.sentence(1)
       )
