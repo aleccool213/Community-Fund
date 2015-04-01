@@ -205,11 +205,11 @@
           .list-group
             - if @received_feedbacks.present?
               - @received_feedbacks.each do |feedback|
-                .panel
+                .panel.panel-default
                   .panel-body
                     .pull-left
                       = image_tag avatar_url(feedback.user, 100), class: 'img-circle avatar'
-                    %strong
+                    %h4
                       = link_to "#{feedback.user.username}", users_path(feedback.user.username)
                       on
                       = link_to "#{feedback.project.name}", project_path(feedback.project.id)
@@ -218,18 +218,18 @@
                     Rating: #{feedback.rating}
                     .pull-right #{time_ago(feedback.updated_at)}
             - else
-              %li.list-group-item No feedback received.
+              .panel.panel-default.panel-body No feedback received.
         .tab-pane.fade{id: "sent_feedbacks"}
           .list-group
             - if @sent_feedbacks.present?
               - @sent_feedbacks.each do |feedback|
-                .panel
+                .panel.panel-default
                   .panel-body
-                    %strong
+                    %h4
                       = link_to "#{feedback.project.name}", project_path(feedback.project.id)
                     
                     %p #{feedback.description}
                     Rating: #{feedback.rating}
                     .pull-right #{time_ago(feedback.updated_at)}
             - else
-              %li.list-group-item No feedback sent.
+              .panel.panel-default.panel-body No feedback sent.
