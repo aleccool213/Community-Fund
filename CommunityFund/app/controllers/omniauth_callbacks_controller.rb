@@ -5,6 +5,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       auth = request.env["omniauth.auth"]
       current_user.update(uid: auth.uid, provider: auth.provider)
       redirect_to users_path(current_user.username)
+      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
     else
       # User is not logged in, try to register new user
       @user = User.from_omniauth(request.env["omniauth.auth"])

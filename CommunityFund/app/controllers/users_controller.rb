@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       @received_feedbacks = Feedback.where("project_id in (?)", @user.projects.pluck(:id))
       @sent_feedbacks = @user.feedbacks
       # Only send whether facebook is linked or not as well
-      @linked = !@user.uid.blank?
+      @not_linked = @user.uid.blank?
     end
   end
   

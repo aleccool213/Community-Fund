@@ -38,7 +38,7 @@
               %span.pull-left
                 %strong Twitter:
               = link_to "#{@user.twitter_url}", "https://www.twitter.com/" + @user.twitter_url
-      - if @user == current_user and not @linked
+      - if @not_linked
         .panel.panel-default.panel-body
           = link_to "Link Account with Facebook", user_omniauth_authorize_path(:facebook)
       .panel.panel-default
