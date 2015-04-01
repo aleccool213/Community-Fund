@@ -102,9 +102,10 @@ ActiveRecord::Schema.define(version: 20150331034047) do
     t.datetime "completion_date"
     t.decimal  "target_amount"
     t.boolean  "open"
-    t.decimal  "current_funding"
     t.boolean  "funding_successful",  default: false
+    t.decimal  "current_funding"
     t.string   "banner"
+    t.integer  "initiator_id"
     t.string   "geo_communities_str", default: "",    null: false
   end
 

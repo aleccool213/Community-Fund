@@ -1,4 +1,3 @@
-# Add random images for icons to communties
 puts "Creating communities...."
 Community.all.each do |c|
   #assign a random image to this community
@@ -35,7 +34,7 @@ end
 
 puts "Creating projects..."
 Project.destroy_all
-20.times do
+50.times do
   Project.create(
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
@@ -78,7 +77,7 @@ Community.all.each do |community|
 end
 
 Project.all.each do |project|
-  rand(1..5).times do
+  rand(1..10).times do
     Post.create(
       project_id: project.id,
       user_id: User.all.random.id,
@@ -87,15 +86,29 @@ Project.all.each do |project|
   end
 end
 
-puts "Adding feedbacks..."
-Project.all.each do |project|
-  rand(1..5).times do
-    Feedback.create(
-      user_id: User.all.random.id,
-      project_id: project.id,
-      rating: rand(1..5),
-      description: Faker::Lorem.sentence(1)
-      )
+puts "Closing some projects, will generate feedbacks..."
+
+Feedback.destroy_all
+25.times do
+  # select a random project
+  project = Project.open.random
+  # fund this project
+
+  5.times do
+    Fund.create(project: project, user_id: User.all.random.id, amount: (project.target_amount / 2))
   end
+
+  project.close!
 end
+
+puts "Submitting some feedbacks..."
+
+20.times do
+  Feedback.open.random.update(
+    submitted: true,
+    rating: rand(1..10),
+    description: Faker::Lorem.sentence(2)
+    )
+end
+
 

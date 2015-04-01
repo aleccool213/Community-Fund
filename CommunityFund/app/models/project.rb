@@ -12,6 +12,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :rewards, reject_if: :all_blank, allow_destroy: true
 
   scope :open, -> { where(open: true)}
+  scope :successfully_closed, -> { where(open: false, funding_successful: true)}
 
   def initiator
     user

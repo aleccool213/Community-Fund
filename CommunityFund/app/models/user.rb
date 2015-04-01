@@ -97,12 +97,13 @@ class User < ActiveRecord::Base
 
   # Returns 1, 2, 3, or 4 based on Feedbacks given on initiated projects
   def average_rating
-    feedbacks = Feedback.where("project_id in (?)", self.projects.pluck(:id))
+    feedbacks = Feedback.submitted.where("project_id in (?)", self.projects.pluck(:id))
     if feedbacks.count >= 1
       sum = 0
       feedbacks.each do |feedback|
         sum += feedback.rating
       end
+      binding.pry
       average_rating = (sum.to_f() / feedbacks.count).round(1)
       #return 1, 2, 3, or 4 based on average_rating
       if average_rating > 0 and average_rating <= 2.5
