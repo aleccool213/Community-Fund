@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
       user.uid = auth.info.uid
       user.provider = auth.info.provider
       user.password = Devise.friendly_token[0,20]
-      user.username = auth.info.first_name
+      user.username = auth.info.name.downcase.tr(" ", "_")
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
     end
@@ -87,10 +87,12 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.username = data["first_name"].downcase if user.username.blank?
+        user.username = data["name"].downcase.tr(" ", "_") if user.username.blank?
         user.email = data["email"] if user.email.blank?
         user.uid = data["id"]
         user.provider = "facebook"
+        puts session["devise.facebook_data"]
+        puts data
       end
     end
   end
