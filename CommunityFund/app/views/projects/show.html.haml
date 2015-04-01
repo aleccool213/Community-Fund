@@ -60,6 +60,9 @@
               = "To be completed: #{@project.completion_date_for_display}"
             - else
               = "Project closed on: #{@project.completion_date_for_display}"
+              %br
+              %br
+              = render template: "feedbacks/average_feedback", :locals => {:average_rating => @project.feedback_score}
 
       = render partial: 'action_button'
 
@@ -69,14 +72,16 @@
             %h4.panel-title
               - #%a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
               %span.glyphicon.glyphicon-chevron-right
-              Details
+              Initiator details
           - # add id #collapseOne to animate this as an accordian -- should be no need to do that now
           .panel-collapse.collapse.in
             %ul.list-group
               %li.list-group-item
                 %a{href: users_path(@project.initiator.username)}
                   %span.glyphicon.glyphicon-user.text-primary
-                  = "Created by #{@project.initiator.username}"
+                  = "#{@project.initiator.username}"
+              %li.list-group-item
+                = render template: "feedbacks/average_feedback", :locals => {:average_rating => current_user.average_rating}
       .panel-group
         .panel.panel-default
           .panel-heading

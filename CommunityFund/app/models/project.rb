@@ -131,6 +131,20 @@ class Project < ActiveRecord::Base
     submitted_feedback.sum(:rating) / submitted_feedback.count
   end
 
+  # Returns 1, 2, 3, or 4 based on Feedbacks given on this project
+  def feedback_score
+    average_rating = self.average_rating
+    if average_rating > 0 and average_rating <= 2.5
+      average_rating = 1
+    elsif average_rating > 2.5 and average_rating <= 5.0
+      average_rating = 2
+    elsif average_rating > 5.0 and average_rating <= 7.5
+      average_rating = 3
+    elsif average_rating > 7.5 and average_rating <= 10.0
+      average_rating = 4
+    end
+  end
+
   private
 
     def notify_users_on_funding!
