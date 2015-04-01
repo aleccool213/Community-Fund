@@ -85,6 +85,8 @@
               %p Average Rating: #{@average_rating}
               %p Projects Started: #{@projects.count}
               %p Successfully Funded: #{@projects.where(:funding_successful => true).count}
+              //progress bar showing reputation score based on user feedbacks
+              
           .panel.panel-default
             .panel-heading
               %strong Funder Statistics

@@ -54,17 +54,18 @@
         if data.status == "failure"
           $('#posting_error').removeClass('hidden')
         else
-          $('.project-comments').prepend(
-            '<div class="comment">' +
-            '<div class="commenter-avatar">' +
-            '<a href="' + data.userpath + '">' +
-            '<img src="' + data.url + '">' + '</a>' +
-            '</div>' +
-            '<div class="comment-text">' + 
-            '<a href="' + data.userpath + '">' + data.username + '</a>' +
-            '<p class="content">' + data.content + '</p>' +
-            '<span class="timestamp">' + data.timestamp + '</span>'
-            '</div>' +
-            '</div>'
-          )
+          $('.project-comments').prepend(data.html)
           $('#post_content').val("")
+
+  $('.delete-button').click ->
+    $post = this
+    $.ajax
+      type: 'DELETE'
+      url: $('#posts_url').val() + "/" + $post.id
+      dataType: 'json'
+      data:
+        object_type: $('#posts_type').val()
+        object_id: $('#posts_object_id').val()
+      success: (data) ->
+        if data.success
+          $post.closest('.comment').remove()

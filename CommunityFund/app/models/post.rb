@@ -23,4 +23,8 @@ class Post < ActiveRecord::Base
   def project_post?
     self.project_id.present?
   end
+
+  def made_by(user)
+    user_id == user.id
+  end
 end

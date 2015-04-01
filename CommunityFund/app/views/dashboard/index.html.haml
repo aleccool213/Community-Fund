@@ -37,9 +37,6 @@
                 Hey, you haven't joined any communities yet!
           .panel-body{:style => "text-align: center;" }
             = link_to "Wanna?", dashboard_collect_information_path
-          
-    //projects given funds too
-    .col-sm-3.col-md-3
       .panel.panel-default
         .panel-heading
           .panel-title
@@ -58,9 +55,6 @@
                 = link_to p.name, project_path(p.id) 
           - else
             No projects have yet been funded.
-
-    //initiated projects
-    .col-sm-3.col-md-3
       .panel.panel-default
         .panel-heading
           .panel-title
@@ -74,9 +68,6 @@
               
           - else
             No projects have been started.
-
-    //feedbacks/reputation alerts
-    .col-sm-3.col-md-3
       .panel.panel-default
         .panel-heading
           .panel-title

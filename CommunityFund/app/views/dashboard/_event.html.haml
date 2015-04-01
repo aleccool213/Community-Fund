@@ -1,16 +1,16 @@
 - event.each do |e|
   .panel.panel-default
     .panel-heading
-      .panel-title
-        %h3{class: "panel-title"} 
-          //= e
+      .panel-title{id:"dashboard"}
+        %h2
           = link_to(e[:name] + " update!", project_path(e[:type_id]))
-    .panel-body
-      %h3
+    .panel-body{id:"dashboard"}
+      %p
         = e[:description]
+    .panel-footer
       %p
         //link to user public profile page
         - if e[:username]
           = link_to e[:username] + " made the donation at " + e[:time].to_s, '/users/' + e[:username]
         - else
-          = e[:time].strftime("%B %d, %Y")
+          = e[:time].strftime("%B %d, %Y")    
