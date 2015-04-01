@@ -7,6 +7,6 @@
     %span.sub-content
       .timestamp
         = post.updated_at.strftime("%m/%d/%Y at %I:%M%p")
-        - if current_user.admin? || post.made_by?(current_user)
-          %a.delete-button{href: "#", id: post.id}
-            %span.badge Delete
+        //- if current_user.admin? || post.made_by?(current_user)
+        //  %a.delete-button{href: "#", id: post.id}
+        //    %span.badge Delete
