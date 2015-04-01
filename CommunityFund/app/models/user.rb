@@ -33,8 +33,16 @@ class User < ActiveRecord::Base
     return (not results.blank?)
   end
 
+  def open_feedbacks
+    if feedbacks.find_by(:submitted => false).present?
+      return true
+    else
+      return false
+    end
+  end
+
   def feedback_button_text
-    if feedbacks.count >= 1
+    if open_feedbacks
       "You have (#{feedbacks.count}) projects to give feedback on"
     else
       "No feedbacks are available."
