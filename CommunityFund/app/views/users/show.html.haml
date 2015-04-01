@@ -29,12 +29,12 @@
           %li.list-group-item.text-right
             %span.pull-left
               %strong Facebook:
-            = link_to "#{@user.facebook_url}", @user.facebook_url
+            = link_to "#{@user.facebook_url}", "https://www.facebook.com/" + @user.facebook_url
         - if !@user.twitter_url.blank?
           %li.list-group-item.text-right
             %span.pull-left
               %strong Twitter:
-            = link_to "#{@user.twitter_url}", @user.twitter_url
+            = link_to "#{@user.twitter_url}", "https://www.twitter.com/" + @user.twitter_url
       .panel.panel-default
         .panel-heading
           %strong Communities
@@ -104,7 +104,6 @@
                   Perfect!
                   .progress
                     .div{class:"progress-bar progress-bar-success",style:"width: 100%"}
-                
               %p Projects Started: #{@projects.count}
               %p Successfully Funded: #{@projects.where(:funding_successful => true).count}
               //progress bar showing reputation score based on user feedbacks
