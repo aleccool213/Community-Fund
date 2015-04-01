@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def open_feedbacks
-    if feedbacks.find_by(:submitted => false).present?
+    if feedbacks.where(:submitted => false).present?
       return true
     else
       return false
@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
 
   def feedback_button_text
     if open_feedbacks
-      "You have (#{feedbacks.count}) projects to give feedback on"
+      "You have (#{feedbacks.where(:submitted => false).count}) projects to give feedback on"
     else
       "No feedbacks are available."
     end
