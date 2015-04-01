@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if @user == current_user
       # Only send feedback records if the user is looking at his/her own profile
       @received_feedbacks = Feedback.where("project_id in (?)", @user.projects.pluck(:id))
-      @sent_feedbacks = @user.feedbacks
+      @sent_feedbacks = @user.feedbacks.where(submitted: true)
       # Only send whether facebook is linked or not as well
       @not_linked = @user.uid.blank?
     end
