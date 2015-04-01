@@ -26,7 +26,7 @@ class DashboardController < ApplicationController
             event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description, username: User.find(Fund.find(m.fund_id).user_id).username}
             @dashboard.push(event)
           end
-        elsif m.milestone_type == "Feedback"
+        elsif m.milestone_type == "Feedback" or m.milestone_type == nil
           event = {name: p.name, type_id: p.id, time: m.created_at, description: m.description}
           @dashboard.push(event)
         end
