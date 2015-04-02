@@ -6,14 +6,6 @@ end
 
 User.where('username != \'administrator\'').destroy_all
 
-puts "Creating users..."
-User.create(
-  username: "TimoVink",
-  email: "timovink@gmail.com",
-  password: "password",
-  password_confirmation: "password",
-  admin: true)
-
 User.create(
   username: "chris",
   email: "chris.sandison@gmail.com",
