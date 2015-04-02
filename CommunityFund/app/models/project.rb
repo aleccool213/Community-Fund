@@ -128,7 +128,10 @@ class Project < ActiveRecord::Base
 
   def average_rating
     submitted_feedback = Feedback.submitted.where(project_id: self.id)
-    submitted_feedback.sum(:rating) / submitted_feedback.count
+    if submitted_feedback.count >= 1
+      submitted_feedback.sum(:rating) / submitted_feedback.count
+    else
+      0
   end
 
   # Returns 1, 2, 3, or 4 based on Feedbacks given on this project
