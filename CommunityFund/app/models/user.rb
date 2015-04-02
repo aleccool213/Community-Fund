@@ -103,7 +103,6 @@ class User < ActiveRecord::Base
       feedbacks.each do |feedback|
         sum += feedback.rating
       end
-      binding.pry
       average_rating = (sum.to_f() / feedbacks.count).round(1)
       #return 1, 2, 3, or 4 based on average_rating
       if average_rating > 0 and average_rating <= 2.5
