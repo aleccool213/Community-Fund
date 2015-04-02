@@ -132,6 +132,7 @@ class Project < ActiveRecord::Base
       submitted_feedback.sum(:rating) / submitted_feedback.count
     else
       0
+    end
   end
 
   # Returns 1, 2, 3, or 4 based on Feedbacks given on this project
