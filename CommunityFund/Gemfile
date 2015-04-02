@@ -24,6 +24,7 @@ gem 'simple_form_fancy_uploads'
 gem 'cocoon'
 gem 'cancan'
 gem 'seed_migration'
+gem 'faker'
 gem 'rmagick'
 
 #profiles
@@ -60,7 +61,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails', :require => false
-  gem 'faker'
   gem 'launchy'
   gem 'randumb'
 end

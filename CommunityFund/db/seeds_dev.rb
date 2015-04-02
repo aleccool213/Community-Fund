@@ -4,7 +4,7 @@ Community.all.each do |c|
   c.update_attributes(:icon => Faker::Avatar.image(c.name, "50x50"))
 end
 
-User.where('username != "administrator"').destroy_all
+User.where('username != \'administrator\'').destroy_all
 
 puts "Creating users..."
 User.create(
@@ -110,5 +110,3 @@ puts "Submitting some feedbacks..."
     description: Faker::Lorem.sentence(2)
     )
 end
-
-
