@@ -25,6 +25,7 @@ gem 'cocoon'
 gem 'cancan'
 gem 'seed_migration'
 gem 'faker'
+gem 'randumb'
 gem 'rmagick'
 
 #profiles
@@ -62,7 +63,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails', :require => false
   gem 'launchy'
-  gem 'randumb'
 end
 
 group :production do
