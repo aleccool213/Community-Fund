@@ -1,4 +1,4 @@
-# csc309project
+# Community-Fund
 Course project for csc309
 
 ## To get up and running
