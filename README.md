@@ -1,3 +1,6 @@
+![Imgur](http://i.imgur.com/sf82DQl.png)
+
+
 # Community-Fund
 Course project for csc309
 
